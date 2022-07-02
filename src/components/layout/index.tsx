@@ -1,13 +1,16 @@
 import * as React from "react";
 import { Outlet } from "react-router-dom";
-import styles from "./index.module.scss";
+import { Footer, Header } from "components";
+import styles from "./layout.module.scss";
 
 const Layout = () => {
 	return (
 		<>
-			<main>
+			<Header />
+			<main className={styles.main}>
 				<Outlet />
 			</main>
+			<Footer />
 		</>
 	);
 };

@@ -1,0 +1,70 @@
+@use "styles/variables.scss";
+
+.slideshow {
+	margin: 0 auto;
+	max-width: 115rem;
+	overflow: hidden;
+	position: relative;
+
+	&__container {
+		display: flex;
+		flex-wrap: nowrap;
+		min-height: 16rem;
+		will-change: transform, transition;
+	}
+
+	&__controls {
+		align-items: center;
+		display: flex;
+		height: 100%;
+		pointer-events: none;
+		position: absolute;
+		top: 0;
+		width: 100%;
+
+		button {
+			background: none;
+			border-radius: 50%;
+			border: none;
+			cursor: pointer;
+			height: 4rem;
+			pointer-events: all;
+			position: absolute;
+			text-align: center;
+			transition: 0.3s ease all;
+			width: 4rem;
+
+			svg {
+				filter: drop-shadow(0 0 3px variables.$shadow-color);
+				fill: variables.$light-text-color;
+				height: 100%;
+				transition: 0.3s ease all;
+				width: 100%;
+			}
+
+			&:hover,
+			&:active,
+			&:focus {
+				outline-offset: 0;
+				transform: scale(1.1);
+
+				svg {
+					filter: drop-shadow(0 0 5px variables.$secondary-color, 0 0 5px variables.$shadow-color);
+					fill: variables.$main-color;
+				}
+			}
+
+			&:active {
+				transform: scale(0.9);
+			}
+		}
+
+		&_prev {
+			left: 0.5rem;
+		}
+
+		&_next {
+			right: 0.5rem;
+		}
+	}
+}

@@ -1,0 +1,27 @@
+@use "styles/variables.scss";
+
+.list {
+	display: flex;
+	flex-flow: row wrap;
+	gap: 1rem;
+	list-style: none;
+	padding: 2rem 1rem;
+
+	&__item a {
+		background-color: variables.$secondary-color;
+		border-radius: 1rem;
+		color: variables.$light-text-color;
+		display: inline-block;
+		font-size: variables.$fz-sm;
+		padding: 0.5rem 1rem;
+		text-decoration: none;
+		transition: all 0.3s ease;
+
+		&:hover,
+		&:active,
+		&:focus {
+			background-color: variables.$main-color;
+      transform: scale(1.1) translateY(-0.2rem);
+		}
+	}
+}

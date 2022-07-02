@@ -1,0 +1,14 @@
+@use "styles/variables.scss";
+
+.loader {
+	align-items: center;
+	background-color: rgba(3, 9, 30, 0.6);
+	display: flex;
+	justify-content: center;
+	width: 100%;
+	z-index: 10;
+
+	svg {
+		fill: variables.$main-color;
+	}
+}

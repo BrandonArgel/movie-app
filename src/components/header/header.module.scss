@@ -1,0 +1,51 @@
+@use "styles/variables.scss";
+
+.header {
+	background-color: variables.$header-bg;
+	box-shadow: 0 0 10px black;
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+	padding: 0 2rem;
+	height: 8rem;
+	margin: 0 auto;
+	max-width: 115rem;
+  position: sticky;
+  top: 0;
+	width: 100%;
+	z-index: 1;
+
+	&__logo a {
+    color: variables.$main-color;
+		display: block;
+		font-size: clamp(2rem, 5vw, 3.5rem);
+		user-select: none;
+		transition: color 0.2s ease-in-out;;		
+
+		&:hover, &:active, &:focus {
+			color: variables.$main-text-color;
+		}
+	}
+
+	&__list {
+		display: flex;
+		align-items: center;
+		justify-content: flex-end;
+		list-style: none;
+
+		&_item a {
+      margin-left: 1rem;
+			text-decoration: none;
+			text-decoration-skip-ink: auto;
+			color: variables.$light-text-color;
+			font: variables.$fz-md variables.$font;
+			transition: 0.3s ease all;
+
+			&:hover,
+			&:active,
+			&:focus {
+				color: variables.$main-color;
+			}
+		}
+	}
+}

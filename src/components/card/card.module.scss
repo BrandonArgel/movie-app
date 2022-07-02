@@ -1,74 +1,6 @@
 @use "styles/variables.scss";
 
-.slideshow {
-	margin: 0 auto;
-	max-width: 115rem;
-	overflow: hidden;
-	position: relative;
-
-	&__container {
-		display: flex;
-		flex-wrap: nowrap;
-		will-change: transform, transition;
-	}
-
-	&__controls {
-		align-items: center;
-		display: flex;
-		height: 100%;
-		pointer-events: none;
-		position: absolute;
-		top: 0;
-		width: 100%;
-
-		button {
-			background: none;
-			border-radius: 50%;
-			border: none;
-			cursor: pointer;
-			height: 4rem;
-			pointer-events: all;
-			position: absolute;
-			text-align: center;
-			transition: 0.3s ease all;
-			width: 4rem;
-
-			svg {
-				filter: drop-shadow(0 0 3px variables.$shadow-color);
-				fill: variables.$light-text-color;
-				height: 100%;
-				transition: 0.3s ease all;
-				width: 100%;
-			}
-
-			&:hover,
-			&:active,
-			&:focus {
-				outline-offset: 0;
-				transform: scale(1.1);
-
-				svg {
-					filter: drop-shadow(0 0 5px variables.$secondary-color, 0 0 5px variables.$shadow-color);
-					fill: variables.$main-color;
-				}
-			}
-
-			&:active {
-				transform: scale(0.9);
-			}
-		}
-
-		&_prev {
-			left: 0.5rem;
-		}
-
-		&_next {
-			right: 0.5rem;
-		}
-	}
-}
-
-.slide {
+.card {
 	display: flex;
 	justify-content: center;
 	min-height: 16rem;
@@ -98,12 +30,13 @@
 		&:active,
 		&:focus {
 			img {
-				filter: brightness(0.3) blur(0.5rem);
+				filter: brightness(0.3) blur(0.4rem);
 			}
 
-			.slide__content {
+			.card__content {
 				opacity: 1;
 				visibility: visible;
+				transform: scale(1);
 			}
 		}
 	}
@@ -115,24 +48,26 @@
 		flex-flow: column nowrap;
 		height: 100%;
 		left: 0;
-		// opacity: 0;
+		opacity: 0;
 		padding: 1rem;
 		position: absolute;
 		right: 0;
+		transform: scale(0);
+		transition: transform 0.3s ease;
 		top: 0;
 		visibility: hidden;
-		will-change: opacity, visibility;
+		will-change: opacity, transform, visibility, ;
 
 		&_adult {
 			background: rgba(0, 0, 0, 0.5);
 			border-radius: 50%;
 			border: 2px solid variables.$red-color;
+			bottom: 1rem;
 			color: variables.$light-text-color;
 			font-size: variables.$fz-xxs;
 			height: 3rem;
 			padding: 1rem;
 			position: absolute;
-			top: 1rem;
 			left: 1rem;
 			display: flex;
 			flex-flow: column nowrap;
@@ -158,13 +93,13 @@
 		}
 
 		&_title {
-      color: variables.$main-text-color;
-      display: -webkit-box;
+			color: variables.$main-text-color;
+			display: -webkit-box;
 			font-size: variables.$fz-md;
 			font-weight: bold;
 			margin-bottom: 1rem;
 			overflow: hidden;
-      text-overflow: ellipsis;
+			text-overflow: ellipsis;
 			-webkit-line-clamp: 2;
 			-webkit-box-orient: vertical;
 		}
@@ -174,7 +109,7 @@
 			font-size: variables.$fz-xs;
 			margin-bottom: 1rem;
 			overflow: hidden;
-      text-overflow: ellipsis;
+			text-overflow: ellipsis;
 			-webkit-line-clamp: 5;
 			-webkit-box-orient: vertical;
 		}
@@ -183,7 +118,7 @@
 			color: variables.$main-text-color;
 			font-size: variables.$fz-xs;
 			margin-bottom: 1rem;
-      text-decoration: underline;
+			text-decoration: underline;
 		}
 
 		&_vote {
@@ -195,26 +130,26 @@
 	}
 }
 
-@media screen and (min-width: 480px) {
-	.slide {
+@media (min-width: 480px) and (max-width: 639px) {
+	.card {
 		min-width: 33%;
 	}
 }
 
-@media (min-width: 640px) {
-	.slide {
+@media (min-width: 640px) and (max-width: 799px) {
+	.card {
 		min-width: 25%;
 	}
 }
 
-@media screen and (min-width: 800px) {
-	.slide {
+@media (min-width: 800px) and (max-width: 959px) {
+	.card {
 		min-width: 20%;
 	}
 }
 
-@media screen and (min-width: 960px) {
-	.slide {
+@media (min-width: 960px) {
+	.card {
 		min-width: 16.67%;
 	}
 }

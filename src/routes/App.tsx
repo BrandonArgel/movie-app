@@ -4,6 +4,9 @@ import { Layout, Loader } from "components";
 const Landing = React.lazy(() => import("pages"));
 
 const App = () => {
+	// TODO: create the a functional login page, and authenticate the user with the API
+	// TODO: create context for the global user state
+
 	return (
 		<BrowserRouter>
 			<React.Suspense fallback={<Loader />}>

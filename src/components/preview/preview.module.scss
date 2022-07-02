@@ -1,0 +1,28 @@
+@use "styles/variables.scss";
+
+.preview {
+	align-items: center;
+	display: flex;
+	justify-content: space-between;
+	padding: 0 1rem;
+  margin-top: 2rem;
+
+	&__title {
+    color: variables.$main-text-color;
+    font-size: variables.$fz-xl;
+	}
+
+  &__link {
+    color: variables.$light-text-color;
+    font-size: variables.$fz-md;
+    text-decoration: none;
+    transition: color 0.3s ease;
+
+    &:hover,
+    &:active,
+    &:focus {
+      color: variables.$main-text-color;
+      text-decoration: underline;
+    }
+  }
+}

@@ -1,33 +1,59 @@
 import * as React from "react";
-import { useNavigate } from "react-router-dom";
+import { Card, Loader } from "components";
 import { ArrowLeft, ArrowRight } from "assets/icons/arrows";
-import clickHandler from "utils/clickHandler";
-import styles from "./index.module.scss";
+import { CardInterface } from "utils/CardInterface";
+import styles from "./slideshow.module.scss";
 
 interface SlideshowProps {
 	children: React.ReactNode;
+	loading: boolean;
 	speed?: number;
 }
 
-const Slideshow: React.FC<SlideshowProps> = ({ children, speed = 500 }) => {
+const Slideshow: React.FC<SlideshowProps> = ({ children, loading, speed = 500 }) => {
 	const slideshow = React.useRef<HTMLInputElement>(
 		null
 	) as React.MutableRefObject<HTMLInputElement>;
-	const viewportWidth = window.innerWidth;
-	const visibleSlides =
-		viewportWidth < 480
-			? 2
-			: viewportWidth < 640
-			? 3
-			: viewportWidth < 800
-			? 4
-			: viewportWidth < 960
-			? 5
-			: 6;
+
+	const updateVisibleSlides = React.useCallback(() => {
+		const slides = Array.from(slideshow.current.children);
+		const viewportWidth = window.innerWidth;
+		const visibleSlides =
+			viewportWidth < 480
+				? 2
+				: viewportWidth < 640
+				? 3
+				: viewportWidth < 800
+				? 4
+				: viewportWidth < 960
+				? 5
+				: 6;
+
+		slides.forEach((slide, i) => {
+			const child = slide.children[0] as HTMLElement;
+			i + 1 <= visibleSlides
+				? child.removeAttribute("tabindex")
+				: child.setAttribute("tabindex", "-1");
+			i + 1 <= visibleSlides
+				? slide.removeAttribute("aria-hidden")
+				: slide.setAttribute("aria-hidden", "true");
+		});
+	}, []);
 
 	const initialRender = React.useCallback(() => {
 		const slides = Array.from(slideshow.current.children);
-		console.log(visibleSlides, viewportWidth);
+		const viewportWidth = window.innerWidth;
+		const visibleSlides =
+			viewportWidth < 480
+				? 2
+				: viewportWidth < 640
+				? 3
+				: viewportWidth < 800
+				? 4
+				: viewportWidth < 960
+				? 5
+				: 6;
+
 		slides.forEach((slide, i) => {
 			const child = slide.children[0] as HTMLElement;
 			const img = slide.children[0].children[0] as HTMLImageElement;
@@ -39,21 +65,10 @@ const Slideshow: React.FC<SlideshowProps> = ({ children, speed = 500 }) => {
 				? slide.removeAttribute("aria-hidden")
 				: slide.setAttribute("aria-hidden", "true");
 		});
-	}, [viewportWidth, visibleSlides]);
 
-	const updateVisibleSlides = React.useCallback(() => {
-		const slides = Array.from(slideshow.current.children);
-		slides.forEach((slide, i) => {
-			// console.log({visibleSlides, i: i+1})
-			const child = slide.children[0] as HTMLElement;
-			i + 1 <= visibleSlides
-				? child.removeAttribute("tabindex")
-				: child.setAttribute("tabindex", "-1");
-			i + 1 <= visibleSlides
-				? slide.removeAttribute("aria-hidden")
-				: slide.setAttribute("aria-hidden", "true");
-		});
-	}, [visibleSlides]);
+		// Update visible slides when window is resized
+		window.addEventListener("resize", updateVisibleSlides);
+	}, [updateVisibleSlides]);
 
 	const next = () => {
 		if (slideshow.current?.children.length > 0) {
@@ -93,12 +108,12 @@ const Slideshow: React.FC<SlideshowProps> = ({ children, speed = 500 }) => {
 
 	React.useEffect(() => {
 		initialRender();
-	}, [initialRender]);
+	}, [children, initialRender]);
 
 	return (
 		<div className={styles.slideshow}>
 			<div className={styles.slideshow__container} ref={slideshow}>
-				{children}
+				{loading ? <Loader /> : children}
 			</div>
 			<div className={styles.slideshow__controls}>
 				<button
@@ -122,52 +137,8 @@ const Slideshow: React.FC<SlideshowProps> = ({ children, speed = 500 }) => {
 	);
 };
 
-interface SlideProps {
-	adult: boolean;
-	id: number;
-	img: string;
-	link: string;
-	overview: string;
-	title: string;
-	voteAverage: number;
-}
-
-const Slide = ({ adult, img, link, overview, title, voteAverage }: SlideProps) => {
-	// const isTouch = navigator.userAgentData.mobile
-	const isTouch = /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(
-		navigator.userAgent
-	);
-	const click = clickHandler(clickCallback, doubleClickCallback);
-	const navigate = useNavigate();
-
-	function clickCallback() {
-		if (!isTouch) {
-			navigate(link);
-		}
-	}
-
-	function doubleClickCallback() {
-		if (isTouch) {
-			navigate(link);
-		}
-	}
-
-	return (
-		<div className={styles.slide}>
-			<button className={styles.slide__container} onClick={isTouch ? click : clickCallback}>
-				<img src={img} alt={title} />
-				<div className={styles.slide__content}>
-					{adult && <div className={styles.slide__content_adult}>18</div>}
-					<h3 className={styles.slide__content_title}>{title}</h3>
-					<p className={styles.slide__content_overview}>{overview}</p>
-					<p className={styles.slide__content_info}>
-						{isTouch ? "Double tap to see more" : "Click to see more"}
-					</p>
-					<p className={styles.slide__content_vote}>⭐️ {voteAverage.toFixed(1)}</p>
-				</div>
-			</button>
-		</div>
-	);
+const Slide = (props: CardInterface) => {
+	return <Card {...props} />;
 };
 
 export { Slideshow, Slide };

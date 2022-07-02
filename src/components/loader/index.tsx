@@ -1,6 +1,6 @@
 import Spinner from "assets/icons/spinner";
 
-import styles from "./index.module.scss";
+import styles from "./loader.module.scss";
 
 const Loader = () => {
 	return (
