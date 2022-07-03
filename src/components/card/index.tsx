@@ -3,7 +3,16 @@ import { CardInterface } from "utils/CardInterface";
 import clickHandler from "utils/clickHandler";
 import styles from "./card.module.scss";
 
-const Card = ({ adult, img, link, overview, title, voteAverage, slide }: CardInterface) => {
+const Card = ({
+	adult,
+	img,
+	backdrop,
+	link,
+	overview,
+	title,
+	voteAverage,
+	slide,
+}: CardInterface) => {
 	const isTouch = /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(
 		navigator.userAgent
 	);
@@ -29,7 +38,14 @@ const Card = ({ adult, img, link, overview, title, voteAverage, slide }: CardInt
 				onClick={isTouch ? click : clickCallback}
 				type="button"
 			>
-				<img src={img} alt={title} />
+				<img
+					src={
+						img
+							? `https://image.tmdb.org/t/p/w200/${img}`
+							: `https://image.tmdb.org/t/p/w200/${backdrop}`
+					}
+					alt={title}
+				/>
 				<div className={styles.card__content}>
 					{adult && <div className={styles.card__content_adult}>18</div>}
 					<h3 className={styles.card__content_title}>{title}</h3>

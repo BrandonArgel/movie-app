@@ -1,13 +1,14 @@
 import { useState } from "react";
 import axios from "axios";
 const { REACT_APP_API_KEY } = process.env;
+const BASE_URL = "https://api.themoviedb.org/3";
 
-const useAPI = (baseURL: string, initialValue: any[] = [], params?: object) => {
+const useAPI = (initialValue: any[] = [], params?: object) => {
 	const [items, setItems] = useState(initialValue);
 	const [loading, setLoading] = useState(false);
 
 	const api = axios.create({
-		baseURL,
+		baseURL: BASE_URL,
 		headers: {
 			'Content-type': 'application/json'
 		},
@@ -22,10 +23,7 @@ const useAPI = (baseURL: string, initialValue: any[] = [], params?: object) => {
 		setLoading(true);
 		await api
 			.get(path)
-			.then((res) => {
-				console.log(res)
-				setItems(res.data[destruct])
-			})
+			.then((res) => setItems(res.data[destruct]))
 			.catch((err) => console.log(err))
 			.finally(() => setLoading(false));
 	}

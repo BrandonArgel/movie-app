@@ -5,15 +5,13 @@ interface PreviewProps {
 	children: React.ReactNode;
 	title: string;
 	link?: string;
-	breadcrumb?: boolean;
 }
 
-const Preview = ({ children, title, link, breadcrumb }: PreviewProps) => {
+const Preview = ({ children, title, link }: PreviewProps) => {
 	return (
 		<>
 			<div className={styles.preview}>
-				<h2 className={breadcrumb ? styles.preview__title_breadcrumb : styles.preview__title}>
-					{breadcrumb && <span><Link to={`/`}>Home</Link> / </span>}
+				<h2 className={styles.preview__title}>
 					{title}
 				</h2>
 				{link && (

@@ -1,10 +1,11 @@
 import * as React from "react";
 import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
 import { FixedLoader, Layout, SimpleLayout } from "components";
-const Landing = React.lazy(() => import("pages").then((module) => ({ default: module.Landing })));
 const Categories = React.lazy(() =>
 	import("pages").then((module) => ({ default: module.Categories }))
 );
+const Landing = React.lazy(() => import("pages").then((module) => ({ default: module.Landing })));
+const Search = React.lazy(() => import("pages").then((module) => ({ default: module.Search })));
 
 const App = () => {
 	// TODO: create the a functional login page, and authenticate the user with the API
@@ -19,10 +20,8 @@ const App = () => {
 				<Routes>
 					<Route path="/" element={<Layout />}>
 						<Route index element={<Landing />} />
-					</Route>
-					<Route path="/category" element={<Layout />}>
-						<Route index element={<Navigate replace to="/" />} />
 						<Route path="/category/:id/:name" element={<Categories />} />
+						<Route path="/results" element={<Search />} />
 					</Route>
 					<Route path="*" element={<Navigate replace to="/" />} />
 				</Routes>

@@ -10,7 +10,9 @@ const List = ({ items }: ListProps) => {
 		<ul className={styles.list}>
 			{items.map(({ id, name }) => (
 				<li key={id} className={styles.list__item}>
-					<Link to={`category/${id}/${name.toLowerCase()}`}>{name}</Link>
+					<Link to={`category/${id}/${name.toLowerCase()}`} title={name}>
+						{name}
+					</Link>
 				</li>
 			))}
 		</ul>

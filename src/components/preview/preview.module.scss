@@ -7,13 +7,8 @@
 	padding: 0 1rem;
 	margin-top: 2rem;
 
-	&__title,
-	&__title_breadcrumb {
+	&__title {
 		font-size: variables.$fz-xl;
-
-		&:not(.preview__title_breadcrumb) {
-			color: variables.$main-text-color;
-		}
 
 		a {
 			color: variables.$main-text-color;

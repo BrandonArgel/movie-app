@@ -1,0 +1,87 @@
+@use "styles/variables.scss";
+
+.searchbar {
+	align-items: center;
+	background: transparent;
+	border: 1px solid variables.$main-color;
+	border-radius: 2rem;
+	box-shadow: 0 0 1rem 0 rgba(variables.$main-color, 0.5);
+	display: flex;
+	margin: 0 auto;
+	padding: 0 0.5rem;
+	transition: all 0.3s ease-in-out;
+	width: calc(100% - 2rem);
+	will-change: box-shadow;
+
+	&:hover,
+	&:active,
+	&:focus,
+	&:focus-within {
+		box-shadow: 0 0 1rem 0.3rem rgba(variables.$main-color, 0.75);
+	}
+
+	&__input {
+		border: none;
+		background-color: transparent;
+		caret-color: rgba(variables.$secondary-text-color, 0.8);
+		color: variables.$main-color;
+		font: variables.$fz-md variables.$font;
+		height: 100%;
+		overflow-x: hidden;
+		padding: 1rem 2rem;
+		text-overflow: ellipsis;
+		width: calc(100% - 4rem);
+		white-space: nowrap;
+
+		&:focus {
+			outline: none;
+		}
+
+		&::placeholder {
+			color: rgba(variables.$main-color, 1);
+			font: variables.$fz-md variables.$font;
+			text-overflow: ellipsis;
+			white-space: nowrap;
+		}
+	}
+
+	&__button {
+		background-color: transparent;
+		border: none;
+		color: variables.$main-color;
+		cursor: pointer;
+		font: variables.$fz-md variables.$font;
+		outline: none;
+		width: 4rem;
+
+		svg {
+			fill: variables.$main-color;
+			position: relative;
+			top: 0.1rem;
+		}
+	}
+}
+
+.error {
+	animation: shake 0.82s cubic-bezier(0.36, 0.07, 0.19, 0.97) both;
+}
+
+@keyframes shake {
+	10%,
+	90% {
+		transform: translate3d(-1px, 0, 0);
+	}
+	20%,
+	80% {
+		transform: translate3d(2px, 0, 0);
+	}
+	30%,
+	50%,
+	70% {
+		transform: translate3d(-4px, 0, 0);
+	}
+	40%,
+	60% {
+		transform: translate3d(4px, 0, 0);
+	}
+}
