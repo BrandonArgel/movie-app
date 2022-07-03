@@ -2,13 +2,42 @@
 
 .loader {
 	align-items: center;
-	background-color: rgba(3, 9, 30, 0.6);
 	display: flex;
+	flex-direction: column;
 	justify-content: center;
 	width: 100%;
 	z-index: 10;
 
 	svg {
 		fill: variables.$main-color;
+	}
+
+	p {
+		color: variables.$main-color;
+		font-size: variables.$fz-md;
+	}
+}
+
+.fixed {
+	align-items: center;
+	background-color: rgba(0, 0, 0, 0.5);
+	display: flex;
+	flex-direction: column;
+	height: 100vh;
+	left: 0;
+	gap: 0.5rem;
+	justify-content: center;
+	position: fixed;
+	top: 0;
+	width: 100%;
+	z-index: 10;
+
+	svg {
+		fill: variables.$main-color;
+	}
+
+	p {
+		color: variables.$main-color;
+		font-size: variables.$fz-md;
 	}
 }

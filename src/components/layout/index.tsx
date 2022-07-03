@@ -7,7 +7,7 @@ const Layout = () => {
 	return (
 		<>
 			<Header />
-			<main className={styles.main}>
+			<main className={styles.main} id="content">
 				<Outlet />
 			</main>
 			<Footer />
@@ -15,4 +15,12 @@ const Layout = () => {
 	);
 };
 
-export { Layout };
+const SimpleLayout = () => {
+	return (
+		<main id="content">
+			<Outlet />
+		</main>
+	);
+};
+
+export { Layout, SimpleLayout };

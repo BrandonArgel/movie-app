@@ -6,4 +6,5 @@ export interface CardInterface {
   overview: string;
   title: string;
   voteAverage: number;
+  slide?: boolean;
 }

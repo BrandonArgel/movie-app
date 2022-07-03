@@ -8,6 +8,10 @@
 	padding: 1rem;
 	position: relative;
 
+	&:not(.slide) button {
+		width: 100%;
+	}
+
 	&__container {
 		background: none;
 		border: none;
@@ -52,8 +56,8 @@
 		padding: 1rem;
 		position: absolute;
 		right: 0;
-		transform: scale(0);
-		transition: transform 0.3s ease;
+		transform: scale(0.7);
+		transition: transform 0.2s ease;
 		top: 0;
 		visibility: hidden;
 		will-change: opacity, transform, visibility, ;
@@ -77,7 +81,6 @@
 			will-change: opacity, visibility;
 			width: 3rem;
 
-			// Cross line
 			&::after {
 				content: "";
 				position: absolute;
@@ -131,25 +134,25 @@
 }
 
 @media (min-width: 480px) and (max-width: 639px) {
-	.card {
+	.slide {
 		min-width: 33%;
 	}
 }
 
 @media (min-width: 640px) and (max-width: 799px) {
-	.card {
+	.slide {
 		min-width: 25%;
 	}
 }
 
 @media (min-width: 800px) and (max-width: 959px) {
-	.card {
+	.slide {
 		min-width: 20%;
 	}
 }
 
 @media (min-width: 960px) {
-	.card {
+	.slide {
 		min-width: 16.67%;
 	}
 }

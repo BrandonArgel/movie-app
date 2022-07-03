@@ -2,7 +2,7 @@ import { Link } from "react-router-dom";
 import styles from "./header.module.scss";
 
 const Header = () => {
-	// TODO: when the user is logged in, show the user's avatar and a logout button
+	// TODO: when the user is logged in, show the user's avatar, a logout button, and a favorites button
 
 	return (
 		<header className={styles.header}>
