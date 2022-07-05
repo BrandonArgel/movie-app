@@ -1,0 +1,9 @@
+@use "styles/variables.scss";
+
+.center {
+	align-items: center;
+	display: flex;
+  font-size: variables.$fz-md;
+	justify-content: center;
+  margin: 2rem 0;
+}

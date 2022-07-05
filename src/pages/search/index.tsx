@@ -1,27 +1,33 @@
 import { useState, useEffect } from "react";
 import { useLocation } from "react-router-dom";
-import { Card, Loader, Preview, SearchBar } from "components";
-import { useAPI } from "hooks/useApi";
+import { Back, Card, Loader, Preview, SearchBar } from "components";
+import { useGetItemsAPI } from "hooks/useApi";
 import styles from "./search.module.scss";
 
 const Search = () => {
 	const { search } = useLocation();
 	const [query, setQuery] = useState(new URLSearchParams(search).get("search"));
-	const [movies, loadingMovies, getMovies] = useAPI([], { query });
+	const [movies, loadingMovies, getMovies] = useGetItemsAPI([], { query });
 
-	const updateQuery = (query: string) => {
-		setQuery(query);
-		window.history.pushState({}, "", `/results?search=${query}`);
+	const onPopstate = () => {
+		setQuery(new URLSearchParams(window.location.search).get("search"));
+		getMovies("/search/movie", "results");
 	};
 
 	useEffect(() => {
+		// Add event listener to window to listen for query changes
+		window.addEventListener("popstate", onPopstate);
 		getMovies("/search/movie", "results");
-    console.log(movies);
+
+		return () => {
+			window.removeEventListener("popstate", onPopstate);
+		};
 	}, [query]); // eslint-disable-line react-hooks/exhaustive-deps
 
 	return (
 		<>
-			<SearchBar value={query || ""} setValue={updateQuery} />
+			<SearchBar value={query || ""} setValue={setQuery} />
+			<Back button />
 			<Preview title={`Results for: ${query}`}>
 				{loadingMovies ? (
 					<Loader />
@@ -29,7 +35,7 @@ const Search = () => {
 					<div className="grid">
 						{movies.length > 0 ? (
 							movies.map(
-								({ adult, backdrop_path, id, overview, title, poster_path, vote_average }) => (
+								({ adult, id, overview, title, poster_path, vote_average }) => (
 									<Card
 										id={id}
 										key={id}
@@ -39,7 +45,6 @@ const Search = () => {
 										link={`/movie/${id}`}
 										voteAverage={vote_average}
 										img={poster_path}
-										backdrop={backdrop_path}
 									/>
 								)
 							)

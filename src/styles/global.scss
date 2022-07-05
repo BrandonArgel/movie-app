@@ -96,6 +96,7 @@ html {
 	&:focus {
 		background-color: initial;
 		border: 1px solid $main-color;
+		color: $main-color;
 	}
 
 	&:active {

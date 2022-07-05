@@ -6,10 +6,17 @@ const Categories = React.lazy(() =>
 );
 const Landing = React.lazy(() => import("pages").then((module) => ({ default: module.Landing })));
 const Search = React.lazy(() => import("pages").then((module) => ({ default: module.Search })));
+const Trends = React.lazy(() => import("pages").then((module) => ({ default: module.Trends })));
+const Movie = React.lazy(() => import("pages").then((module) => ({ default: module.Movie })));
+const Actor = React.lazy(() => import("pages").then((module) => ({ default: module.Actor })));
 
 const App = () => {
 	// TODO: create the a functional login page, and authenticate the user with the API
 	// TODO: create context for the global user state
+
+	React.useEffect(() => {
+		window.history.pushState({ loadUrl: window.location.href }, "", window.location.href);
+	}, []);
 
 	return (
 		<BrowserRouter>
@@ -22,6 +29,13 @@ const App = () => {
 						<Route index element={<Landing />} />
 						<Route path="/category/:id/:name" element={<Categories />} />
 						<Route path="/results" element={<Search />} />
+						<Route path="/trending" element={<Trends />} />
+						<Route path="/actor/:id" element={<Actor />} />
+					</Route>
+					<Route path="/" element={<SimpleLayout />}>
+						<Route path="/login" element={<Navigate to="/" />} />
+						<Route path="/register" element={<Navigate to="/" />} />
+						<Route path="/movie/:id" element={<Movie />} />
 					</Route>
 					<Route path="*" element={<Navigate replace to="/" />} />
 				</Routes>

@@ -4,13 +4,9 @@
 	display: flex;
 	justify-content: center;
 	min-height: 16rem;
-	min-width: 50%;
+	max-width: 30rem;
 	padding: 1rem;
 	position: relative;
-
-	&:not(.slide) button {
-		width: 100%;
-	}
 
 	&__container {
 		background: none;
@@ -19,6 +15,7 @@
 		min-width: inherit;
 		position: relative;
 		transition: 0.3s ease all;
+		width: 100%;
 
 		img {
 			border-radius: 1rem;
@@ -60,40 +57,7 @@
 		transition: transform 0.2s ease;
 		top: 0;
 		visibility: hidden;
-		will-change: opacity, transform, visibility, ;
-
-		&_adult {
-			background: rgba(0, 0, 0, 0.5);
-			border-radius: 50%;
-			border: 2px solid variables.$red-color;
-			bottom: 1rem;
-			color: variables.$light-text-color;
-			font-size: variables.$fz-xxs;
-			height: 3rem;
-			padding: 1rem;
-			position: absolute;
-			left: 1rem;
-			display: flex;
-			flex-flow: column nowrap;
-			justify-content: center;
-			align-items: center;
-			transition: all 0.3s ease;
-			will-change: opacity, visibility;
-			width: 3rem;
-
-			&::after {
-				content: "";
-				position: absolute;
-				top: 1.2rem;
-				left: 0;
-				width: 110%;
-				height: 2px;
-				background: variables.$red-color;
-				transform: rotate(45deg);
-				transition: all 0.3s ease;
-				will-change: transform;
-			}
-		}
+		will-change: opacity, transform, visibility;
 
 		&_title {
 			color: variables.$main-text-color;
@@ -133,9 +97,17 @@
 	}
 }
 
+.slide {
+	min-width: 50%;
+}
+
 @media (min-width: 480px) and (max-width: 639px) {
 	.slide {
 		min-width: 33%;
+	}
+
+	.card {
+		max-width: 37rem;
 	}
 }
 

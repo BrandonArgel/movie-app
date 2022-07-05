@@ -1,18 +1,12 @@
 import { useNavigate } from "react-router-dom";
-import { CardInterface } from "utils/CardInterface";
+import { CardInterface } from "utils/Interface";
+import { AdultContent } from "components";
 import clickHandler from "utils/clickHandler";
 import styles from "./card.module.scss";
 
-const Card = ({
-	adult,
-	img,
-	backdrop,
-	link,
-	overview,
-	title,
-	voteAverage,
-	slide,
-}: CardInterface) => {
+import { IMG_BASE_URL } from "config";
+
+const Card = ({ adult, img, link, overview, title, voteAverage, slide }: CardInterface) => {
 	const isTouch = /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(
 		navigator.userAgent
 	);
@@ -21,13 +15,13 @@ const Card = ({
 
 	function clickCallback() {
 		if (!isTouch) {
-			navigate(link);
+			navigate(`${link}`);
 		}
 	}
 
 	function doubleClickCallback() {
 		if (isTouch) {
-			navigate(link);
+			navigate(`${link}`);
 		}
 	}
 
@@ -38,22 +32,15 @@ const Card = ({
 				onClick={isTouch ? click : clickCallback}
 				type="button"
 			>
-				<img
-					src={
-						img
-							? `https://image.tmdb.org/t/p/w200/${img}`
-							: `https://image.tmdb.org/t/p/w200/${backdrop}`
-					}
-					alt={title}
-				/>
+				<img src={`${IMG_BASE_URL}/w300/${img}`} alt={title} />
 				<div className={styles.card__content}>
-					{adult && <div className={styles.card__content_adult}>18</div>}
 					<h3 className={styles.card__content_title}>{title}</h3>
 					<p className={styles.card__content_overview}>{overview}</p>
 					<p className={styles.card__content_info}>
 						{isTouch ? "Double tap to see more" : "Click to see more"}
 					</p>
 					<p className={styles.card__content_vote}>⭐️ {voteAverage.toFixed(1)}</p>
+					{adult && <AdultContent />}
 				</div>
 			</button>
 		</div>

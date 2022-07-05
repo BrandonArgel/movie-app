@@ -1,4 +1,7 @@
+export { AdultContent } from "./adultcontent";
+export { Back } from "./back";
 export { Card } from "./card";
+export { Banner } from "./banner";
 export { Footer } from './footer';
 export { Header } from './header';
 export { Layout, SimpleLayout } from './layout';

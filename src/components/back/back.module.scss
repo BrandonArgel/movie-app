@@ -1,0 +1,35 @@
+@use "styles/variables.scss";
+
+button.button,
+button.back {
+	align-items: center;
+	color: variables.$light-text-color;
+	display: flex;
+	height: initial;
+	margin: 2rem 1rem;
+	padding: 0.5rem 1rem;
+	width: fit-content;
+	z-index: 0;
+
+	&:not(.button) {
+		position: fixed;
+		left: 2rem;
+		margin: 0;
+		top: 2rem;
+	}
+
+	&:hover svg,
+	&:active svg,
+	&:focus svg {
+		fill: variables.$main-color;
+
+		&:not(.back) svg {
+			transform: translateX(-0.5rem);
+		}
+	}
+
+	svg {
+		fill: variables.$light-text-color;
+		transition: transform 0.2s ease;
+	}
+}

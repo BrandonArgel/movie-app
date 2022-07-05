@@ -1,7 +1,7 @@
 import * as React from "react";
 import { Card, Loader } from "components";
 import { ArrowLeft, ArrowRight } from "assets/icons/arrows";
-import { CardInterface } from "utils/CardInterface";
+import { CardInterface } from "utils/Interface";
 import styles from "./slideshow.module.scss";
 
 interface SlideshowProps {
@@ -65,10 +65,7 @@ const Slideshow: React.FC<SlideshowProps> = ({ children, loading, speed = 500 })
 				? slide.removeAttribute("aria-hidden")
 				: slide.setAttribute("aria-hidden", "true");
 		});
-
-		// Update visible slides when window is resized
-		window.addEventListener("resize", updateVisibleSlides);
-	}, [updateVisibleSlides]);
+	}, []);
 
 	const next = () => {
 		if (slideshow.current?.children.length > 0) {
@@ -107,8 +104,13 @@ const Slideshow: React.FC<SlideshowProps> = ({ children, loading, speed = 500 })
 	};
 
 	React.useEffect(() => {
+		window.addEventListener("resize", updateVisibleSlides);
 		initialRender();
-	}, [children, initialRender]);
+
+		return () => {
+			window.removeEventListener("resize", updateVisibleSlides);
+		};
+	}, [children, initialRender, updateVisibleSlides]);
 
 	return (
 		<div className={styles.slideshow}>

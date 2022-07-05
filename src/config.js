@@ -1,5 +1,7 @@
 import { GitHub, Instagram, Linkedin, Mail, Platzi, Twitter, Portfolio } from "assets/icons/social";
 
+export const IMG_BASE_URL = "https://image.tmdb.org/t/p";
+
 export const Social = [
 	{
 		link: "https://www.instagram.com/brandargel/",
