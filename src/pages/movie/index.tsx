@@ -33,23 +33,6 @@ const Movie = () => {
 				title={title}
 				voteAverage={vote_average}
 			>
-				{trailer && (
-					<Preview title={"Trailer"}>
-						{loadingVideos ? (
-							<Loader />
-						) : (
-							<div className={styles.trailer}>
-								<iframe
-									title={trailer.name}
-									src={`https://www.youtube.com/embed/${trailer?.key}`}
-									frameBorder={0}
-									allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture"
-									allowFullScreen
-								/>
-							</div>
-						)}
-					</Preview>
-				)}
 				<Preview title="Cast">
 					<Slideshow loading={loadingCast} speed={300}>
 						{cast
@@ -69,6 +52,23 @@ const Movie = () => {
 							))}
 					</Slideshow>
 				</Preview>
+				{trailer && (
+					<Preview title={"Trailer"}>
+						{loadingVideos ? (
+							<Loader />
+						) : (
+							<div className={styles.trailer}>
+								<iframe
+									title={trailer.name}
+									src={`https://www.youtube.com/embed/${trailer?.key}`}
+									frameBorder={0}
+									allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture"
+									allowFullScreen
+								/>
+							</div>
+						)}
+					</Preview>
+				)}
 				<Preview title="Related">
 					<Slideshow loading={loadingRelated} speed={300}>
 						{related.map(({ adult, id, overview, title, poster_path, vote_average }) => (

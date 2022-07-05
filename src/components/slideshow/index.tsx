@@ -14,21 +14,21 @@ const Slideshow: React.FC<SlideshowProps> = ({ children, loading, speed = 500 })
 	const slideshow = React.useRef<HTMLInputElement>(
 		null
 	) as React.MutableRefObject<HTMLInputElement>;
+	const numberOfSlides = slideshow.current?.children.length;
+	let viewportWidth: number = window.innerWidth;
+	let visibleSlides: number =
+		viewportWidth < 480
+			? 2
+			: viewportWidth < 640
+			? 3
+			: viewportWidth < 800
+			? 4
+			: viewportWidth < 960
+			? 5
+			: 6;
 
 	const updateVisibleSlides = React.useCallback(() => {
 		const slides = Array.from(slideshow.current.children);
-		const viewportWidth = window.innerWidth;
-		const visibleSlides =
-			viewportWidth < 480
-				? 2
-				: viewportWidth < 640
-				? 3
-				: viewportWidth < 800
-				? 4
-				: viewportWidth < 960
-				? 5
-				: 6;
-
 		slides.forEach((slide, i) => {
 			const child = slide.children[0] as HTMLElement;
 			i + 1 <= visibleSlides
@@ -38,21 +38,10 @@ const Slideshow: React.FC<SlideshowProps> = ({ children, loading, speed = 500 })
 				? slide.removeAttribute("aria-hidden")
 				: slide.setAttribute("aria-hidden", "true");
 		});
-	}, []);
+	}, [visibleSlides]);
 
 	const initialRender = React.useCallback(() => {
 		const slides = Array.from(slideshow.current.children);
-		const viewportWidth = window.innerWidth;
-		const visibleSlides =
-			viewportWidth < 480
-				? 2
-				: viewportWidth < 640
-				? 3
-				: viewportWidth < 800
-				? 4
-				: viewportWidth < 960
-				? 5
-				: 6;
 
 		slides.forEach((slide, i) => {
 			const child = slide.children[0] as HTMLElement;
@@ -65,7 +54,7 @@ const Slideshow: React.FC<SlideshowProps> = ({ children, loading, speed = 500 })
 				? slide.removeAttribute("aria-hidden")
 				: slide.setAttribute("aria-hidden", "true");
 		});
-	}, []);
+	}, [visibleSlides]);
 
 	const next = () => {
 		if (slideshow.current?.children.length > 0) {
@@ -123,6 +112,7 @@ const Slideshow: React.FC<SlideshowProps> = ({ children, loading, speed = 500 })
 					className={styles.slideshow__controls_prev}
 					onClick={prev}
 					aria-label="Anterior película"
+					disabled={numberOfSlides < visibleSlides}
 				>
 					<ArrowLeft />
 				</button>
@@ -131,6 +121,7 @@ const Slideshow: React.FC<SlideshowProps> = ({ children, loading, speed = 500 })
 					className={styles.slideshow__controls_next}
 					onClick={next}
 					aria-label="Siguiente película"
+					disabled={numberOfSlides < visibleSlides}
 				>
 					<ArrowRight />
 				</button>

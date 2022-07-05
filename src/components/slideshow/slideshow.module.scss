@@ -57,6 +57,11 @@
 			&:active {
 				transform: scale(0.9);
 			}
+
+			&:disabled {
+				opacity: 0.5;
+				pointer-events: none;
+			}
 		}
 
 		&_prev {

@@ -1,6 +1,7 @@
 @use "styles/variables.scss";
 
 .header {
+	align-items: center;
 	background-color: variables.$header-bg;
 	display: flex;
 	justify-content: space-between;
@@ -14,38 +15,276 @@
 	width: 100%;
 	z-index: 1;
 
-	&__logo a {
+	&__logo {
+		align-items: flex-end;
 		color: variables.$main-color;
-		display: block;
+		display: flex;
 		font-size: clamp(2rem, 5vw, 3.5rem);
 		user-select: none;
-		transition: color 0.2s ease-in-out;
+		transition: filter 0.2s ease-in-out;
 
 		&:hover,
 		&:active,
 		&:focus {
-			color: variables.$main-text-color;
+			filter: brightness(1.1);
+		}
+
+		img {
+			height: clamp(3rem, 6vw, 4.5rem);
+			margin-right: 1rem;
 		}
 	}
 
-	&__list {
+	&__hamburger {
+		background-color: transparent;
+		border: none;
+		cursor: pointer;
+		min-width: 3.2rem;
+		position: relative;
+		z-index: 2;
+
+		&:hover {
+			line {
+				stroke: variables.$main-color;
+			}
+		}
+
+		line {
+			stroke: variables.$main-color;
+			stroke-width: 10%;
+			stroke-linecap: round;
+			transition: stroke 0.3s ease-in-out;
+		}
+
+		&_top {
+			animation: top-off 0.5s;
+			-webkit-animation-fill-mode: forwards;
+			-moz-animation-fill-mode: forwards;
+			-o-animation-fill-mode: forwards;
+			-ms-animation-fill-mode: forwards;
+			animation-fill-mode: forwards;
+		}
+
+		&_middle {
+			animation: middle-off 0.5s;
+			-webkit-animation-fill-mode: forwards;
+			-moz-animation-fill-mode: forwards;
+			-o-animation-fill-mode: forwards;
+			-ms-animation-fill-mode: forwards;
+			animation-fill-mode: forwards;
+		}
+
+		&_bottom {
+			animation: bottom-off 0.5s;
+			-webkit-animation-fill-mode: forwards;
+			-moz-animation-fill-mode: forwards;
+			-o-animation-fill-mode: forwards;
+			-ms-animation-fill-mode: forwards;
+			animation-fill-mode: forwards;
+		}
+
+		&_active {
+			.header__hamburger_top {
+				animation: top-on 0.5s;
+				-webkit-animation-fill-mode: forwards;
+				-moz-animation-fill-mode: forwards;
+				-o-animation-fill-mode: forwards;
+				-ms-animation-fill-mode: forwards;
+				animation-fill-mode: forwards;
+			}
+
+			.header__hamburger_middle {
+				animation: middle-on 0.5s;
+				-webkit-animation-fill-mode: forwards;
+				-moz-animation-fill-mode: forwards;
+				-o-animation-fill-mode: forwards;
+				-ms-animation-fill-mode: forwards;
+				animation-fill-mode: forwards;
+			}
+
+			.header__hamburger_bottom {
+				animation: bottom-on 0.5s;
+				-webkit-animation-fill-mode: forwards;
+				-moz-animation-fill-mode: forwards;
+				-o-animation-fill-mode: forwards;
+				-ms-animation-fill-mode: forwards;
+				animation-fill-mode: forwards;
+			}
+		}
+
+		@keyframes top-on {
+			from {
+				transform: rotate(0deg);
+			}
+
+			to {
+				transform: translate(25%, 0%) rotate(45deg);
+			}
+		}
+
+		@keyframes middle-on {
+			from {
+				transform: rotate(0deg);
+			}
+
+			to {
+				transform: translate(-25%, 50%) rotate(-45deg);
+			}
+		}
+
+		@keyframes bottom-on {
+			from {
+				transform: rotate(0deg);
+			}
+
+			to {
+				transform: rotate(45deg) translate(16%, -76%);
+			}
+		}
+
+		@keyframes top-off {
+			from {
+				transform: translate(25%, 0%) rotate(45deg);
+			}
+
+			to {
+				transform: rotate(0deg);
+			}
+		}
+
+		@keyframes middle-off {
+			from {
+				transform: translate(-25%, 50%) rotate(-45deg);
+			}
+
+			to {
+				transform: rotate(0deg);
+			}
+		}
+
+		@keyframes bottom-off {
+			from {
+				transform: rotate(45deg) translate(16%, -76%);
+			}
+
+			to {
+				transform: rotate(0deg);
+			}
+		}
+	}
+
+	&__menu {
+		background: variables.$aside-bg;
+		box-shadow: 0px 0px 10px variables.$shadow-color;
 		display: flex;
-		align-items: center;
-		justify-content: flex-end;
-		list-style: none;
+		flex-direction: column;
+		height: 100vh;
+		justify-content: center;
+		max-width: 25rem;
+		padding: 2rem;
+		position: fixed;
+		right: 0;
+		transform: translateX(100%);
+		transition: all 0.3s cubic-bezier(0.645, 0.045, 0.355, 1);
+		top: 0;
+		visibility: hidden;
+		width: 80vw;
+		will-change: transform, visibility;
+		z-index: 1;
 
-		&_item a {
-			margin-left: 1rem;
-			text-decoration: none;
-			text-decoration-skip-ink: auto;
-			color: variables.$light-text-color;
-			font: variables.$fz-md variables.$font;
-			transition: 0.3s ease all;
+		&_open {
+			transform: translateX(0);
+			visibility: visible;
+		}
 
-			&:hover,
-			&:active,
-			&:focus {
-				color: variables.$main-color;
+		&_list {
+			align-items: center;
+			display: flex;
+			flex-flow: column nowrap;
+			list-style: none;
+			justify-content: center;
+			margin: 2rem 0;
+
+			li {
+				margin: 1rem 0;
+
+				a {
+					color: variables.$light-text-color;
+					font: bold variables.$fz-lg variables.$font;
+					text-decoration: none;
+					position: relative;
+					width: fit-content;
+
+
+					&:hover,
+					&:active,
+					&:focus {
+						color: variables.$main-color;
+						outline: none;
+					}
+				}
+			}
+		}
+	}
+
+	&__backdrop {
+		background-color: rgba(3, 9, 30, 0.6);
+		border: none;
+		display: block;
+		backdrop-filter: blur(2px);
+		left: 0;
+		height: 100vh;
+		position: fixed;
+		top: 0;
+		width: 100vw;
+	}
+
+	&__nav {
+		display: none;
+
+		&_list {
+			list-style: none;
+			margin: 2rem 0;
+
+			li {
+				margin: 1rem 0;
+
+				a {
+					color: variables.$light-text-color;
+					font: bold variables.$fz-lg variables.$font;
+					text-decoration: none;
+					position: relative;
+					width: fit-content;
+
+					&:hover,
+					&:active,
+					&:focus {
+						color: variables.$main-color;
+						outline: none;
+					}
+				}
+			}
+		}
+	}
+}
+
+@media (min-width: 768px) {
+	.header {
+		&__hamburger,
+		&__menu {
+			display: none;
+		}
+
+		&__nav {
+			display: initial;
+
+			&_list {
+				display: flex;
+				justify-content: center;
+
+				li {
+					margin: 0 1rem;
+				}
 			}
 		}
 	}

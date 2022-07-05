@@ -19,7 +19,7 @@
 
 		img {
 			border-radius: 1rem;
-			height: 100%;
+			height: auto;
 			object-fit: cover;
 			transition: all 0.3s ease;
 			vertical-align: top;
@@ -53,7 +53,7 @@
 		padding: 1rem;
 		position: absolute;
 		right: 0;
-		transform: scale(0.7);
+		transform: scale(0.8);
 		transition: transform 0.2s ease;
 		top: 0;
 		visibility: hidden;
@@ -98,33 +98,34 @@
 }
 
 .slide {
+	max-width: 50%;
 	min-width: 50%;
 }
 
 @media (min-width: 480px) and (max-width: 639px) {
 	.slide {
+		max-width: 33%;
 		min-width: 33%;
-	}
-
-	.card {
-		max-width: 37rem;
 	}
 }
 
 @media (min-width: 640px) and (max-width: 799px) {
 	.slide {
+		max-width: 25%;
 		min-width: 25%;
 	}
 }
 
 @media (min-width: 800px) and (max-width: 959px) {
 	.slide {
+		max-width: 20%;
 		min-width: 20%;
 	}
 }
 
 @media (min-width: 960px) {
 	.slide {
+		max-width: 16.67%;
 		min-width: 16.67%;
 	}
 }

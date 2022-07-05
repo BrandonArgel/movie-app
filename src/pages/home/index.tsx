@@ -21,21 +21,19 @@ const Landing = () => {
 			<SearchBar value={query} setValue={setQuery} />
 			<Preview title="Trending Movies" link="/trending">
 				<Slideshow loading={loadingTrends} speed={300}>
-					{trends.map(
-						({ adult, id, overview, title, poster_path, vote_average }) => (
-							<Slide
-								id={id}
-								key={id}
-								adult={adult}
-								title={title}
-								overview={overview}
-								link={`/movie/${id}`}
-								voteAverage={vote_average}
-								img={poster_path}
-								slide={true}
-							/>
-						)
-					)}
+					{trends.map(({ adult, id, overview, title, poster_path, vote_average }) => (
+						<Slide
+							id={id}
+							key={id}
+							adult={adult}
+							title={title}
+							overview={overview}
+							link={`/movie/${id}`}
+							voteAverage={vote_average}
+							img={poster_path}
+							slide={true}
+						/>
+					))}
 				</Slideshow>
 			</Preview>
 			<Preview title="Categories">

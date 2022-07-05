@@ -31,10 +31,13 @@ const App = () => {
 						<Route path="/results" element={<Search />} />
 						<Route path="/trending" element={<Trends />} />
 						<Route path="/actor/:id" element={<Actor />} />
+						<Route path="/login" element={<h1 style={{ textAlign: "center" }}>Developing...</h1>} />
+						<Route
+							path="/register"
+							element={<h1 style={{ textAlign: "center" }}>Developing...</h1>}
+						/>
 					</Route>
 					<Route path="/" element={<SimpleLayout />}>
-						<Route path="/login" element={<Navigate to="/" />} />
-						<Route path="/register" element={<Navigate to="/" />} />
 						<Route path="/movie/:id" element={<Movie />} />
 					</Route>
 					<Route path="*" element={<Navigate replace to="/" />} />

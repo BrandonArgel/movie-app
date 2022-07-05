@@ -32,7 +32,7 @@ const Card = ({ adult, img, link, overview, title, voteAverage, slide }: CardInt
 				onClick={isTouch ? click : clickCallback}
 				type="button"
 			>
-				<img src={`${IMG_BASE_URL}/w300/${img}`} alt={title} />
+				<img src={`${IMG_BASE_URL}/w200/${img}`} alt={title} loading={!slide ? "lazy" : "eager"} width={200} height={300} />
 				<div className={styles.card__content}>
 					<h3 className={styles.card__content_title}>{title}</h3>
 					<p className={styles.card__content_overview}>{overview}</p>

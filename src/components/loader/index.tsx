@@ -1,5 +1,6 @@
 import Spinner from "assets/icons/spinner";
 import styles from "./loader.module.scss";
+import Logo from "assets/images/logo.png";
 
 interface LoaderProps {
 	text?: string;
@@ -14,11 +15,10 @@ const Loader = ({ text }: LoaderProps) => {
 	);
 };
 
-const FixedLoader = ({ text = "Loading..." }: LoaderProps) => {
+const FixedLoader = () => {
 	return (
 		<div className={styles.fixed}>
-			<Spinner />
-			{text && <p className={styles.fixed__text}>{text}</p>}
+			<img src={Logo} alt="Logo" />
 		</div>
 	);
 };

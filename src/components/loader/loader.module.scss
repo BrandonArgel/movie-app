@@ -20,7 +20,12 @@
 
 .fixed {
 	align-items: center;
-	background-color: rgba(0, 0, 0, 0.5);
+	background-image: radial-gradient(
+		circle,
+		rgba(255, 255, 255, 0.1) 0%,
+		rgba(255, 255, 255, 0) 100%
+	);
+	background-position: center;
 	display: flex;
 	flex-direction: column;
 	height: 100vh;
@@ -32,12 +37,23 @@
 	width: 100%;
 	z-index: 10;
 
-	svg {
-		fill: variables.$main-color;
+	img {
+		animation: pulse 3s both ease-in-out infinite;
+		max-width: 19rem;
+		width: 50%;
 	}
 
-	p {
-		color: variables.$main-color;
-		font-size: variables.$fz-md;
+	@keyframes pulse {
+		0% {
+			transform: scale(1);
+		}
+
+		50% {
+			transform: scale(1.1);
+		}
+
+		100% {
+			transform: scale(1);
+		}
 	}
 }
