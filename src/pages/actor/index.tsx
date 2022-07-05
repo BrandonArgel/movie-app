@@ -1,6 +1,6 @@
 import { useEffect } from "react";
 import { useParams } from "react-router-dom";
-import { Back, Card, Loader, Preview } from "components";
+import { Back, Loader, Preview } from "components";
 import { useGetItemAPI } from "hooks/useApi";
 import styles from "./actor.module.scss";
 
