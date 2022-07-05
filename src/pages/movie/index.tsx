@@ -12,7 +12,6 @@ const Movie = () => {
 	const [cast, loadingCast, getCast] = useGetItemsAPI([], { id });
 	const { adult, backdrop_path, genres, overview, title, vote_average } = movie || {};
 	const trailer = videos?.find((video) => video.type === "Trailer");
-	console.log(cast);
 
 	useEffect(() => {
 		getMovie(`/movie/${id}`);

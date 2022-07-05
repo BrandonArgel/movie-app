@@ -14,7 +14,7 @@ const Slideshow: React.FC<SlideshowProps> = ({ children, loading, speed = 500 })
 	const slideshow = React.useRef<HTMLInputElement>(
 		null
 	) as React.MutableRefObject<HTMLInputElement>;
-	const numberOfSlides = slideshow.current?.children.length;
+	const [numberOfSlides, setNumberOfSlides] = React.useState(slideshow.current?.children.length);
 	let viewportWidth: number = window.innerWidth;
 	let visibleSlides: number =
 		viewportWidth < 480
@@ -42,6 +42,7 @@ const Slideshow: React.FC<SlideshowProps> = ({ children, loading, speed = 500 })
 
 	const initialRender = React.useCallback(() => {
 		const slides = Array.from(slideshow.current.children);
+		setNumberOfSlides(slides.length);
 
 		slides.forEach((slide, i) => {
 			const child = slide.children[0] as HTMLElement;

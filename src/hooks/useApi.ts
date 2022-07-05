@@ -4,6 +4,7 @@ const { REACT_APP_API_KEY } = process.env;
 const BASE_URL = "https://api.themoviedb.org/3";
 
 const useGetItemsAPI = (initialValue: any[] = [], params?: object) => {
+	// TODO: Use sweetalert2 or something to inform the user if there was an error, and to advise if some actions were made successfully
 	const [items, setItems] = useState(initialValue);
 	const [loading, setLoading] = useState(false);
 

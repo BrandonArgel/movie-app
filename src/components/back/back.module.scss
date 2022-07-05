@@ -22,14 +22,16 @@ button.back {
 	&:active svg,
 	&:focus svg {
 		fill: variables.$main-color;
-
-		&:not(.back) svg {
-			transform: translateX(-0.5rem);
-		}
 	}
 
 	svg {
 		fill: variables.$light-text-color;
 		transition: transform 0.2s ease;
 	}
+}
+
+button.button:hover svg,
+button.button:active svg,
+button.button:focus svg {
+	transform: translateX(-0.5rem);
 }
