@@ -1,5 +1,5 @@
 import { useState, useEffect, useCallback } from "react";
-import { List, Loader, SearchBar, Slideshow, Slide, Preview } from "components";
+import { List, SearchBar, Slideshow, Slide, Preview } from "components";
 import { useGetItemsAPI } from "hooks/useApi";
 
 const Landing = () => {
@@ -37,7 +37,7 @@ const Landing = () => {
 				</Slideshow>
 			</Preview>
 			<Preview title="Categories">
-				{loadingCategories ? <Loader /> : <List items={categories} />}
+				<List items={categories} loading={loadingCategories} />
 			</Preview>
 		</>
 	);

@@ -1,5 +1,5 @@
 import * as React from "react";
-import { Card, Loader } from "components";
+import { Card } from "components";
 import { ArrowLeft, ArrowRight } from "assets/icons/arrows";
 import { CardInterface } from "utils/Interface";
 import styles from "./slideshow.module.scss";
@@ -26,7 +26,7 @@ const Slideshow: React.FC<SlideshowProps> = ({ children, loading, speed = 500 })
 			: viewportWidth < 960
 			? 5
 			: 6;
-
+	let arrSkeleton = Array.from({ length: visibleSlides });
 	const updateVisibleSlides = React.useCallback(() => {
 		const slides = Array.from(slideshow.current.children);
 		slides.forEach((slide, i) => {
@@ -41,6 +41,7 @@ const Slideshow: React.FC<SlideshowProps> = ({ children, loading, speed = 500 })
 	}, [visibleSlides]);
 
 	const initialRender = React.useCallback(() => {
+		if (loading) return;
 		const slides = Array.from(slideshow.current.children);
 		setNumberOfSlides(slides.length);
 
@@ -55,7 +56,7 @@ const Slideshow: React.FC<SlideshowProps> = ({ children, loading, speed = 500 })
 				? slide.removeAttribute("aria-hidden")
 				: slide.setAttribute("aria-hidden", "true");
 		});
-	}, [visibleSlides]);
+	}, [visibleSlides, loading]);
 
 	const next = () => {
 		if (slideshow.current?.children.length > 0) {
@@ -105,7 +106,7 @@ const Slideshow: React.FC<SlideshowProps> = ({ children, loading, speed = 500 })
 	return (
 		<div className={styles.slideshow}>
 			<div className={styles.slideshow__container} ref={slideshow}>
-				{loading ? <Loader /> : children}
+				{loading ? arrSkeleton.map((_, i) => <Card key={i} skeleton slide></Card>) : children}
 			</div>
 			<div className={styles.slideshow__controls}>
 				<button
@@ -113,7 +114,7 @@ const Slideshow: React.FC<SlideshowProps> = ({ children, loading, speed = 500 })
 					className={styles.slideshow__controls_prev}
 					onClick={prev}
 					aria-label="Anterior película"
-					disabled={numberOfSlides < visibleSlides}
+					disabled={numberOfSlides < visibleSlides || loading}
 				>
 					<ArrowLeft />
 				</button>
@@ -122,7 +123,7 @@ const Slideshow: React.FC<SlideshowProps> = ({ children, loading, speed = 500 })
 					className={styles.slideshow__controls_next}
 					onClick={next}
 					aria-label="Siguiente película"
-					disabled={numberOfSlides < visibleSlides}
+					disabled={numberOfSlides < visibleSlides || loading}
 				>
 					<ArrowRight />
 				</button>

@@ -18,6 +18,7 @@
 		width: 100%;
 
 		img {
+			aspect-ratio: 2 / 3;
 			border-radius: 1rem;
 			height: auto;
 			object-fit: cover;
@@ -31,7 +32,7 @@
 		&:active,
 		&:focus {
 			img {
-				filter: brightness(0.3) blur(0.4rem);
+				filter: brightness(0.3);
 			}
 
 			.card__content {
@@ -43,6 +44,7 @@
 	}
 
 	&__content {
+		backdrop-filter: blur(0.4rem);
 		bottom: 0;
 		color: variables.$light-text-color;
 		display: flex;
@@ -100,6 +102,10 @@
 .slide {
 	max-width: 50%;
 	min-width: 50%;
+}
+
+.skeleton img {
+	opacity: 0;
 }
 
 @media (min-width: 480px) and (max-width: 639px) {

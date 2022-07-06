@@ -1,5 +1,5 @@
 import { MovieInterface } from "utils/Interface";
-import { AdultContent, Back, List, Loader } from "components";
+import { AdultContent, Back, List } from "components";
 import styles from "./banner.module.scss";
 
 import { IMG_BASE_URL } from "config";
@@ -24,7 +24,7 @@ const Banner = ({
 		<div className={styles.banner}>
 			<Back />
 			{loading ? (
-				<Loader />
+				<img className={`${styles.banner__img} skeleton`} width={500} height={281} alt="" />
 			) : (
 				<picture>
 					<source
@@ -62,7 +62,7 @@ const Banner = ({
 					</h1>
 					<p className={styles.banner__overview}>{overview}</p>
 					<div className={styles.banner__more}>
-						<List items={genres} />
+						<List items={genres} loading={loading} />
 						<button
 							className={`${styles.banner__more_favorites} button`}
 							onClick={() => addToFavorites(id as number)}

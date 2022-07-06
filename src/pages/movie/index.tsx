@@ -46,7 +46,6 @@ const Movie = () => {
 									link={`/actor/${id}`}
 									voteAverage={popularity}
 									img={profile_path}
-									slide={true}
 								/>
 							))}
 					</Slideshow>
@@ -81,7 +80,6 @@ const Movie = () => {
 								loading={loadingRelated}
 								voteAverage={vote_average}
 								img={poster_path}
-								slide={true}
 							/>
 						))}
 					</Slideshow>

@@ -1,15 +1,16 @@
 import React from "react";
 
 export interface CardInterface {
-  adult: boolean;
+  adult?: boolean;
   id?: number;
-  img: string;
-  link: string;
+  img?: string;
+  link?: string;
   loading?: boolean;
-  overview: string;
-  title: string;
-  voteAverage: number;
+  overview?: string;
+  skeleton?: boolean;
   slide?: boolean;
+  title?: string;
+  voteAverage?: number;
 }
 
 export interface MovieInterface {

@@ -20,6 +20,7 @@
 		color: variables.$main-color;
 		display: flex;
 		font-size: clamp(2rem, 5vw, 3.5rem);
+		font-weight: bold;
 		user-select: none;
 		transition: filter 0.2s ease-in-out;
 

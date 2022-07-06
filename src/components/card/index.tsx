@@ -6,7 +6,16 @@ import styles from "./card.module.scss";
 
 import { IMG_BASE_URL } from "config";
 
-const Card = ({ adult, img, link, overview, title, voteAverage, slide }: CardInterface) => {
+const Card = ({
+	adult,
+	img,
+	link,
+	overview,
+	skeleton,
+	title,
+	voteAverage,
+	slide,
+}: CardInterface) => {
 	const isTouch = /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(
 		navigator.userAgent
 	);
@@ -25,6 +34,16 @@ const Card = ({ adult, img, link, overview, title, voteAverage, slide }: CardInt
 		}
 	}
 
+	if (skeleton) {
+		return (
+			<div className={`${styles.card} ${slide ? styles.slide : ""}`}>
+				<div className={`${styles.card__container} ${styles.skeleton} skeleton`}>
+					<img src="" alt="" />
+				</div>
+			</div>
+		);
+	}
+
 	return (
 		<div className={`${styles.card} ${slide ? styles.slide : ""}`}>
 			<button
@@ -32,14 +51,20 @@ const Card = ({ adult, img, link, overview, title, voteAverage, slide }: CardInt
 				onClick={isTouch ? click : clickCallback}
 				type="button"
 			>
-				<img src={`${IMG_BASE_URL}/w200/${img}`} alt={title} loading={!slide ? "lazy" : "eager"} width={200} height={300} />
+				<img
+					src={`${IMG_BASE_URL}/w200/${img}`}
+					alt={title}
+					loading="lazy"
+					width={200}
+					height={300}
+				/>
 				<div className={styles.card__content}>
 					<h3 className={styles.card__content_title}>{title}</h3>
 					<p className={styles.card__content_overview}>{overview}</p>
 					<p className={styles.card__content_info}>
 						{isTouch ? "Double tap to see more" : "Click to see more"}
 					</p>
-					<p className={styles.card__content_vote}>⭐️ {voteAverage.toFixed(1)}</p>
+					<p className={styles.card__content_vote}>⭐️ {voteAverage!.toFixed(1)}</p>
 					{adult && <AdultContent />}
 				</div>
 			</button>
