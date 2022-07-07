@@ -28,30 +28,28 @@ const Search = () => {
 		<>
 			<SearchBar value={query || ""} setValue={setQuery} />
 			<Back button />
-			<Preview title={`Results for: ${query}`}>
+			<Preview title={`Results for: ${query}`} grid>
 				{loadingMovies ? (
 					<Loader />
 				) : (
-					<div className="grid">
+					<>
 						{movies.length > 0 ? (
-							movies.map(
-								({ adult, id, overview, title, poster_path, vote_average }) => (
-									<Card
-										id={id}
-										key={id}
-										adult={adult}
-										title={title}
-										overview={overview}
-										link={`/movie/${id}`}
-										voteAverage={vote_average}
-										img={poster_path}
-									/>
-								)
-							)
+							movies.map(({ adult, id, overview, title, poster_path, vote_average }) => (
+								<Card
+									id={id}
+									key={id}
+									adult={adult}
+									title={title}
+									overview={overview}
+									link={`/movie/${id}`}
+									voteAverage={vote_average}
+									img={poster_path}
+								/>
+							))
 						) : (
 							<p className={styles.center}>No results found.</p>
 						)}
-					</div>
+					</>
 				)}
 			</Preview>
 		</>

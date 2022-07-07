@@ -9,13 +9,13 @@ button.back {
 	margin: 2rem 1rem;
 	padding: 0.5rem 1rem;
 	width: fit-content;
-	z-index: 0;
 
 	&:not(.button) {
 		position: fixed;
 		left: 2rem;
 		margin: 0;
 		top: 2rem;
+		z-index: 1;
 	}
 
 	&:hover svg,

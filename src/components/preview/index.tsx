@@ -5,9 +5,10 @@ interface PreviewProps {
 	children: React.ReactNode;
 	title?: string;
 	link?: string;
+	grid?: boolean;
 }
 
-const Preview = ({ children, title, link }: PreviewProps) => {
+const Preview = ({ children, title, link, grid }: PreviewProps) => {
 	return (
 		<>
 			<div className={styles.preview}>
@@ -18,7 +19,7 @@ const Preview = ({ children, title, link }: PreviewProps) => {
 					</Link>
 				)}
 			</div>
-			{children}
+			<div className={grid ? styles.grid : ""}>{children}</div>
 		</>
 	);
 };

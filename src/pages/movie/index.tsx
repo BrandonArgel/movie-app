@@ -10,7 +10,6 @@ const Movie = () => {
 	const [videos, loadingVideos, getVideos] = useGetItemsAPI([], { id });
 	const [related, loadingRelated, getRelated] = useGetItemsAPI([], { id });
 	const [cast, loadingCast, getCast] = useGetItemsAPI([], { id });
-	const { adult, backdrop_path, genres, overview, title, vote_average } = movie || {};
 	const trailer = videos?.find((video) => video.type === "Trailer");
 
 	useEffect(() => {
@@ -24,13 +23,13 @@ const Movie = () => {
 		<>
 			<Banner
 				id={parseInt(id as string, 10)}
-				adult={adult}
-				backdrop={backdrop_path}
+				adult={movie.adult}
+				backdrop={movie.backdrop_path}
 				loading={loadingMovie}
-				genres={genres}
-				overview={overview}
-				title={title}
-				voteAverage={vote_average}
+				genres={movie.genres}
+				overview={movie.overview}
+				title={movie.title}
+				voteAverage={movie.vote_average}
 			>
 				<Preview title="Cast">
 					<Slideshow loading={loadingCast} speed={300}>

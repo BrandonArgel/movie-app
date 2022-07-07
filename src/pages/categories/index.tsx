@@ -15,26 +15,24 @@ const Categories = () => {
 	return (
 		<>
 			<Back button />
-			<Preview title={`Category ${name?.charAt(0).toUpperCase()}${name?.slice(1)}`}>
+			<Preview title={`Category ${name?.charAt(0).toUpperCase()}${name?.slice(1)}`} grid>
 				{loadingMovies ? (
 					<Loader />
 				) : (
-					<div className="grid">
-						{movies.map(
-							({ adult, id, overview, title, poster_path, vote_average }) => (
-								<Card
-									id={id}
-									key={id}
-									adult={adult}
-									title={title}
-									overview={overview}
-									link={`/movie/${id}`}
-									voteAverage={vote_average}
-									img={poster_path}
-								/>
-							)
-						)}
-					</div>
+					<>
+						{movies.map(({ adult, id, overview, title, poster_path, vote_average }) => (
+							<Card
+								id={id}
+								key={id}
+								adult={adult}
+								title={title}
+								overview={overview}
+								link={`/movie/${id}`}
+								voteAverage={vote_average}
+								img={poster_path}
+							/>
+						))}
+					</>
 				)}
 			</Preview>
 		</>

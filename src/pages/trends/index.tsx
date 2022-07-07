@@ -13,11 +13,11 @@ const Trends = () => {
 	return (
 		<>
 			<Back button />
-			<Preview title="Trens">
+			<Preview title="Trens" grid>
 				{loadingTrends ? (
 					<Loader />
 				) : (
-					<div className="grid">
+					<>
 						{trends.length > 0 ? (
 							trends.map(
 								({ adult, id, overview, title, poster_path, vote_average }) => (
@@ -36,7 +36,7 @@ const Trends = () => {
 						) : (
 							<p className={styles.center}>No results found.</p>
 						)}
-					</div>
+					</>
 				)}
 			</Preview>
 		</>

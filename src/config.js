@@ -1,6 +1,8 @@
 import { GitHub, Instagram, Linkedin, Mail, Platzi, Twitter, Portfolio } from "assets/icons/social";
 
 export const IMG_BASE_URL = "https://image.tmdb.org/t/p";
+export const DEFAULT_IMAGE = "https://movies-platzi-app.netlify.app/default_image.jpg";
+export const DEFAULT_BANNER = "https://coolwallpapers.me/th700/1030538-curtain.jpg";
 
 export const Social = [
 	{
@@ -29,7 +31,7 @@ export const Social = [
 		title: "Brandon Argel's LinkedIn",
 	},
 	{
-		link: "https://twitter.com/BrandonArgelVD",
+		link: "https://twitter.com/BrandArgel",
 		icon: <Twitter />,
 		title: "Brandon Argel's Twitter",
 	},

@@ -1,13 +1,16 @@
-import { useEffect } from "react";
+import { useEffect, useRef } from "react";
 import { useParams } from "react-router-dom";
 import { Back, Loader, Preview, Slide, Slideshow } from "components";
 import { useGetItemAPI, useGetItemsAPI } from "hooks/useApi";
+import lazyLoading from "utils/lazyLoading";
 import styles from "./actor.module.scss";
 
+import { LOADER_IMG } from "utils/loaderImg";
 import { IMG_BASE_URL } from "config";
 
 const Actor = () => {
 	// TODO: Implement pagination
+	const imgRef = useRef<HTMLImageElement>(null);
 	const { id } = useParams();
 	const [actor, loading, getActor] = useGetItemAPI({}, { id });
 	const [movies, loadingMovies, getMovies] = useGetItemsAPI([], { id });
@@ -19,29 +22,55 @@ const Actor = () => {
 		getMovies(`/person/${id}/movie_credits`, "cast");
 	}, [id]); // eslint-disable-line react-hooks/exhaustive-deps
 
+	useEffect(() => {
+		if (imgRef.current) {
+			lazyLoading(imgRef, true);
+		}
+	}, [loading]);
+
 	return (
 		<>
 			<Back button />
 			<Preview>
-				{loading ? (
-					<Loader />
-				) : (
-					<div className={styles.actor}>
-						<img
-							className={styles.actor__img}
-							src={`${IMG_BASE_URL}/w500/${profile_path}`}
-							alt={name}
-						/>
-						<h1 className={styles.actor__title}>
-							{name} ({birthday} {deathday ? " to " + deathday : ""})
-						</h1>
-						<h2 className={styles.actor__subtitle}>Biography</h2>
-						<p className={styles.actor__biography}>
-							{biography} {place_of_birth}
-						</p>
-						<p className={styles.actor__popularity}>⭐{popularity}</p>
-					</div>
-				)}
+				<div className={styles.actor}>
+					{loading ? (
+						<div className="skeleton">
+							<img
+								className={`${styles.actor__img} hide`}
+								src={LOADER_IMG(500, 201)}
+								alt={name}
+								width={500}
+								height={281}
+							/>
+						</div>
+					) : (
+						<div className="skeleton">
+							<img
+								className={`${styles.actor__img} hide`}
+								src={`${IMG_BASE_URL}/w500/${profile_path}`}
+								alt={name}
+								ref={imgRef}
+								width={500}
+								height={281}
+							/>
+						</div>
+					)}
+
+					{loading ? (
+						<Loader />
+					) : (
+						<>
+							<h1 className={styles.actor__title}>
+								{name} ({birthday} {deathday ? " to " + deathday : ""})
+							</h1>
+							<h2 className={styles.actor__subtitle}>Biography</h2>
+							<p className={styles.actor__biography}>
+								{biography} {place_of_birth}
+							</p>
+							<p className={styles.actor__popularity}>⭐{popularity}</p>
+						</>
+					)}
+				</div>
 			</Preview>
 			<div className={styles.movies}>
 				<Preview title={`${name}'s Movies`}>

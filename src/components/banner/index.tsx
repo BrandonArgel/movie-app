@@ -1,7 +1,10 @@
+import { useEffect, useRef } from "react";
 import { MovieInterface } from "utils/Interface";
 import { AdultContent, Back, List } from "components";
+import lazyLoading from "utils/lazyLoading";
 import styles from "./banner.module.scss";
 
+import { LOADER_IMG } from "utils/loaderImg";
 import { IMG_BASE_URL } from "config";
 
 const Banner = ({
@@ -15,40 +18,59 @@ const Banner = ({
 	title,
 	voteAverage,
 }: MovieInterface) => {
+	const imgRef = useRef<HTMLImageElement>(null);
+	console.log(backdrop);
 	const addToFavorites = (id: number) => {
 		// TODO: add to favorites
 		console.log(`Add to favorites the movie with the id '${id}'`);
 	};
 
+	useEffect(() => {
+		if (imgRef.current) {
+			lazyLoading(imgRef, true, true);
+		}
+	}, [loading]);
+
 	return (
 		<div className={styles.banner}>
 			<Back />
 			{loading ? (
-				<img className={`${styles.banner__img} skeleton`} width={500} height={281} alt="" />
+				<div className="skeleton">
+					<img
+						className={`${styles.banner__img} hide`}
+						width={500}
+						height={281}
+						alt="loader"
+						src={LOADER_IMG(500, 201)}
+					/>
+				</div>
 			) : (
 				<picture>
 					<source
-						srcSet={`${IMG_BASE_URL}/original/${backdrop}`}
+						srcSet={backdrop ? `${IMG_BASE_URL}/original/${backdrop}` : ""}
 						media="(min-width: 1280px)"
 						type="image/jpg"
 					/>
 					<source
-						srcSet={`${IMG_BASE_URL}/w1280/${backdrop}`}
-						media="(min-width: 768px)"
+						srcSet={backdrop ? `${IMG_BASE_URL}/w1280/${backdrop}` : ""}
+						media="(max-width: 1279px)"
 						type="image/jpg"
 					/>
 					<source
-						srcSet={`${IMG_BASE_URL}/w500/${backdrop}`}
-						media="(min-width: 320px)"
+						srcSet={backdrop ? `${IMG_BASE_URL}/w500/${backdrop}` : ""}
+						media="(max-width: 500px)"
 						type="image/jpg"
 					/>
-					<img
-						className={styles.banner__img}
-						src={`${IMG_BASE_URL}/w500/${backdrop}`}
-						alt={title}
-						width={500}
-						height={281}
-					/>
+					<div className="skeleton">
+						<img
+							className={`${styles.banner__img} hide`}
+							src={backdrop ? `${IMG_BASE_URL}/original/${backdrop}` : ""}
+							alt={title}
+							width={500}
+							height={281}
+							ref={imgRef}
+						/>
+					</div>
 				</picture>
 			)}
 			<div className={styles.banner__info}>

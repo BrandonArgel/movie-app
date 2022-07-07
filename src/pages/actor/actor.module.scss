@@ -7,7 +7,9 @@
 	height: 100%;
 
 	&__img {
+		aspect-ratio: 2 / 3;
 		display: block;
+		height: auto;
 		margin: 0 0 2rem;
 		width: 100%;
 	}

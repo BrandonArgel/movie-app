@@ -5,6 +5,7 @@ import { AdultContent } from "components";
 import clickHandler from "utils/clickHandler";
 import lazyLoading from "utils/lazyLoading";
 import styles from "./card.module.scss";
+import { DEFAULT_IMAGE } from "config";
 
 const Card = ({
 	adult,
@@ -45,7 +46,7 @@ const Card = ({
 		return (
 			<div className={`${styles.card} ${slide ? styles.slide : ""}`}>
 				<div className={`${styles.card__container} ${styles.skeleton} skeleton`}>
-					<img src="" alt="" width={200} height={300} />
+					<img src={DEFAULT_IMAGE} width={200} height={300} alt="loader" />
 				</div>
 			</div>
 		);
@@ -63,6 +64,7 @@ const Card = ({
 					data-src={img}
 					alt={title}
 					ref={imgRef}
+					src={DEFAULT_IMAGE}
 					width={200}
 					height={300}
 				/>
