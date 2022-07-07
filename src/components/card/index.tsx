@@ -1,10 +1,10 @@
+import { useEffect, useRef } from "react";
 import { useNavigate } from "react-router-dom";
 import { CardInterface } from "utils/Interface";
 import { AdultContent } from "components";
 import clickHandler from "utils/clickHandler";
+import lazyLoading from "utils/lazyLoading";
 import styles from "./card.module.scss";
-
-import { IMG_BASE_URL } from "config";
 
 const Card = ({
 	adult,
@@ -16,6 +16,7 @@ const Card = ({
 	voteAverage,
 	slide,
 }: CardInterface) => {
+	const imgRef = useRef<HTMLImageElement>(null);
 	const isTouch = /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(
 		navigator.userAgent
 	);
@@ -34,11 +35,17 @@ const Card = ({
 		}
 	}
 
+	useEffect(() => {
+		if (imgRef.current) {
+			lazyLoading(imgRef);
+		}
+	}, []);
+
 	if (skeleton) {
 		return (
 			<div className={`${styles.card} ${slide ? styles.slide : ""}`}>
 				<div className={`${styles.card__container} ${styles.skeleton} skeleton`}>
-					<img src="" alt="" />
+					<img src="" alt="" width={200} height={300} />
 				</div>
 			</div>
 		);
@@ -47,14 +54,15 @@ const Card = ({
 	return (
 		<div className={`${styles.card} ${slide ? styles.slide : ""}`}>
 			<button
-				className={styles.card__container}
+				className={`${styles.card__container} ${styles.skeleton} skeleton`}
 				onClick={isTouch ? click : clickCallback}
 				type="button"
 			>
 				<img
-					src={`${IMG_BASE_URL}/w200/${img}`}
+					className="hide"
+					data-src={img}
 					alt={title}
-					loading="lazy"
+					ref={imgRef}
 					width={200}
 					height={300}
 				/>

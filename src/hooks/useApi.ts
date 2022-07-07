@@ -24,13 +24,7 @@ const useGetItemsAPI = (initialValue: any[] = [], params?: object) => {
 		setLoading(true);
 		await api
 			.get(path)
-			.then((res) => {
-				if (res.data[destruct].some((item: any) => item.poster_path)) {
-					setItems(res.data[destruct].filter((item: any) => (item.poster_path || item.backdrop_path)))
-				} else {
-					setItems(res.data[destruct])
-				}
-			})
+			.then((res) => setItems(res.data[destruct]))
 			.catch((err) => console.log(err))
 			.finally(() => setLoading(false));
 	}

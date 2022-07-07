@@ -115,18 +115,51 @@ html {
 	width: 100%;
 }
 
+.hide {
+	animation: fadeOut 0.3s ease-in-out forwards;
+	opacity: 0 !important;
+	visibility: hidden !important;
+}
+
+.show {
+	animation: fadeIn 0.3s ease-in-out forwards;
+	opacity: 1 !important;
+	visibility: visible !important;
+}
+
 .skeleton {
 	animation: bg-skeleton 1s linear infinite alternate;
-	background-color: $main-color;
-	opacity: 0.5;
+	background-color: rgba(255, 255, 255, 0.05);
 }
 
 @keyframes bg-skeleton {
 	0% {
-		background-color: rgba(255, 255, 255, 0.1);
+		background-color: rgba(255, 255, 255, 0.05);
 	}
 	100% {
-		background-color: rgba(255, 255, 255, 0.4);
+		background-color: rgba(255, 255, 255, 0.1);
+	}
+}
+
+@keyframes fadeIn {
+	0% {
+		opacity: 0;
+		transform: translateY(-2rem);
+	}
+	100% {
+		opacity: 1;
+		transform: translateY(0);
+	}
+}
+
+@keyframes fadeOut {
+	0% {
+		opacity: 1;
+		transform: translateY(0);
+	}
+	100% {
+		opacity: 0;
+		transform: translateY(-1rem);
 	}
 }
 
