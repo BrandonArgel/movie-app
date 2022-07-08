@@ -1,10 +1,9 @@
 import { useEffect, useRef } from "react";
-import { MovieInterface } from "utils/Interface";
+import { MovieInterface } from "utils";
 import { AdultContent, Back, List } from "components";
-import lazyLoading from "utils/lazyLoading";
+import { lazyLoading, loaderImg } from "utils";
 import styles from "./banner.module.scss";
 
-import { LOADER_IMG } from "utils/loaderImg";
 import { IMG_BASE_URL } from "config";
 
 const Banner = ({
@@ -19,7 +18,6 @@ const Banner = ({
 	voteAverage,
 }: MovieInterface) => {
 	const imgRef = useRef<HTMLImageElement>(null);
-	console.log(backdrop);
 	const addToFavorites = (id: number) => {
 		// TODO: add to favorites
 		console.log(`Add to favorites the movie with the id '${id}'`);
@@ -41,7 +39,7 @@ const Banner = ({
 						width={500}
 						height={281}
 						alt="loader"
-						src={LOADER_IMG(500, 201)}
+						src={loaderImg(500, 201)}
 					/>
 				</div>
 			) : (

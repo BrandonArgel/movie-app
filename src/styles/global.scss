@@ -77,6 +77,15 @@ html {
 	min-height: 100vh;
 }
 
+.center {
+	align-items: center;
+	display: flex;
+	font-size: $fz-md;
+	grid-column: 1 / -1;
+	justify-content: center;
+	margin: 2rem 0;
+}
+
 .button {
 	background-color: $main-color;
 	border-radius: 0.5rem;

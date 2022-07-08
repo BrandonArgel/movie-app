@@ -9,16 +9,17 @@
 		display: block;
 		height: auto;
 		margin: 0 auto;
-    max-height: 80vh;
-    object-fit: cover;
-    object-position: top;
+		max-height: 80vh;
+		object-fit: cover;
+		object-position: top;
 		width: 100%;
 	}
 
 	&__info {
-    background-color: variables.$body-bg;
+		background-color: variables.$body-bg;
 		padding: 2rem;
 		position: relative;
+		z-index: 1;
 
 		&::before {
 			background: linear-gradient(to top, variables.$body-bg, rgba(0, 0, 0, 0));

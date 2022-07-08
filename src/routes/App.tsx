@@ -1,7 +1,6 @@
 import * as React from "react";
 import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
 import { FixedLoader, Layout, SimpleLayout } from "components";
-import ScrollToTop from "utils/scrollTop";
 const Categories = React.lazy(() =>
 	import("pages").then((module) => ({ default: module.Categories }))
 );
@@ -21,7 +20,6 @@ const App = () => {
 
 	return (
 		<BrowserRouter>
-			<ScrollToTop />
 			<React.Suspense fallback={<FixedLoader />}>
 				<a className="skip-to-content" href="#content">
 					Saltar al contenido

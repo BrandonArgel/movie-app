@@ -1,5 +1,5 @@
 import * as React from "react";
-import KEY_CODES from "utils/keycodes";
+import { KEY_CODES } from "utils";
 import { Link } from "react-router-dom";
 import styles from "./header.module.scss";
 import Logo from "assets/images/logo.png";

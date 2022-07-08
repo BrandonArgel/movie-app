@@ -1,8 +1,10 @@
 .trailer {
+	border-radius: 1rem;
+	height: 0;
+	margin-top: 1rem;
+	overflow: hidden;
 	position: relative;
 	padding-bottom: 56.25%;
-	height: 0;
-	overflow: hidden;
   
 	iframe {
 		position: absolute;

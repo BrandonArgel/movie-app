@@ -1,23 +1,30 @@
-import { useState, useEffect } from "react";
+import { useEffect, useState } from "react";
 import { useLocation } from "react-router-dom";
 import { Back, Card, Loader, Preview, SearchBar } from "components";
-import { useGetItemsAPI } from "hooks/useApi";
-import styles from "./search.module.scss";
+import { useGetItemsAPI, useInfiniteScroll } from "hooks";
 
 const Search = () => {
 	const { search } = useLocation();
 	const [query, setQuery] = useState(new URLSearchParams(search).get("search"));
-	const [movies, loadingMovies, getMovies] = useGetItemsAPI([], { query });
+	const [movies, loadingMovies, getMovies, getMoreMovies, hasMore] = useGetItemsAPI({
+		initialValue: [],
+		destruct: "results",
+	});
+
+	const lastMovieElementRef = useInfiniteScroll(
+		() => getMoreMovies("/search/movie", { query }),
+		loadingMovies,
+		hasMore
+	);
 
 	const onPopstate = () => {
 		setQuery(new URLSearchParams(window.location.search).get("search"));
-		getMovies("/search/movie", "results");
+		getMovies("/search/movie", { query });
 	};
 
 	useEffect(() => {
-		// Add event listener to window to listen for query changes
 		window.addEventListener("popstate", onPopstate);
-		getMovies("/search/movie", "results");
+		getMovies("/search/movie", { query });
 
 		return () => {
 			window.removeEventListener("popstate", onPopstate);
@@ -29,29 +36,28 @@ const Search = () => {
 			<SearchBar value={query || ""} setValue={setQuery} />
 			<Back button />
 			<Preview title={`Results for: ${query}`} grid>
-				{loadingMovies ? (
-					<Loader />
+				{movies.length > 0 ? (
+					movies.map(({ adult, id, overview, title, poster_path, vote_average }, i) => (
+						<div key={id} ref={i === movies.length - 1 ? lastMovieElementRef : null}>
+							<Card
+								id={id}
+								title={title}
+								adult={adult}
+								img={poster_path}
+								overview={overview}
+								link={`/movie/${id}`}
+								voteAverage={vote_average}
+							/>
+						</div>
+					))
 				) : (
-					<>
-						{movies.length > 0 ? (
-							movies.map(({ adult, id, overview, title, poster_path, vote_average }) => (
-								<Card
-									id={id}
-									key={id}
-									adult={adult}
-									title={title}
-									overview={overview}
-									link={`/movie/${id}`}
-									voteAverage={vote_average}
-									img={poster_path}
-								/>
-							))
-						) : (
-							<p className={styles.center}>No results found.</p>
-						)}
-					</>
+					<>{!loadingMovies && <p className="center">No results found.</p>}</>
 				)}
 			</Preview>
+			{loadingMovies && <Loader />}
+			{!hasMore && !loadingMovies && movies.length > 0 && (
+				<p className="center">It seems there are no more results.</p>
+			)}
 		</>
 	);
 };

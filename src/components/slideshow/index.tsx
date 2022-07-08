@@ -1,7 +1,7 @@
 import * as React from "react";
 import { Card } from "components";
 import { ArrowLeft, ArrowRight } from "assets/icons/arrows";
-import { CardInterface } from "utils/Interface";
+import { CardInterface } from "utils";
 import styles from "./slideshow.module.scss";
 
 interface SlideshowProps {
@@ -106,7 +106,7 @@ const Slideshow: React.FC<SlideshowProps> = ({ children, loading, speed = 500 })
 	return (
 		<div className={styles.slideshow}>
 			<div className={styles.slideshow__container} ref={slideshow}>
-				{loading ? arrSkeleton.map((_, i) => <Card key={i} skeleton slide></Card>) : children}
+				{loading ? arrSkeleton.map((_, i) => <Card key={i} slide></Card>) : children}
 			</div>
 			<div className={styles.slideshow__controls}>
 				<button

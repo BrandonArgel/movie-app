@@ -1,27 +1,26 @@
 import { useEffect, useRef } from "react";
 import { useNavigate } from "react-router-dom";
-import { CardInterface } from "utils/Interface";
+import { CardInterface, lazyLoading, loaderImg } from "utils";
 import { AdultContent } from "components";
-import clickHandler from "utils/clickHandler";
-import lazyLoading from "utils/lazyLoading";
+import { useClickHandler } from "hooks";
 import styles from "./card.module.scss";
-import { DEFAULT_IMAGE } from "config";
 
 const Card = ({
 	adult,
+	height = 300,
 	img,
 	link,
 	overview,
-	skeleton,
 	title,
-	voteAverage,
 	slide,
+	voteAverage,
+	width = 200,
 }: CardInterface) => {
 	const imgRef = useRef<HTMLImageElement>(null);
 	const isTouch = /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(
 		navigator.userAgent
 	);
-	const click = clickHandler(clickCallback, doubleClickCallback);
+	const click = useClickHandler(clickCallback, doubleClickCallback);
 	const navigate = useNavigate();
 
 	function clickCallback() {
@@ -42,16 +41,6 @@ const Card = ({
 		}
 	}, []);
 
-	if (skeleton) {
-		return (
-			<div className={`${styles.card} ${slide ? styles.slide : ""}`}>
-				<div className={`${styles.card__container} ${styles.skeleton} skeleton`}>
-					<img src={DEFAULT_IMAGE} width={200} height={300} alt="loader" />
-				</div>
-			</div>
-		);
-	}
-
 	return (
 		<div className={`${styles.card} ${slide ? styles.slide : ""}`}>
 			<button
@@ -64,9 +53,9 @@ const Card = ({
 					data-src={img}
 					alt={title}
 					ref={imgRef}
-					src={DEFAULT_IMAGE}
-					width={200}
-					height={300}
+					src={loaderImg(width, height)}
+					width={width}
+					height={height}
 				/>
 				<div className={styles.card__content}>
 					<h3 className={styles.card__content_title}>{title}</h3>
@@ -74,7 +63,7 @@ const Card = ({
 					<p className={styles.card__content_info}>
 						{isTouch ? "Double tap to see more" : "Click to see more"}
 					</p>
-					<p className={styles.card__content_vote}>⭐️ {voteAverage!.toFixed(1)}</p>
+					<p className={styles.card__content_vote}>⭐️ {voteAverage && voteAverage!.toFixed(1)}</p>
 					{adult && <AdultContent />}
 				</div>
 			</button>

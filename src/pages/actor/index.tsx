@@ -1,25 +1,29 @@
 import { useEffect, useRef } from "react";
 import { useParams } from "react-router-dom";
 import { Back, Loader, Preview, Slide, Slideshow } from "components";
-import { useGetItemAPI, useGetItemsAPI } from "hooks/useApi";
-import lazyLoading from "utils/lazyLoading";
+import { useGetItemAPI, useGetItemsAPI } from "hooks";
+import { lazyLoading, loaderImg } from "utils";
 import styles from "./actor.module.scss";
-
-import { LOADER_IMG } from "utils/loaderImg";
 import { IMG_BASE_URL } from "config";
 
 const Actor = () => {
 	// TODO: Implement pagination
 	const imgRef = useRef<HTMLImageElement>(null);
 	const { id } = useParams();
-	const [actor, loading, getActor] = useGetItemAPI({}, { id });
-	const [movies, loadingMovies, getMovies] = useGetItemsAPI([], { id });
+	const [actor, loading, getActor] = useGetItemAPI({
+		initialValue: {},
+		path: `/person/${id}`,
+	});
+	const [movies, loadingMovies, getMovies] = useGetItemsAPI({
+		initialValue: [],
+		destruct: "cast",
+	});
 	const { biography, name, birthday, deathday, place_of_birth, popularity, profile_path } =
 		actor || {};
 
 	useEffect(() => {
-		getActor(`/person/${id}`);
-		getMovies(`/person/${id}/movie_credits`, "cast");
+		getActor();
+		getMovies(`/person/${id}/movie_credits`);
 	}, [id]); // eslint-disable-line react-hooks/exhaustive-deps
 
 	useEffect(() => {
@@ -37,25 +41,24 @@ const Actor = () => {
 						<div className="skeleton">
 							<img
 								className={`${styles.actor__img} hide`}
-								src={LOADER_IMG(500, 201)}
-								alt={name}
+								src={loaderImg(500, 781)}
+								alt={""}
 								width={500}
-								height={281}
+								height={781}
 							/>
 						</div>
 					) : (
 						<div className="skeleton">
 							<img
-								className={`${styles.actor__img} hide`}
+								className={`${styles.actor__img}`}
 								src={`${IMG_BASE_URL}/w500/${profile_path}`}
 								alt={name}
 								ref={imgRef}
 								width={500}
-								height={281}
+								height={781}
 							/>
 						</div>
 					)}
-
 					{loading ? (
 						<Loader />
 					) : (

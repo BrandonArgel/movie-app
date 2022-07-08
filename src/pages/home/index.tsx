@@ -1,15 +1,21 @@
 import { useState, useEffect, useCallback } from "react";
 import { List, SearchBar, Slideshow, Slide, Preview } from "components";
-import { useGetItemsAPI } from "hooks/useApi";
+import { useGetItemsAPI } from "hooks";
 
 const Landing = () => {
 	const [query, setQuery] = useState("");
-	const [trends, loadingTrends, getTrends] = useGetItemsAPI([]);
-	const [categories, loadingCategories, getCategories] = useGetItemsAPI([]);
+	const [trends, loadingTrends, getTrends] = useGetItemsAPI({
+		initialValue: [],
+		destruct: "results",
+	});
+	const [categories, loadingCategories, getCategories] = useGetItemsAPI({
+		initialValue: [],
+		destruct: "genres",
+	});
 
 	const initialRequests = useCallback(() => {
-		getTrends("/trending/movie/day", "results");
-		getCategories("/genre/movie/list", "genres");
+		getTrends("/trending/movie/day");
+		getCategories("/genre/movie/list");
 	}, []); // eslint-disable-line react-hooks/exhaustive-deps
 
 	useEffect(() => {

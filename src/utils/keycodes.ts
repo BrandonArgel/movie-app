@@ -15,4 +15,4 @@ const KEY_CODES = {
 	ENTER: "Enter",
 };
 
-export default KEY_CODES;
+export { KEY_CODES };

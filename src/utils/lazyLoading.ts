@@ -1,6 +1,6 @@
 import { IMG_BASE_URL, DEFAULT_BANNER, DEFAULT_IMAGE } from "config";
 
-const registerObserver = (ref: React.RefObject<HTMLImageElement>, currentSrc?: boolean, banner?: boolean) => {
+const lazyLoading = (ref: React.RefObject<HTMLImageElement>, currentSrc?: boolean, banner?: boolean) => {
   const observer = new IntersectionObserver((entries, observer) => {
     entries.forEach((entry) => {
       if (!entry.isIntersecting) return;
@@ -33,4 +33,4 @@ const registerObserver = (ref: React.RefObject<HTMLImageElement>, currentSrc?: b
   observer.observe(ref.current as HTMLImageElement);
 };
 
-export default registerObserver;
+export { lazyLoading };

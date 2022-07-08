@@ -1,22 +1,35 @@
 import { useEffect } from "react";
 import { useParams } from "react-router-dom";
-import { useGetItemAPI, useGetItemsAPI } from "hooks/useApi";
+import { useGetItemAPI, useGetItemsAPI } from "hooks";
 import { Banner, Loader, Preview, Slide, Slideshow } from "components";
 import styles from "./movie.module.scss";
 
 const Movie = () => {
 	const { id } = useParams();
-	const [movie, loadingMovie, getMovie] = useGetItemAPI({}, { id });
-	const [videos, loadingVideos, getVideos] = useGetItemsAPI([], { id });
-	const [related, loadingRelated, getRelated] = useGetItemsAPI([], { id });
-	const [cast, loadingCast, getCast] = useGetItemsAPI([], { id });
+	const [movie, loadingMovie, getMovie] = useGetItemAPI({
+		initialValue: {},
+		path: `/movie/${id}`,
+	});
+	const [videos, loadingVideos, getVideos] = useGetItemsAPI({
+		initialValue: [],
+		destruct: "results",
+	});
+	const [cast, loadingCast, getCast] = useGetItemsAPI({
+		initialValue: [],
+		destruct: "cast",
+	});
+	const [related, loadingRelated, getRelated] = useGetItemsAPI({
+		initialValue: [],
+		destruct: "results",
+	});
 	const trailer = videos?.find((video) => video.type === "Trailer");
 
 	useEffect(() => {
-		getMovie(`/movie/${id}`);
-		getVideos(`/movie/${id}/videos`, "results");
-		getCast(`/movie/${id}/credits`, "cast");
-		getRelated(`/movie/${id}/recommendations`, "results");
+		getMovie();
+		getVideos(`/movie/${id}/videos`);
+		getCast(`/movie/${id}/credits`);
+		getRelated(`/movie/${id}/recommendations`);
+		console.log("Change id", id);
 	}, [id]); // eslint-disable-line react-hooks/exhaustive-deps
 
 	return (
@@ -67,24 +80,25 @@ const Movie = () => {
 						)}
 					</Preview>
 				)}
-				<Preview title="Related">
-					<Slideshow loading={loadingRelated} speed={300}>
-						{related.map(({ adult, id, overview, title, poster_path, vote_average }) => (
-							<Slide
-								id={id}
-								key={id}
-								adult={adult}
-								title={title}
-								overview={overview}
-								link={`/movie/${id}`}
-								loading={loadingRelated}
-								voteAverage={vote_average}
-								img={poster_path}
-								slide={true}
-							/>
-						))}
-					</Slideshow>
-				</Preview>
+				{related.length > 0 && (
+					<Preview title="Related">
+						<Slideshow loading={loadingRelated} speed={300}>
+							{related.map(({ adult, id, overview, title, poster_path, vote_average }) => (
+								<Slide
+									id={id}
+									key={id}
+									adult={adult}
+									title={title}
+									overview={overview}
+									link={`/movie/${id}`}
+									voteAverage={vote_average}
+									img={poster_path}
+									slide={true}
+								/>
+							))}
+						</Slideshow>
+					</Preview>
+				)}
 			</Banner>
 		</>
 	);
