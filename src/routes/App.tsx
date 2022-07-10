@@ -9,6 +9,9 @@ const Categories = React.lazy(() =>
 const Actor = React.lazy(() => import("pages").then((module) => ({ default: module.Actor })));
 const Account = React.lazy(() => import("pages").then((module) => ({ default: module.Account })));
 const Approved = React.lazy(() => import("pages").then((module) => ({ default: module.Approved })));
+const Favorites = React.lazy(() =>
+	import("pages").then((module) => ({ default: module.Favorites }))
+);
 const Landing = React.lazy(() => import("pages").then((module) => ({ default: module.Landing })));
 const Login = React.lazy(() => import("pages").then((module) => ({ default: module.Login })));
 const Movie = React.lazy(() => import("pages").then((module) => ({ default: module.Movie })));
@@ -41,6 +44,7 @@ const App = () => {
 							<Route path="/login" element={<Login />} />
 							<Route path="/approved" element={<Approved />} />
 							<Route path="/account" element={<Account />} />
+							<Route path="/favorites" element={<Favorites />} />
 						</Route>
 						<Route path="/" element={<SimpleLayout />}>
 							<Route path="/movie/:id" element={<Movie />} />

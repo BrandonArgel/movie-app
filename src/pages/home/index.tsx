@@ -5,7 +5,6 @@ import { useGetItemsAPI } from "hooks";
 
 const Landing = () => {
 	const { user, sessionId } = useContext(UserContext);
-	console.log({ user, sessionId });
 	const [query, setQuery] = useState("");
 	const [trends, loadingTrends, getTrends] = useGetItemsAPI({
 		initialValue: [],
@@ -20,8 +19,6 @@ const Landing = () => {
 		destruct: "genres",
 	});
 
-	console.log({ favorites });
-
 	const initialRequests = useCallback(() => {
 		getTrends("/trending/movie/day");
 		getCategories("/genre/movie/list");
@@ -34,7 +31,7 @@ const Landing = () => {
 	useEffect(() => {
 		if (!sessionId) return;
 		getFavorites(`/account/${user.id}/favorite/movies`, { session_id: sessionId });
-	}, [sessionId]);
+	}, [sessionId]); // eslint-disable-line react-hooks/exhaustive-deps
 
 	return (
 		<>

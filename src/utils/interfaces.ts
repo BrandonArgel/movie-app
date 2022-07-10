@@ -13,14 +13,24 @@ export interface CardInterface {
   width?: number;
 }
 
+type accountState = {
+  id?: number;
+  favorite: boolean;
+  watchlist: boolean;
+  rated: boolean;
+}
+
 export interface MovieInterface {
   adult: boolean;
+  accountState: accountState;
   children: React.ReactNode;
   id: number;
   backdrop: string;
   loading: boolean;
+  loadingState: boolean;
   genres: any[];
   overview: string;
+  sessionId: string;
   title: string;
   voteAverage: number;
 }

@@ -1,6 +1,6 @@
 import { createContext, useEffect, useState } from "react";
 import { useLocalStorage } from "hooks";
-import { getAccount, getSessionId } from "utils";
+import { getAccount, getSessionId, Toast } from "utils";
 
 // type userType = {
 // 	[key: string]: any;
@@ -41,10 +41,16 @@ const UserProvider = ({ children }: propsUserProvider) => {
 			const avatar = data.avatar.gravatar.hash;
 			const user = { id, username, name, avatar };
 			setUser(user);
+
+			Toast.fire({
+				icon: "success",
+				title: "Welcome back, " + name,
+			})
 		} catch (err) {
-			// Sweet alert: We need you to login again
-			// Redirect to login page
-			console.log(err);
+			Toast.fire({
+				icon: "error",
+				title: "Something went wrong, we need you to login again" + err,
+			});
 		}
 	};
 

@@ -1,9 +1,13 @@
-import { useState } from "react";
+import { useNavigate } from "react-router-dom";
+import { useContext, useEffect, useState } from "react";
+import { UserContext } from "context";
 import { Button } from "components";
 import { useGetItemAPI } from "hooks";
 import styles from "./login.module.scss";
 
 const Login = () => {
+	const navigate = useNavigate();
+	const { token } = useContext(UserContext);
 	const [loadingToken, getToken] = useGetItemAPI({
 		path: "/authentication/token/new",
 	});
@@ -15,7 +19,6 @@ const Login = () => {
 			setLoading(true);
 			const res = await getToken();
 			if (res.success) {
-				console.log({ res });
 				window.location.href = `https://www.themoviedb.org/authenticate/${res.request_token}?redirect_to=http://localhost:3000/approved`;
 			} else {
 				setError("An error occurred, please try again.");
@@ -27,6 +30,12 @@ const Login = () => {
 			setLoading(false);
 		}
 	};
+
+	useEffect(() => {
+		if (token) {
+			navigate("/");
+		}
+	}, [token, navigate]);
 
 	return (
 		<div className={styles.login}>

@@ -148,3 +148,9 @@ html {
 	outline: 2px dashed $main-color;
 	outline-offset: 3px;
 }
+
+// Edit default styles of sweetalert2
+.swal2-title {
+	font-size: 1.6rem !important;
+	font-weight: 700;
+}

@@ -1,26 +1,34 @@
-import { useEffect, useRef } from "react";
+import { useEffect, useRef, useState } from "react";
 import { MovieInterface } from "utils";
 import { AdultContent, Back, Button, List } from "components";
 import { lazyLoading, loaderImg } from "utils";
+import { toggleFavorite } from "utils";
 import styles from "./banner.module.scss";
 
 import { IMG_BASE_URL } from "config";
 
 const Banner = ({
 	adult,
+	accountState,
 	backdrop,
 	children,
 	id,
 	genres,
 	loading,
+	loadingState,
 	overview,
+	sessionId,
 	title,
 	voteAverage,
 }: MovieInterface) => {
 	const imgRef = useRef<HTMLImageElement>(null);
-	const addToFavorites = (id: number) => {
-		// TODO: add to favorites
-		console.log(`Add to favorites the movie with the id '${id}'`);
+	const [favorite, setFavorite] = useState(accountState?.favorite);
+
+	const onToggleFavorite = async () => {
+		if (!accountState) return;
+		const fav = favorite !== undefined ? !favorite : !accountState?.favorite;
+		const data = await toggleFavorite(sessionId, id, fav);
+		setFavorite(data as boolean);
 	};
 
 	useEffect(() => {
@@ -85,9 +93,16 @@ const Banner = ({
 						<List items={genres} loading={loading} />
 						<Button
 							className={`${styles.banner__more_favorites}`}
-							onClick={() => addToFavorites(id as number)}
+							onClick={onToggleFavorite}
+							loading={loadingState}
 						>
-							Añadir a favoritos ❤
+							{favorite !== undefined
+								? favorite
+									? "Remove from favorites 💔"
+									: "Add to favorites 💖"
+								: accountState?.favorite
+								? "Remove from favorites 💔"
+								: "Add to favorites 💖"}
 						</Button>
 					</div>
 					{children}

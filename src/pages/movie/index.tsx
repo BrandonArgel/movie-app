@@ -1,14 +1,20 @@
-import { useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import { useGetItemAPI, useGetItemsAPI } from "hooks";
 import { Banner, Loader, Preview, Slide, Slideshow } from "components";
 import styles from "./movie.module.scss";
+import { UserContext } from "context";
 
 const Movie = () => {
 	const { id } = useParams();
+	const { sessionId } = useContext(UserContext);
 	const [movie, setMovie] = useState<any>();
+	const [accountState, setAccountState] = useState<any>();
 	const [loadingMovie, getMovie] = useGetItemAPI({
 		path: `/movie/${id}`,
+	});
+	const [loadingAccountState, getAccountState] = useGetItemAPI({
+		path: `/movie/${id}/account_states`,
 	});
 	const [videos, loadingVideos, getVideos] = useGetItemsAPI({
 		initialValue: [],
@@ -32,19 +38,33 @@ const Movie = () => {
 		getRelated(`/movie/${id}/similar`);
 	};
 
+	const initialAccountRequest = async () => {
+		const accountData = await getAccountState({ session_id: sessionId });
+		setAccountState(accountData);
+	};
+
 	useEffect(() => {
 		initialRequest();
 	}, [id]); // eslint-disable-line react-hooks/exhaustive-deps
+
+	useEffect(() => {
+		if (sessionId) {
+			initialAccountRequest();
+		}
+	}, [sessionId]); // eslint-disable-line react-hooks/exhaustive-deps
 
 	return (
 		<>
 			<Banner
 				id={parseInt(id as string, 10)}
 				adult={movie && movie.adult}
+				accountState={accountState && accountState}
 				backdrop={movie && movie.backdrop_path}
 				loading={loadingMovie}
+				loadingState={loadingAccountState}
 				genres={movie && movie.genres}
 				overview={movie && movie.overview}
+				sessionId={sessionId}
 				title={movie && movie.title}
 				voteAverage={movie && movie.vote_average}
 			>

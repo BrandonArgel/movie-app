@@ -3,7 +3,7 @@ import { useContext, useEffect } from "react";
 import { UserContext } from "context";
 import { logout } from "utils";
 import { Button, Input } from "components";
-import { User, Password } from "assets/icons/icons";
+import { User, UserId } from "assets/icons/icons";
 import styles from "./account.module.scss";
 
 const Account = () => {
@@ -38,7 +38,7 @@ const Account = () => {
 			/>
 			<Input
 				className={styles.account__input}
-				icon={<User />}
+				icon={<UserId />}
 				name="username"
 				placeholder="Username"
 				type="text"

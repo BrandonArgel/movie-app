@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { api } from "utils"
+import { api, Toast } from "utils"
 interface getItemsProps {
 	initialValue: any[];
 	destruct: string
@@ -23,7 +23,10 @@ const useGetItemsAPI = ({ initialValue = [], destruct }: getItemsProps) => {
 				setItems(res.data[destruct])
 				if (res.data.page === res.data.total_pages) return setHasMore(false);
 			})
-			.catch((err) => console.log(err))
+			.catch((err) => Toast.fire({
+				icon: "error",
+				title: "There was an error while fetching the data",
+			}))
 			.finally(() => {
 				setLoading(false)
 			});
@@ -38,7 +41,10 @@ const useGetItemsAPI = ({ initialValue = [], destruct }: getItemsProps) => {
 				setItems((prevData) => [...prevData, ...res.data[destruct]])
 				if (res.data.page === res.data.total_pages) return setHasMore(false);
 			})
-			.catch((err) => console.log(err))
+			.catch((err) => Toast.fire({
+				icon: "error",
+				title: "There was an error while fetching the data",
+			}))
 			.finally(() => {
 				setPage(page + 1);
 				setLoading(false)
@@ -60,7 +66,10 @@ const useGetItemAPI = ({ path }: getItemProps) => {
 		return await api
 			.get(path, { params: { ...params } })
 			.then((res) => res.data)
-			.catch((err) => console.log(err))
+			.catch((err) => Toast.fire({
+				icon: "error",
+				title: "There was an error while fetching the data",
+			}))
 			.finally(() => setLoading(false));
 	}
 
@@ -118,7 +127,10 @@ const useDeleteAPI = ({ path }: deleteItemProps) => {
 		return await api
 			.delete(path, { data: body, ...params })
 			.then((res) => res.data)
-			.catch((err) => console.log(err))
+			.catch((err) => Toast.fire({
+				icon: "error",
+				title: "There was an error while deleting the data",
+			}))
 			.finally(() => setLoading(false));
 	}
 
