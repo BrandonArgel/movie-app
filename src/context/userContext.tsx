@@ -49,7 +49,7 @@ const UserProvider = ({ children }: propsUserProvider) => {
 		} catch (err) {
 			Toast.fire({
 				icon: "error",
-				title: "Something went wrong, we need you to login again" + err,
+				title: "Something went wrong, try login again",
 			});
 		}
 	};

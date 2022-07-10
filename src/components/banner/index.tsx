@@ -1,6 +1,7 @@
+import { useNavigate } from "react-router-dom";
 import { useEffect, useRef, useState } from "react";
-import { MovieInterface } from "utils";
 import { AdultContent, Back, Button, List } from "components";
+import { MovieInterface } from "utils";
 import { lazyLoading, loaderImg } from "utils";
 import { toggleFavorite } from "utils";
 import styles from "./banner.module.scss";
@@ -21,10 +22,12 @@ const Banner = ({
 	title,
 	voteAverage,
 }: MovieInterface) => {
+	const navigate = useNavigate();
 	const imgRef = useRef<HTMLImageElement>(null);
 	const [favorite, setFavorite] = useState(accountState?.favorite);
 
 	const onToggleFavorite = async () => {
+		if (!sessionId) navigate("/login");
 		if (!accountState) return;
 		const fav = favorite !== undefined ? !favorite : !accountState?.favorite;
 		const data = await toggleFavorite(sessionId, id, fav);
