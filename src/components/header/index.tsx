@@ -1,12 +1,14 @@
 import * as React from "react";
-import { KEY_CODES } from "utils";
 import { Link } from "react-router-dom";
+import { UserContext } from "context";
+import { Avatar, Button } from "components";
+import { KEY_CODES } from "utils";
 import styles from "./header.module.scss";
 import Logo from "assets/images/logo.png";
 
 const Header = () => {
 	// TODO: when the user is logged in, show the user's avatar, a logout button, and a favorites button
-
+	const { user, sessionId } = React.useContext(UserContext);
 	const [isOpen, setIsOpen] = React.useState(false);
 	const buttonRef = React.useRef<HTMLButtonElement>(
 		null
@@ -82,14 +84,27 @@ const Header = () => {
 			</Link>
 			<nav className={styles.header__nav}>
 				<ul className={styles.header__nav_list}>
-					<li>
-						<Link to="/login">Login</Link>
-					</li>
-					<li>
-						<Link className="button" to="/register">
-							Register
-						</Link>
-					</li>
+					{sessionId ? (
+						<>
+							<li>Language select (soon)</li>
+							<li>
+								<Link to="/account">
+									<Avatar src={user?.avatar} alt={user?.username} />
+								</Link>
+							</li>
+						</>
+					) : (
+						<>
+							<li>
+								<Link to="/login">Login</Link>
+							</li>
+							<li>
+								<Button anchor rel="noopener noreferrer" url="https://www.themoviedb.org/signup">
+									Register
+								</Button>
+							</li>
+						</>
+					)}
 				</ul>
 			</nav>
 			<button
@@ -112,19 +127,36 @@ const Header = () => {
 			>
 				<nav>
 					<ul className={styles.header__menu_list}>
-						<li>
-							<Link to="/login">Login</Link>
-						</li>
-						<li>
-							<Link className="button" to="/register">
-								Register
-							</Link>
-						</li>
+						{sessionId ? (
+							<>
+								<li onClick={() => setIsOpen(!isOpen)} className={styles.header__list_avatar}>
+									<Link to="/account">
+										<Avatar src={user?.avatar} alt={user?.username} />
+									</Link>
+								</li>
+								<li>Language select (soon)</li>
+							</>
+						) : (
+							<>
+								<li onClick={() => setIsOpen(!isOpen)}>
+									<Link to="/login">Login</Link>
+								</li>
+								<li onClick={() => setIsOpen(!isOpen)}>
+									<Button anchor rel="noopener noreferrer" url="https://www.themoviedb.org/signup">
+										Register
+									</Button>
+								</li>
+							</>
+						)}
 					</ul>
 				</nav>
 			</aside>
 			{isOpen && (
-				<button onClick={() => setIsOpen(!isOpen)} className={styles.header__backdrop}></button>
+				<button
+					type="button"
+					onClick={() => setIsOpen(!isOpen)}
+					className={styles.header__backdrop}
+				></button>
 			)}
 		</header>
 	);

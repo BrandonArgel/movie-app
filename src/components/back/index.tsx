@@ -1,6 +1,7 @@
 import { useNavigate } from "react-router-dom";
 import { ArrowLeft } from "assets/icons/arrows";
 import styles from "./back.module.scss";
+import { Button } from "components/button";
 
 interface BackProps {
 	button?: boolean;
@@ -18,15 +19,14 @@ const Back = ({ button }: BackProps) => {
 	};
 
 	return (
-		<button
-			className={`${button ? styles.button : styles.back} button`}
+		<Button
+			className={`${button ? styles.button : styles.back}`}
 			onClick={handleClick}
-			title="Back"
 			type="button"
 		>
 			<ArrowLeft />
 			&nbsp;{button && "Back"}
-		</button>
+		</Button>
 	);
 };
 

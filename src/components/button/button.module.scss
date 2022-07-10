@@ -1,0 +1,44 @@
+@use "styles/variables.scss";
+
+.button {
+  align-items: center;
+	background-color: variables.$main-color;
+	border-radius: 0.5rem;
+	border: 1px solid transparent;
+	cursor: pointer;
+	display: flex;
+	font-size: variables.$fz-lg;
+  font-weight: 500;
+	justify-content: center;
+	margin: 0 auto;
+	outline: none;
+	padding: 0.5rem 2rem;
+	transition: 0.3s ease all;
+	width: fit-content;
+
+
+	svg {
+		fill: variables.$body-bg;
+    height: 3rem;
+	}
+
+	&:hover,
+	&:active,
+	&:focus {
+		background-color: initial;
+		border: 1px solid variables.$main-color;
+		color: variables.$main-color;
+
+		svg {
+			fill: variables.$main-color;
+		}
+	}
+
+	&:active {
+		transform: scale(0.9);
+	}
+
+	svg {
+		fill: variables.$body-bg;
+	}
+}

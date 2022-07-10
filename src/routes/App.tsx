@@ -1,14 +1,19 @@
 import * as React from "react";
 import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
 import { FixedLoader, Layout, SimpleLayout } from "components";
+import { ScrollToTop } from "utils";
+import { UserProvider } from "context";
 const Categories = React.lazy(() =>
 	import("pages").then((module) => ({ default: module.Categories }))
 );
+const Actor = React.lazy(() => import("pages").then((module) => ({ default: module.Actor })));
+const Account = React.lazy(() => import("pages").then((module) => ({ default: module.Account })));
+const Approved = React.lazy(() => import("pages").then((module) => ({ default: module.Approved })));
 const Landing = React.lazy(() => import("pages").then((module) => ({ default: module.Landing })));
+const Login = React.lazy(() => import("pages").then((module) => ({ default: module.Login })));
+const Movie = React.lazy(() => import("pages").then((module) => ({ default: module.Movie })));
 const Search = React.lazy(() => import("pages").then((module) => ({ default: module.Search })));
 const Trends = React.lazy(() => import("pages").then((module) => ({ default: module.Trends })));
-const Movie = React.lazy(() => import("pages").then((module) => ({ default: module.Movie })));
-const Actor = React.lazy(() => import("pages").then((module) => ({ default: module.Actor })));
 
 const App = () => {
 	// TODO: create the a functional login page, and authenticate the user with the API
@@ -20,28 +25,29 @@ const App = () => {
 
 	return (
 		<BrowserRouter>
+			<ScrollToTop />
 			<React.Suspense fallback={<FixedLoader />}>
 				<a className="skip-to-content" href="#content">
 					Saltar al contenido
 				</a>
-				<Routes>
-					<Route path="/" element={<Layout />}>
-						<Route index element={<Landing />} />
-						<Route path="/category/:id/:name" element={<Categories />} />
-						<Route path="/results" element={<Search />} />
-						<Route path="/trending" element={<Trends />} />
-						<Route path="/actor/:id" element={<Actor />} />
-						<Route path="/login" element={<h1 style={{ textAlign: "center" }}>Developing...</h1>} />
-						<Route
-							path="/register"
-							element={<h1 style={{ textAlign: "center" }}>Developing...</h1>}
-						/>
-					</Route>
-					<Route path="/" element={<SimpleLayout />}>
-						<Route path="/movie/:id" element={<Movie />} />
-					</Route>
-					<Route path="*" element={<Navigate replace to="/" />} />
-				</Routes>
+				<UserProvider>
+					<Routes>
+						<Route path="/" element={<Layout />}>
+							<Route index element={<Landing />} />
+							<Route path="/category/:id/:name" element={<Categories />} />
+							<Route path="/results" element={<Search />} />
+							<Route path="/trending" element={<Trends />} />
+							<Route path="/actor/:id" element={<Actor />} />
+							<Route path="/login" element={<Login />} />
+							<Route path="/approved" element={<Approved />} />
+							<Route path="/account" element={<Account />} />
+						</Route>
+						<Route path="/" element={<SimpleLayout />}>
+							<Route path="/movie/:id" element={<Movie />} />
+						</Route>
+						<Route path="*" element={<Navigate replace to="/" />} />
+					</Routes>
+				</UserProvider>
 			</React.Suspense>
 		</BrowserRouter>
 	);

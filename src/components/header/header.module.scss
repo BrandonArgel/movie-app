@@ -199,32 +199,7 @@
 		}
 
 		&_list {
-			align-items: center;
-			display: flex;
 			flex-flow: column nowrap;
-			list-style: none;
-			justify-content: center;
-			margin: 2rem 0;
-
-			li {
-				margin: 1rem 0;
-
-				a {
-					color: variables.$light-text-color;
-					font: bold variables.$fz-lg variables.$font;
-					text-decoration: none;
-					position: relative;
-					width: fit-content;
-
-
-					&:hover,
-					&:active,
-					&:focus {
-						color: variables.$main-color;
-						outline: none;
-					}
-				}
-			}
 		}
 	}
 
@@ -240,30 +215,33 @@
 		width: 100vw;
 	}
 
+	ul {
+		align-items: center;
+		display: flex;
+		list-style: none;
+		justify-content: center;
+		gap: 2rem;
+	}
+
 	&__nav {
 		display: none;
+	}
 
-		&_list {
-			list-style: none;
-			margin: 2rem 0;
+	li {
+		font: bold variables.$fz-lg variables.$font;
 
-			li {
-				margin: 1rem 0;
+		a,
+		button {
+			color: variables.$light-text-color;
+			text-decoration: none;
+			position: relative;
+			width: fit-content;
 
-				a {
-					color: variables.$light-text-color;
-					font: bold variables.$fz-lg variables.$font;
-					text-decoration: none;
-					position: relative;
-					width: fit-content;
-
-					&:hover,
-					&:active,
-					&:focus {
-						color: variables.$main-color;
-						outline: none;
-					}
-				}
+			&:hover,
+			&:active,
+			&:focus {
+				color: variables.$main-color;
+				outline: none;
 			}
 		}
 	}
@@ -277,9 +255,12 @@
 		}
 
 		&__nav {
-			display: initial;
+			&:not(.mobile) {
+				display: initial;
+			}
 
-			&_list {
+			&__list {
+				align-items: center;
 				display: flex;
 				justify-content: center;
 

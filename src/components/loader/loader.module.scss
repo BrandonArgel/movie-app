@@ -23,8 +23,8 @@
 	align-items: center;
 	background-image: radial-gradient(
 		circle,
-		rgba(255, 255, 255, 0.1) 0%,
-		rgba(255, 255, 255, 0) 100%
+		rgba(40, 40, 40, 1) 0%,
+		rgba(variables.$body-bg, 1) 100%
 	);
 	background-position: center;
 	display: flex;

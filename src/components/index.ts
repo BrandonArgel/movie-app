@@ -1,9 +1,12 @@
+export { Avatar } from "./avatar";
 export { AdultContent } from "./adultcontent";
 export { Back } from "./back";
+export { Button } from "./button";
 export { Card } from "./card";
 export { Banner } from "./banner";
 export { Footer } from './footer';
 export { Header } from './header';
+export { Input } from './input';
 export { Layout, SimpleLayout } from './layout';
 export { List } from './list';
 export { FixedLoader, Loader } from "./loader";

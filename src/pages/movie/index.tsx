@@ -1,4 +1,4 @@
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import { useGetItemAPI, useGetItemsAPI } from "hooks";
 import { Banner, Loader, Preview, Slide, Slideshow } from "components";
@@ -6,8 +6,8 @@ import styles from "./movie.module.scss";
 
 const Movie = () => {
 	const { id } = useParams();
-	const [movie, loadingMovie, getMovie] = useGetItemAPI({
-		initialValue: {},
+	const [movie, setMovie] = useState<any>();
+	const [loadingMovie, getMovie] = useGetItemAPI({
 		path: `/movie/${id}`,
 	});
 	const [videos, loadingVideos, getVideos] = useGetItemsAPI({
@@ -24,25 +24,29 @@ const Movie = () => {
 	});
 	const trailer = videos?.find((video) => video.type === "Trailer");
 
-	useEffect(() => {
-		getMovie();
+	const initialRequest = async () => {
+		const data = await getMovie();
+		setMovie(data);
 		getVideos(`/movie/${id}/videos`);
 		getCast(`/movie/${id}/credits`);
-		getRelated(`/movie/${id}/recommendations`);
-		console.log("Change id", id);
+		getRelated(`/movie/${id}/similar`);
+	};
+
+	useEffect(() => {
+		initialRequest();
 	}, [id]); // eslint-disable-line react-hooks/exhaustive-deps
 
 	return (
 		<>
 			<Banner
 				id={parseInt(id as string, 10)}
-				adult={movie.adult}
-				backdrop={movie.backdrop_path}
+				adult={movie && movie.adult}
+				backdrop={movie && movie.backdrop_path}
 				loading={loadingMovie}
-				genres={movie.genres}
-				overview={movie.overview}
-				title={movie.title}
-				voteAverage={movie.vote_average}
+				genres={movie && movie.genres}
+				overview={movie && movie.overview}
+				title={movie && movie.title}
+				voteAverage={movie && movie.vote_average}
 			>
 				<Preview title="Cast">
 					<Slideshow loading={loadingCast} speed={300}>

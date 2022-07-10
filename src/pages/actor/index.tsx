@@ -1,4 +1,4 @@
-import { useEffect, useRef } from "react";
+import { useEffect, useRef, useState } from "react";
 import { useParams } from "react-router-dom";
 import { Back, Loader, Preview, Slide, Slideshow } from "components";
 import { useGetItemAPI, useGetItemsAPI } from "hooks";
@@ -7,11 +7,10 @@ import styles from "./actor.module.scss";
 import { IMG_BASE_URL } from "config";
 
 const Actor = () => {
-	// TODO: Implement pagination
 	const imgRef = useRef<HTMLImageElement>(null);
 	const { id } = useParams();
-	const [actor, loading, getActor] = useGetItemAPI({
-		initialValue: {},
+	const [actor, setActor] = useState<any>();
+	const [loading, getActor] = useGetItemAPI({
 		path: `/person/${id}`,
 	});
 	const [movies, loadingMovies, getMovies] = useGetItemsAPI({
@@ -21,9 +20,14 @@ const Actor = () => {
 	const { biography, name, birthday, deathday, place_of_birth, popularity, profile_path } =
 		actor || {};
 
-	useEffect(() => {
-		getActor();
+	const initialRequest = async () => {
+		const data = await getActor();
+		setActor(data);
 		getMovies(`/person/${id}/movie_credits`);
+	};
+
+	useEffect(() => {
+		initialRequest();
 	}, [id]); // eslint-disable-line react-hooks/exhaustive-deps
 
 	useEffect(() => {

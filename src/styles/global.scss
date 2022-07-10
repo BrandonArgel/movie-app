@@ -86,33 +86,6 @@ html {
 	margin: 2rem 0;
 }
 
-.button {
-	background-color: $main-color;
-	border-radius: 0.5rem;
-	border: 1px solid transparent;
-	cursor: pointer;
-	font: $fz-md $font;
-	height: 4rem;
-	margin: 0 auto;
-	outline: none;
-	padding: 0.5rem 2rem;
-	transition: 0.3s ease all;
-	width: 100%;
-	z-index: 1;
-
-	&:hover,
-	&:active,
-	&:focus {
-		background-color: initial;
-		border: 1px solid $main-color;
-		color: $main-color;
-	}
-
-	&:active {
-		transform: scale(0.9);
-	}
-}
-
 .hide {
 	animation: fadeOut 0.3s ease-in-out forwards;
 	opacity: 0 !important;

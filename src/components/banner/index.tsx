@@ -1,6 +1,6 @@
 import { useEffect, useRef } from "react";
 import { MovieInterface } from "utils";
-import { AdultContent, Back, List } from "components";
+import { AdultContent, Back, Button, List } from "components";
 import { lazyLoading, loaderImg } from "utils";
 import styles from "./banner.module.scss";
 
@@ -83,13 +83,12 @@ const Banner = ({
 					<p className={styles.banner__overview}>{overview}</p>
 					<div className={styles.banner__more}>
 						<List items={genres} loading={loading} />
-						<button
-							className={`${styles.banner__more_favorites} button`}
+						<Button
+							className={`${styles.banner__more_favorites}`}
 							onClick={() => addToFavorites(id as number)}
-							title="Add to favorites"
 						>
 							Añadir a favoritos ❤
-						</button>
+						</Button>
 					</div>
 					{children}
 				</div>

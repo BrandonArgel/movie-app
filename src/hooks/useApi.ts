@@ -1,12 +1,10 @@
 import { useState } from "react";
-import axios from "axios";
-const { REACT_APP_API_KEY } = process.env;
-const BASE_URL = "https://api.themoviedb.org/3";
-
+import { api } from "utils"
 interface getItemsProps {
 	initialValue: any[];
 	destruct: string
 }
+
 
 const useGetItemsAPI = ({ initialValue = [], destruct }: getItemsProps) => {
 	// TODO: Use sweetalert2 or something to inform the user if there was an error, and to advise if some actions were made successfully
@@ -15,18 +13,8 @@ const useGetItemsAPI = ({ initialValue = [], destruct }: getItemsProps) => {
 	const [loading, setLoading] = useState(false);
 	const [hasMore, setHasMore] = useState(true)
 
-	const api = axios.create({
-		baseURL: BASE_URL,
-		headers: {
-			'Content-type': 'application/json'
-		},
-		params: {
-			api_key: REACT_APP_API_KEY,
-		}
-	});
-
 	// The param destruct is to directly destruct the different endpoints of the API, like genres
-	async function getItems(path: string, params?: object) {
+	const getItems = async (path: string, params?: object) => {
 		setLoading(true);
 		await api
 			.get(path, { params: { ...params } })
@@ -41,7 +29,7 @@ const useGetItemsAPI = ({ initialValue = [], destruct }: getItemsProps) => {
 			});
 	}
 
-	async function getMoreItems(path: string, params?: object) {
+	const getMoreItems = async (path: string, params?: object) => {
 		setLoading(true);
 
 		await api
@@ -61,34 +49,82 @@ const useGetItemsAPI = ({ initialValue = [], destruct }: getItemsProps) => {
 };
 
 interface getItemProps {
-	initialValue: any;
 	path: string;
 }
 
-const useGetItemAPI = ({ initialValue = {}, path }: getItemProps) => {
-	const [item, setItem] = useState(initialValue);
+const useGetItemAPI = ({ path }: getItemProps) => {
 	const [loading, setLoading] = useState(false);
 
-	const api = axios.create({
-		baseURL: BASE_URL,
-		headers: {
-			'Content-type': 'application/json'
-		},
-		params: {
-			api_key: REACT_APP_API_KEY,
-		}
-	});
-
-	async function getItem(params?: object) {
+	const getItem = async (params?: object) => {
 		setLoading(true);
-		await api
+		return await api
 			.get(path, { params: { ...params } })
-			.then((res) => setItem(res.data))
+			.then((res) => res.data)
 			.catch((err) => console.log(err))
 			.finally(() => setLoading(false));
 	}
 
-	return [item, loading, getItem] as const;
+	return [loading, getItem] as const;
 };
 
-export { useGetItemAPI, useGetItemsAPI };
+interface postProps {
+	path: string;
+}
+
+const usePostAPI = ({ path }: postProps) => {
+	const [loading, setLoading] = useState(false);
+
+	const postItem = async (body: object, params?: object) => {
+		setLoading(true);
+		return await api
+			.post(path, { ...body, ...params })
+			.then((res) => res.data)
+			.catch((err) => err)
+			.finally(() => setLoading(false));
+	}
+
+	return [loading, postItem] as const;
+}
+
+// interface putItemProps {
+// 	path: string;
+// 	body: object;
+// }
+
+// const usePutItemAPI = ({ path, body }: putItemProps) => {
+// 	const [loading, setLoading] = useState(false);
+
+// 	async function putItem(params?: object) {
+// 		setLoading(true);
+// 		await api
+// 			.put(path, { ...body, ...params })
+// 			.then((res) => console.log(res))
+// 			.catch((err) => console.log(err))
+// 			.finally(() => setLoading(false));
+// 	}
+
+// 	return [loading, putItem] as const;
+// }
+
+interface deleteItemProps {
+	path: string;
+}
+
+const useDeleteAPI = ({ path }: deleteItemProps) => {
+	const [loading, setLoading] = useState(false);
+
+	const deleteItem = async (body: object, params?: object) => {
+		setLoading(true);
+		return await api
+			.delete(path, { data: body, ...params })
+			.then((res) => res.data)
+			.catch((err) => console.log(err))
+			.finally(() => setLoading(false));
+	}
+
+	return [loading, deleteItem] as const;
+}
+
+
+export { useGetItemsAPI, useGetItemAPI, usePostAPI, useDeleteAPI };
+

@@ -1,0 +1,95 @@
+@use "styles/variables.scss";
+
+.input {
+	align-items: center;
+	border: 1px solid rgba(variables.$main-color, 0.8);
+	border-radius: 0.5rem;
+	display: flex;
+	margin-bottom: 1rem;
+	width: 100%;
+
+	&.error {
+		border-color: variables.$red-color;
+
+		input {
+			color: variables.$red-color !important;
+
+			&::placeholder {
+				color: variables.$red-color;
+			}
+		}
+
+		svg {
+			fill: variables.$red-color;
+		}
+	}
+
+	&:focus-within:not(.error) {
+		border-color: variables.$main-color;
+		outline: none;
+	}
+
+	& > svg {
+		fill: variables.$main-color;
+		margin-left: 1rem;
+	}
+
+	&__field {
+		background-color: transparent;
+		border: none;
+		caret-color: variables.$main-color;
+		color: variables.$main-color !important;
+		font: bold variables.$fz-md variables.$font;
+		outline: none;
+		padding: 1rem;
+		width: 100%;
+
+		&:hover:not(:disabled),
+		&:focus:not(:disabled) {
+			border-color: variables.$main-color;
+			outline: none;
+		}
+
+		&::placeholder {
+			color: variables.$main-color;
+			font: normal variables.$fz-md variables.$font;
+		}
+
+		&:-webkit-autofill,
+		&:-webkit-autofill:hover,
+		&:-webkit-autofill:focus,
+		&:-webkit-autofill:active {
+			-webkit-box-shadow: 0 0 0 30px variables.$body-bg inset;
+			-webkit-text-fill-color: variables.$main-color;
+			box-shadow: 0 0 0 30px variables.$body-bg inset;
+			font: normal variables.$fz-md variables.$font;
+		}
+
+		&:disabled {
+			cursor: not-allowed;
+		}
+	}
+
+	&__show {
+		background: none;
+		border: none;
+		margin-right: 1rem;
+
+		svg {
+			fill: variables.$main-color;
+		}
+	}
+
+	&__error {
+		align-items: center;
+		color: variables.$red-color;
+		display: inline-flex;
+		font: normal variables.$fz-md variables.$font;
+		margin: 0 0 1rem 1rem ;
+
+		svg {
+			fill: variables.$red-color;
+			margin-right: 0.5rem;
+		}
+	}
+}

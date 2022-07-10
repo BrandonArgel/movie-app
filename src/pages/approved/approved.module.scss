@@ -1,0 +1,36 @@
+@use "styles/variables.scss";
+
+.approved {
+	align-items: center;
+	display: flex;
+	flex-direction: column;
+	width: 100%;
+
+	&__title {
+		font-size: variables.$fz-xl;
+		font-weight: bold;
+		margin-bottom: 1rem;
+	}
+
+	&__description {
+		font-size: variables.$fz-lg;
+		margin-bottom: 1rem;
+	}
+
+	&__info {
+    font-size: variables.$fz-md;
+    margin-bottom: 2rem;
+	}
+
+  &__error {
+		color: variables.$red-color;
+		font-size: variables.$fz-md;
+		margin-bottom: 1rem;
+	}
+
+	&__button {
+		font-size: variables.$fz-lg;
+		height: auto;
+		min-width: 20rem;
+	}
+}
