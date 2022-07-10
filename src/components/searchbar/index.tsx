@@ -1,4 +1,5 @@
-import { useState } from "react";
+import { useContext, useState } from "react";
+import { UserContext } from "context";
 import { useNavigate } from "react-router-dom";
 import { SearchIcon } from "assets/icons/icons";
 import styles from "./searchbar.module.scss";
@@ -10,7 +11,8 @@ interface SearchBarProps {
 }
 
 const SearchBar = ({ setValue, placeholder, value }: SearchBarProps) => {
-  const navigate = useNavigate();
+	const navigate = useNavigate();
+	const { texts } = useContext(UserContext);
 	const [search, setSearch] = useState(value);
 	const [error, setError] = useState(false);
 
@@ -20,9 +22,9 @@ const SearchBar = ({ setValue, placeholder, value }: SearchBarProps) => {
 		const search = formData.get("search");
 
 		if (search) {
-      navigate(`/results?search=${search}`);
+			navigate(`/results?search=${search}`);
 		} else {
-      navigate(`/`);
+			navigate(`/`);
 			setError(true);
 		}
 	};
@@ -32,7 +34,7 @@ const SearchBar = ({ setValue, placeholder, value }: SearchBarProps) => {
 			<input
 				type="text"
 				name="search"
-				placeholder={error ? "Type a movie" : placeholder || "Search"}
+				placeholder={error ? texts.search.error : placeholder || texts.search.placeholder}
 				className={styles.searchbar__input}
 				autoComplete="off"
 				value={search}

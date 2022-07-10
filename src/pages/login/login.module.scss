@@ -23,7 +23,7 @@
 	}
 
 	&__error {
-		color: variables.$red-color;
+		color: var(--red-color);
 		font-size: variables.$fz-md;
 		margin-bottom: 1rem;
 	}

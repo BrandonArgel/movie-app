@@ -1,18 +1,41 @@
-$header-bg: #0a0a12;
-$aside-bg: #0a0a12;
-$body-bg: #0a0a12;
-$footer-bg: #0a0a12;
-$hover-bg: #000038;
-$main-color: #e74596;
-$secondary-color: #9c27b0;
-$red-color: #ff0000;
-$main-text-color: #ff8bcb;
-$secondary-text-color: #f096ff;
-$light-text-color: #f2effa;
-$dark-text-color: #000000;
-$text-color: #dddddd;
-$shadow-color: #000000;
-$stroke-color: #1a1a22;
+/* Dark Colors */
+$header-bg-dark: #0a0a12;
+$aside-bg-dark: #0a0a12;
+$body-bg-dark: #0a0a12;
+$footer-bg-dark: #0a0a12;
+$hover-bg-dark: #000038;
+$main-color-dark: #e74596;
+$secondary-color-dark: #9c27b0;
+$error-color-dark: #ff0000;
+$main-text-color-dark: #ff8bcb;
+$secondary-text-color-dark: #f096ff;
+$text-color-dark: #f2effa ;
+$black-text-color-dark: #000000;
+$white-text-color-dark: #f2effa;
+$contrast-text-color-dark: #000000;
+$shadow-color-dark: #000000;
+$stroke-color-dark: #1a1a22;
+$gradient-dark: #000020 fixed linear-gradient(#000014, #000028 70%, #e7459655);
+
+/* Light Colors */
+$header-bg-light: #f2effa;
+$aside-bg-light: #f2effa;
+$body-bg-light: #f2effa;
+$footer-bg-light: #f2effa;
+$hover-bg-light: #f2effa;
+$main-color-light: #e74596;
+$secondary-color-light: #9c27b0;
+$error-color-light: #ff0000;
+$main-text-color-light: #ff8bcb;
+$secondary-text-color-light: #f096ff;
+$text-color-light: #000000;
+$contrast-text-color-light: #f2effa;
+$black-text-color-light: #000000;
+$white-text-color-light: #f2effa;
+$shadow-color-light: #000000;
+$stroke-color-light: #1a1a22;
+$gradient-light: #f2effa fixed linear-gradient(#f2effa, #f2effa 70%, #e7459655);
+
 $font: "Ubuntu", sans-serif;
 $fz-xxs: 1.2rem;
 $fz-xs: 1.3rem;

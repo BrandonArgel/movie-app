@@ -1,8 +1,9 @@
 .avatar {
-  display: inline-block;
-  width: 5rem;
-  height: 5rem;
+  border: 2px solid var(--main-color);
   border-radius: 50%;
+  display: inline-block;
+  height: 5rem;
   overflow: hidden;
   vertical-align: middle;
+  width: 5rem;
 }

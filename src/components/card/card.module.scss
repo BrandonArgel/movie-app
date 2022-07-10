@@ -46,7 +46,7 @@
 	&__content {
 		backdrop-filter: blur(0.4rem);
 		bottom: 0;
-		color: variables.$light-text-color;
+		color: var(--white-text-color);
 		display: flex;
 		flex-flow: column nowrap;
 		height: 100%;
@@ -62,7 +62,7 @@
 		will-change: opacity, transform, visibility;
 
 		&_title {
-			color: variables.$main-text-color;
+			color: var(--main-text-color);
 			display: -webkit-box;
 			font-size: variables.$fz-md;
 			font-weight: bold;
@@ -84,7 +84,7 @@
 		}
 
 		&_info {
-			color: variables.$main-text-color;
+			color: var(--main-text-color);
 			font-size: variables.$fz-xs;
 			margin-bottom: 1rem;
 			text-decoration: underline;

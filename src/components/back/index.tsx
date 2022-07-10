@@ -1,4 +1,6 @@
 import { useNavigate } from "react-router-dom";
+import { useContext } from "react";
+import { UserContext } from "context";
 import { ArrowLeft } from "assets/icons/arrows";
 import styles from "./back.module.scss";
 import { Button } from "components/button";
@@ -9,6 +11,7 @@ interface BackProps {
 
 const Back = ({ button }: BackProps) => {
 	const navigate = useNavigate();
+	const { texts } = useContext(UserContext);
 	const handleClick = () => {
 		const stateLoad = window.history.state ? window.history.state.loadUrl : "";
 		if (stateLoad) {
@@ -25,7 +28,7 @@ const Back = ({ button }: BackProps) => {
 			type="button"
 		>
 			<ArrowLeft />
-			&nbsp;{button && "Back"}
+			&nbsp;{button && texts.back}
 		</Button>
 	);
 };

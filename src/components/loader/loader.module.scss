@@ -10,22 +10,18 @@
 	z-index: 10;
 
 	svg {
-		fill: variables.$main-color;
+		fill: var(--main-color);
 	}
 
 	p {
-		color: variables.$main-color;
+		color: var(--main-color);
 		font-size: variables.$fz-md;
 	}
 }
 
 .fixed {
 	align-items: center;
-	background-image: radial-gradient(
-		circle,
-		rgba(40, 40, 40, 1) 0%,
-		rgba(variables.$body-bg, 1) 100%
-	);
+	background-image: radial-gradient(circle, rgba(40, 40, 40, 1) 0%, var(--body-bg) 100%);
 	background-position: center;
 	display: flex;
 	flex-direction: column;

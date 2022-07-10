@@ -11,7 +11,7 @@
 		font-size: variables.$fz-xl;
 
 		a {
-			color: variables.$main-text-color;
+			color: var(--main-text-color);
 			text-decoration: none;
 
 			&:hover,
@@ -24,15 +24,15 @@
 	}
 
 	&__link {
-		color: variables.$light-text-color;
-		font-size: variables.$fz-md;
+		color: var(--text-color);
+		font-size:  variables.$fz-md;
 		text-decoration: none;
 		transition: color 0.3s ease;
 
 		&:hover,
 		&:active,
 		&:focus {
-			color: variables.$main-text-color;
+			color: var(--main-text-color);
 			text-decoration: underline;
 		}
 	}

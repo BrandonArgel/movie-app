@@ -6,7 +6,7 @@ import { useCountdown } from "hooks";
 import styles from "./approved.module.scss";
 
 const Approved = () => {
-	const { setToken } = useContext(UserContext);
+	const { setToken, texts } = useContext(UserContext);
 	const navigate = useNavigate();
 	const { search } = useLocation();
 	const requestToken = new URLSearchParams(search).get("request_token");
@@ -29,10 +29,10 @@ const Approved = () => {
 	return (
 		<div className={styles.approved}>
 			<h1 className={styles.approved__title}>Approved</h1>
-			<p className={styles.approved__description}>
-				Thank you for granting us access to your data. You can now use the app.
+			<p className={styles.approved__description}>{texts.approved.thanks}</p>
+			<p className={styles.approved__info}>
+				{texts.approved.info1} {timer} {texts.approved.info2}
 			</p>
-			<p className={styles.approved__info}>Redirecting to home in {timer} seconds...</p>
 			<Button className={styles.approved__button} onClick={() => onRedirect()}>
 				Go to home
 			</Button>

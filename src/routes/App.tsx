@@ -2,7 +2,7 @@ import * as React from "react";
 import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
 import { FixedLoader, Layout, SimpleLayout } from "components";
 import { ScrollToTop } from "utils";
-import { UserProvider } from "context";
+import { UserProvider, ThemeProvider } from "context";
 const Categories = React.lazy(() =>
 	import("pages").then((module) => ({ default: module.Categories }))
 );
@@ -27,33 +27,35 @@ const App = () => {
 	}, []);
 
 	return (
-		<BrowserRouter>
-			<ScrollToTop />
-			<React.Suspense fallback={<FixedLoader />}>
-				<a className="skip-to-content" href="#content">
-					Saltar al contenido
-				</a>
-				<UserProvider>
-					<Routes>
-						<Route path="/" element={<Layout />}>
-							<Route index element={<Landing />} />
-							<Route path="/category/:id/:name" element={<Categories />} />
-							<Route path="/results" element={<Search />} />
-							<Route path="/trending" element={<Trends />} />
-							<Route path="/actor/:id" element={<Actor />} />
-							<Route path="/login" element={<Login />} />
-							<Route path="/approved" element={<Approved />} />
-							<Route path="/account" element={<Account />} />
-							<Route path="/favorites" element={<Favorites />} />
-						</Route>
-						<Route path="/" element={<SimpleLayout />}>
-							<Route path="/movie/:id" element={<Movie />} />
-						</Route>
-						<Route path="*" element={<Navigate replace to="/" />} />
-					</Routes>
-				</UserProvider>
-			</React.Suspense>
-		</BrowserRouter>
+		<ThemeProvider>
+			<BrowserRouter>
+				<ScrollToTop />
+				<React.Suspense fallback={<FixedLoader />}>
+					<a className="skip-to-content" href="#content">
+						Saltar al contenido
+					</a>
+					<UserProvider>
+						<Routes>
+							<Route path="/" element={<Layout />}>
+								<Route index element={<Landing />} />
+								<Route path="/category/:id/:name" element={<Categories />} />
+								<Route path="/results" element={<Search />} />
+								<Route path="/trending" element={<Trends />} />
+								<Route path="/actor/:id" element={<Actor />} />
+								<Route path="/login" element={<Login />} />
+								<Route path="/approved" element={<Approved />} />
+								<Route path="/account" element={<Account />} />
+								<Route path="/favorites" element={<Favorites />} />
+							</Route>
+							<Route path="/" element={<SimpleLayout />}>
+								<Route path="/movie/:id" element={<Movie />} />
+							</Route>
+							<Route path="*" element={<Navigate replace to="/" />} />
+						</Routes>
+					</UserProvider>
+				</React.Suspense>
+			</BrowserRouter>
+		</ThemeProvider>
 	);
 };
 

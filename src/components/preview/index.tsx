@@ -1,4 +1,6 @@
 import { Link } from "react-router-dom";
+import { useContext } from "react";
+import { UserContext } from "context";
 import styles from "./preview.module.scss";
 
 interface PreviewProps {
@@ -9,13 +11,14 @@ interface PreviewProps {
 }
 
 const Preview = ({ children, title, link, grid }: PreviewProps) => {
+	const { texts } = useContext(UserContext);
 	return (
 		<>
 			<div className={styles.preview}>
 				{title && <h2 className={styles.preview__title}>{title}</h2>}
 				{link && (
 					<Link to={link} className={styles.preview__link} title={title}>
-						See more
+						{texts.preview.more}
 					</Link>
 				)}
 			</div>

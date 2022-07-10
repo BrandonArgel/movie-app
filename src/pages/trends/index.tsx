@@ -1,26 +1,28 @@
-import { useEffect } from "react";
+import { useContext, useEffect } from "react";
+import { UserContext } from "context";
 import { Back, Card, Loader, Preview } from "components";
 import { useGetItemsAPI, useInfiniteScroll } from "hooks";
 
 const Trends = () => {
+	const { language, texts } = useContext(UserContext);
 	const [trends, loadingTrends, getTrends, getMoreTrends, hasMore] = useGetItemsAPI({
 		initialValue: [],
 		destruct: "results",
 	});
 	const lastMovieElementRef = useInfiniteScroll(
-		() => getMoreTrends("/trending/movie/day"),
+		() => getMoreTrends("/trending/movie/day", { language, include_image_language: language }),
 		loadingTrends,
 		hasMore
 	);
 
 	useEffect(() => {
-		getTrends("/trending/movie/day");
-	}, []); // eslint-disable-line react-hooks/exhaustive-deps
+		getTrends("/trending/movie/day", { language, include_image_language: language });
+	}, [language]); // eslint-disable-line react-hooks/exhaustive-deps
 
 	return (
 		<>
 			<Back button />
-			<Preview title="Trens" grid>
+			<Preview title={texts.trends.title} grid>
 				{trends.length > 0 ? (
 					trends.map(({ adult, id, overview, title, poster_path, vote_average }, i) => (
 						<div key={id} ref={i === trends.length - 1 ? lastMovieElementRef : null}>
@@ -36,12 +38,12 @@ const Trends = () => {
 						</div>
 					))
 				) : (
-					<>{!loadingTrends && <p className="center">No results found.</p>}</>
+					<>{!loadingTrends && <p className="center">{texts.infiniteScroll.noResults}</p>}</>
 				)}
 			</Preview>
 			{loadingTrends && <Loader />}
 			{!hasMore && !loadingTrends && trends.length > 0 && (
-				<p className="center">It seems there are no more results.</p>
+				<p className="center">{texts.infiniteScroll.limit}</p>
 			)}
 		</>
 	);

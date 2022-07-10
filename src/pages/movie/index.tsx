@@ -7,7 +7,7 @@ import { UserContext } from "context";
 
 const Movie = () => {
 	const { id } = useParams();
-	const { sessionId } = useContext(UserContext);
+	const { language, sessionId, texts } = useContext(UserContext);
 	const [movie, setMovie] = useState<any>();
 	const [accountState, setAccountState] = useState<any>();
 	const [loadingMovie, getMovie] = useGetItemAPI({
@@ -30,12 +30,12 @@ const Movie = () => {
 	});
 	const trailer = videos?.find((video) => video.type === "Trailer");
 
-	const initialRequest = async () => {
-		const data = await getMovie();
+	const initialRequest = async (lang: string) => {
+		const data = await getMovie({ language: lang, include_image_language: lang });
 		setMovie(data);
-		getVideos(`/movie/${id}/videos`);
-		getCast(`/movie/${id}/credits`);
-		getRelated(`/movie/${id}/similar`);
+		getVideos(`/movie/${id}/videos`, { language: lang });
+		getCast(`/movie/${id}/credits`, { language: lang });
+		getRelated(`/movie/${id}/similar`, { language: lang });
 	};
 
 	const initialAccountRequest = async () => {
@@ -44,14 +44,14 @@ const Movie = () => {
 	};
 
 	useEffect(() => {
-		initialRequest();
-	}, [id]); // eslint-disable-line react-hooks/exhaustive-deps
+		initialRequest(language);
+	}, [id, language]); // eslint-disable-line react-hooks/exhaustive-deps
 
 	useEffect(() => {
 		if (sessionId) {
 			initialAccountRequest();
 		}
-	}, [sessionId]); // eslint-disable-line react-hooks/exhaustive-deps
+	}, [sessionId, language]); // eslint-disable-line react-hooks/exhaustive-deps
 
 	return (
 		<>
@@ -68,7 +68,7 @@ const Movie = () => {
 				title={movie && movie.title}
 				voteAverage={movie && movie.vote_average}
 			>
-				<Preview title="Cast">
+				<Preview title={texts.movie.cast}>
 					<Slideshow loading={loadingCast} speed={300}>
 						{cast
 							.filter((actor) => actor.profile_path)
@@ -88,7 +88,7 @@ const Movie = () => {
 					</Slideshow>
 				</Preview>
 				{trailer && (
-					<Preview title={"Trailer"}>
+					<Preview title={texts.movie.trailer}>
 						{loadingVideos ? (
 							<Loader />
 						) : (
@@ -105,7 +105,7 @@ const Movie = () => {
 					</Preview>
 				)}
 				{related.length > 0 && (
-					<Preview title="Related">
+					<Preview title={texts.movie.related}>
 						<Slideshow loading={loadingRelated} speed={300}>
 							{related.map(({ adult, id, overview, title, poster_path, vote_average }) => (
 								<Slide

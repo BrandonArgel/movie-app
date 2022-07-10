@@ -1,5 +1,6 @@
 import { useNavigate } from "react-router-dom";
-import { useEffect, useRef, useState } from "react";
+import { useContext, useEffect, useRef, useState } from "react";
+import { UserContext } from "context";
 import { AdultContent, Back, Button, List } from "components";
 import { MovieInterface } from "utils";
 import { lazyLoading, loaderImg } from "utils";
@@ -23,6 +24,7 @@ const Banner = ({
 	voteAverage,
 }: MovieInterface) => {
 	const navigate = useNavigate();
+	const { texts } = useContext(UserContext);
 	const imgRef = useRef<HTMLImageElement>(null);
 	const [favorite, setFavorite] = useState(accountState?.favorite);
 
@@ -101,11 +103,11 @@ const Banner = ({
 						>
 							{favorite !== undefined
 								? favorite
-									? "Remove from favorites 💔"
-									: "Add to favorites 💖"
+									? texts.banner.remove
+									: texts.banner.add
 								: accountState?.favorite
-								? "Remove from favorites 💔"
-								: "Add to favorites 💖"}
+								? texts.banner.remove
+								: texts.banner.add}
 						</Button>
 					</div>
 					{children}

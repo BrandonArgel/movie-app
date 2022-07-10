@@ -4,7 +4,7 @@ import { UserContext } from "context";
 import { useGetItemsAPI } from "hooks";
 
 const Landing = () => {
-	const { user, sessionId } = useContext(UserContext);
+	const { language, sessionId, texts, user } = useContext(UserContext);
 	const [query, setQuery] = useState("");
 	const [trends, loadingTrends, getTrends] = useGetItemsAPI({
 		initialValue: [],
@@ -19,24 +19,28 @@ const Landing = () => {
 		destruct: "genres",
 	});
 
-	const initialRequests = useCallback(() => {
-		getTrends("/trending/movie/day");
-		getCategories("/genre/movie/list");
+	const initialRequests = useCallback((lang: string) => {
+		getTrends("/trending/movie/day", { language: lang, include_image_language: lang });
+		getCategories("/genre/movie/list", { language: lang, include_image_language: lang });
 	}, []); // eslint-disable-line react-hooks/exhaustive-deps
 
 	useEffect(() => {
-		initialRequests();
-	}, [initialRequests]);
+		initialRequests(language);
+	}, [initialRequests, language]);
 
 	useEffect(() => {
 		if (!sessionId) return;
-		getFavorites(`/account/${user.id}/favorite/movies`, { session_id: sessionId });
-	}, [sessionId]); // eslint-disable-line react-hooks/exhaustive-deps
+		getFavorites(`/account/${user.id}/favorite/movies`, {
+			session_id: sessionId,
+			language,
+			include_image_language: language,
+		});
+	}, [sessionId, language]); // eslint-disable-line react-hooks/exhaustive-deps
 
 	return (
 		<>
 			<SearchBar value={query} setValue={setQuery} />
-			<Preview title="Trending Movies" link="/trending">
+			<Preview title={texts.home.trends.title} link="/trending">
 				<Slideshow loading={loadingTrends} speed={300}>
 					{trends.map(({ adult, id, overview, title, poster_path, vote_average }) => (
 						<Slide
@@ -54,7 +58,7 @@ const Landing = () => {
 				</Slideshow>
 			</Preview>
 			{sessionId && (
-				<Preview title="Your Favorites" link="/favorites">
+				<Preview title={texts.home.favorites.title} link="/favorites">
 					<Slideshow loading={loadingFavorites} speed={300}>
 						{favorites.map(({ adult, id, overview, title, poster_path, vote_average }) => (
 							<Slide
@@ -72,7 +76,7 @@ const Landing = () => {
 					</Slideshow>
 				</Preview>
 			)}
-			<Preview title="Categories">
+			<Preview title={texts.home.categories.title}>
 				<List items={categories} loading={loadingCategories} />
 			</Preview>
 		</>

@@ -1,6 +1,48 @@
 @import url("https://fonts.googleapis.com/css2?family=Ubuntu:wght@300;400;500&display=swap");
 @import "./variables.scss";
 
+.dark {
+	--header-bg: #{$header-bg-dark};
+	--aside-bg: #{$aside-bg-dark};
+	--body-bg: #{$body-bg-dark};
+	--footer-bg: #{$footer-bg-dark};
+	--hover-bg: #{$hover-bg-dark};
+	--main-color: #{$main-color-dark};
+	--secondary-color: #{$secondary-color-dark};
+	--error-color: #{$error-color-dark};
+	--main-text-color: #{$main-text-color-dark};
+	--secondary-text-color: #{$secondary-text-color-dark};
+	--text-color: #{$text-color-dark};
+	--contrast-text-color: #{$contrast-text-color-dark};
+	--black-text-color: #{$black-text-color-dark};
+	--white-text-color: #{$white-text-color-dark};
+	--text-color: #{$text-color-dark};
+	--shadow-color: #{$shadow-color-dark};
+	--stroke-color: #{$stroke-color-dark};
+	--gradient: #{$gradient-dark};
+}
+
+.light {
+	--header-bg: #{$header-bg-light};
+	--aside-bg: #{$aside-bg-light};
+	--body-bg: #{$body-bg-light};
+	--footer-bg: #{$footer-bg-light};
+	--hover-bg: #{$hover-bg-light};
+	--main-color: #{$main-color-light};
+	--secondary-color: #{$secondary-color-light};
+	--error-color: #{$error-color-light};
+	--main-text-color: #{$main-text-color-light};
+	--secondary-text-color: #{$secondary-text-color-light};
+	--text-color: #{$text-color-light};
+	--contrast-text-color: #{$contrast-text-color-light};
+	--black-text-color: #{$black-text-color-light};
+	--white-text-color: #{$white-text-color-light};
+	--text-color: #{$text-color-light};
+	--shadow-color: #{$shadow-color-light};
+	--stroke-color: #{$stroke-color-light};
+	--gradient: #{$gradient-light};
+}
+
 * {
 	box-sizing: border-box;
 	padding: 0;
@@ -12,11 +54,11 @@ html {
 	overflow-x: hidden;
 
 	body {
-		background-color: $body-bg;
-		color: $text-color;
-		font-family: $font;
 		scroll-behavior: smooth;
 		overflow-y: auto;
+		background-color: var(--body-bg);
+		color: var(--text-color);
+		font-family: $font;
 
 		&::-webkit-scrollbar {
 			background-color: transparent;
@@ -28,17 +70,17 @@ html {
 		}
 
 		&::-webkit-scrollbar-thumb {
-			background-color: $secondary-color;
+			background-color: var(--main-color);
 		}
 
 		&::-webkit-scrollbar-thumb:hover {
-			background-color: rgba($secondary-color, 0.7);
+			background-color: var(--main-text-color);
 		}
 
 		.skip-to-content {
-			background-color: $main-color;
+			background-color: var(--main-color);
 			border-radius: 0.5rem;
-			color: $dark-text-color;
+			color: var(--text-color);
 			cursor: pointer;
 			font: $fz-md $font;
 			height: 1px;
@@ -135,7 +177,7 @@ html {
 }
 
 :focus-visible {
-	outline: 2px dashed $main-color;
+	outline: 2px dashed var(--main-color);
 	outline-offset: 3px;
 }
 
@@ -145,7 +187,7 @@ html {
 }
 
 :focus {
-	outline: 2px dashed $main-color;
+	outline: 2px dashed var(--main-color);
 	outline-offset: 3px;
 }
 

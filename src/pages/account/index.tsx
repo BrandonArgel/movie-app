@@ -8,7 +8,7 @@ import styles from "./account.module.scss";
 
 const Account = () => {
 	const navigate = useNavigate();
-	const { user } = useContext(UserContext);
+	const { user, texts } = useContext(UserContext);
 	useEffect(() => {
 		if (Object.keys(user).length === 0) {
 			navigate("/login");
@@ -17,7 +17,7 @@ const Account = () => {
 
 	return (
 		<div className={styles.account}>
-			<h1 className={styles.account__title}>Account</h1>
+			<h1 className={styles.account__title}>{texts.account.title}</h1>
 			<Input
 				className={styles.account__input}
 				icon={<User />}
@@ -46,7 +46,7 @@ const Account = () => {
 				disabled
 			/>
 			<Button className={styles.account__logout} onClick={logout}>
-				Logout
+				{texts.account.logout}
 			</Button>
 		</div>
 	);

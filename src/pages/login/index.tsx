@@ -7,7 +7,7 @@ import styles from "./login.module.scss";
 
 const Login = () => {
 	const navigate = useNavigate();
-	const { token } = useContext(UserContext);
+	const { token, texts } = useContext(UserContext);
 	const [loadingToken, getToken] = useGetItemAPI({
 		path: "/authentication/token/new",
 	});
@@ -39,17 +39,15 @@ const Login = () => {
 
 	return (
 		<div className={styles.login}>
-			<h1 className={styles.login__title}>We need your permission to access your account</h1>
-			<p className={styles.login__description}>
-				We will redirect you to the The Movie DB website to get your permission.
-			</p>
+			<h1 className={styles.login__title}>{texts.login.title}</h1>
+			<p className={styles.login__description}>{texts.login.info}</p>
 			<Button
 				className={`${styles.login__submit}`}
 				disabled={loading}
 				onClick={() => onRedirect()}
 				loading={loading}
 			>
-				Grant access
+				{texts.login.button}
 			</Button>
 			{error && <p className={styles.login__error}>{error}</p>}
 		</div>

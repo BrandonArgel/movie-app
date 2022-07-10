@@ -1,9 +1,10 @@
 export { Avatar } from "./avatar";
 export { AdultContent } from "./adultcontent";
 export { Back } from "./back";
-export { Button } from "./button";
-export { Card } from "./card";
 export { Banner } from "./banner";
+export { Button } from "./button";
+export { ButtonTheme } from "./buttonTheme";
+export { Card } from "./card";
 export { Footer } from './footer';
 export { Header } from './header';
 export { Input } from './input';
@@ -12,4 +13,5 @@ export { List } from './list';
 export { FixedLoader, Loader } from "./loader";
 export { Preview } from "./preview";
 export { SearchBar } from "./searchbar";
+export { Select } from "./select";
 export { Slideshow, Slide } from './slideshow';

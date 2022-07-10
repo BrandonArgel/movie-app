@@ -1,5 +1,6 @@
-import { useEffect, useRef } from "react";
 import { useNavigate } from "react-router-dom";
+import { useContext, useEffect, useRef } from "react";
+import { UserContext } from "context/userContext";
 import { CardInterface, lazyLoading, loaderImg } from "utils";
 import { AdultContent } from "components";
 import { useClickHandler } from "hooks";
@@ -16,6 +17,7 @@ const Card = ({
 	voteAverage,
 	width = 200,
 }: CardInterface) => {
+	const { texts } = useContext(UserContext);
 	const imgRef = useRef<HTMLImageElement>(null);
 	const isTouch = /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(
 		navigator.userAgent
@@ -39,7 +41,7 @@ const Card = ({
 		if (imgRef.current) {
 			lazyLoading(imgRef);
 		}
-	}, []);
+	}, [img]);
 
 	return (
 		<div className={`${styles.card} ${slide ? styles.slide : ""}`}>
@@ -61,7 +63,7 @@ const Card = ({
 					<h3 className={styles.card__content_title}>{title}</h3>
 					<p className={styles.card__content_overview}>{overview}</p>
 					<p className={styles.card__content_info}>
-						{isTouch ? "Double tap to see more" : "Click to see more"}
+						{isTouch ? texts.card.click : texts.card.dbclick}
 					</p>
 					<p className={styles.card__content_vote}>⭐️ {voteAverage && voteAverage!.toFixed(1)}</p>
 					{adult && <AdultContent />}

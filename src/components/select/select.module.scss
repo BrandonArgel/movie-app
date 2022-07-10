@@ -1,0 +1,20 @@
+@use "styles/variables.scss";
+
+.select {
+	background: var(--gradient);
+	border: 1px solid var(--main-color);
+	border-radius: 1rem;
+	color: var(--main-color);
+	cursor: pointer;
+	display: inline-block;
+	font: variables.$fz-md variables.$font;
+	overflow-x: hidden;
+	padding: 0.5rem;
+	text-overflow: ellipsis;
+	width: 100%;
+	white-space: nowrap;
+
+	&:active {
+		outline: none;
+	}
+}

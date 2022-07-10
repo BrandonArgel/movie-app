@@ -2,7 +2,7 @@
 
 .header {
 	align-items: center;
-	background-color: variables.$header-bg;
+	background-color: var(--header-bg);
 	display: flex;
 	justify-content: space-between;
 	align-items: center;
@@ -17,7 +17,7 @@
 
 	&__logo {
 		align-items: flex-end;
-		color: variables.$main-color;
+		color: var(--main-color);
 		display: flex;
 		font-size: clamp(2rem, 5vw, 3.5rem);
 		font-weight: bold;
@@ -46,12 +46,12 @@
 
 		&:hover {
 			line {
-				stroke: variables.$main-color;
+				stroke: var(--main-color);
 			}
 		}
 
 		line {
-			stroke: variables.$main-color;
+			stroke: var(--main-color);
 			stroke-width: 10%;
 			stroke-linecap: round;
 			transition: stroke 0.3s ease-in-out;
@@ -175,8 +175,8 @@
 	}
 
 	&__menu {
-		background: variables.$aside-bg;
-		box-shadow: 0px 0px 10px variables.$shadow-color;
+		background: var(--aside-bg);
+		box-shadow: 0px 0px 10px var(--shadow-color);
 		display: flex;
 		flex-direction: column;
 		height: 100vh;
@@ -232,7 +232,7 @@
 
 		a,
 		button {
-			color: variables.$light-text-color;
+			color: var(--text-color);
 			text-decoration: none;
 			position: relative;
 			width: fit-content;
@@ -240,7 +240,7 @@
 			&:hover,
 			&:active,
 			&:focus {
-				color: variables.$main-color;
+				color: var(--main-color);
 				outline: none;
 			}
 		}

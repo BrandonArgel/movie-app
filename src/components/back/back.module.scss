@@ -1,9 +1,7 @@
-@use "styles/variables.scss";
-
 button.button,
 button.back {
 	align-items: center;
-	color: variables.$light-text-color;
+	color: var(--text-color);
 	display: flex;
 	height: initial;
 	margin: 2rem 1rem;
@@ -21,11 +19,11 @@ button.back {
 	&:hover svg,
 	&:active svg,
 	&:focus svg {
-		fill: variables.$main-color;
+		fill: var(--main-color);
 	}
 
 	svg {
-		fill: variables.$light-text-color;
+		fill: var(--text-color);
 		height: 3rem;
 		transition: transform 0.2s ease;
 		width: 3rem;

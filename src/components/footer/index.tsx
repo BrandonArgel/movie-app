@@ -1,12 +1,18 @@
+import { useContext } from "react";
+import { UserContext } from "context";
 import styles from "./footer.module.scss";
 
 import { Social } from "config";
 
 const Footer = () => {
+	const { texts } = useContext(UserContext);
+	
 	return (
 		<footer className={styles.footer}>
 			<div className={styles.footer__rights}>
-				<p>@BrandArgel • All rights reserved ©{new Date().getFullYear()}.</p>
+				<p>
+					@BrandArgel • {texts.footer.rights} ©{new Date().getFullYear()}.
+				</p>
 			</div>
 			<div className={styles.footer__social}>
 				{Social.map(({ link, icon, title }) => (

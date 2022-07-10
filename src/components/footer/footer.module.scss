@@ -1,7 +1,8 @@
 @use "styles/variables.scss";
 
 .footer {
-	background-color: variables.$footer-bg;
+	align-items: center;
+	background-color: var(--footer-bg);
 	display: flex;
 	flex-flow: row wrap;
 	gap: 1rem;
@@ -10,7 +11,7 @@
 	margin-top: auto;
 
 	&__rights {
-		color: variables.$text-color;
+		color: var(--text-color);
 		font-size: variables.$fz-sm;
 		text-align: center;
 	}
@@ -25,7 +26,7 @@
 			svg {
 				border-radius: 50%;
 				height: 3rem;
-				fill: variables.$text-color;
+				fill: var(--text-color);
 				transition: all 0.2s ease-in-out;
 				width: 3rem;
 				will-change: filter, transform;
@@ -36,7 +37,7 @@
 			&:focus {
 				outline: none;
 				svg {
-					fill: variables.$main-text-color;
+					fill: var(--main-text-color);
 					transform: scale(1.15);
 				}
 			}

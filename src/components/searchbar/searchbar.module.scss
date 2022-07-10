@@ -3,9 +3,9 @@
 .searchbar {
 	align-items: center;
 	background: transparent;
-	border: 1px solid variables.$main-color;
+	border: 1px solid var(--main-color);
 	border-radius: 2rem;
-	box-shadow: 0 0 1rem 0 rgba(variables.$main-color, 0.5);
+	box-shadow: 0 0 1rem 0 rgba(var(--main-color), 0.5);
 	display: flex;
 	margin: 0 auto;
 	padding: 0 0.5rem;
@@ -17,14 +17,14 @@
 	&:active,
 	&:focus,
 	&:focus-within {
-		box-shadow: 0 0 1rem 0.3rem rgba(variables.$main-color, 0.75);
+		box-shadow: 0 0 1rem 0.1rem var(--main-color);
 	}
 
 	&__input {
 		border: none;
 		background-color: transparent;
-		caret-color: rgba(variables.$secondary-text-color, 0.8);
-		color: variables.$main-color;
+		caret-color: var(--secondary-text-color);
+		color: var(--main-color);
 		font: variables.$fz-md variables.$font;
 		height: 100%;
 		overflow-x: hidden;
@@ -38,7 +38,7 @@
 		}
 
 		&::placeholder {
-			color: rgba(variables.$main-color, 1);
+			color: var(--main-color);
 			font: variables.$fz-md variables.$font;
 			text-overflow: ellipsis;
 			white-space: nowrap;
@@ -48,14 +48,14 @@
 	&__button {
 		background-color: transparent;
 		border: none;
-		color: variables.$main-color;
+		color: var(--main-color);
 		cursor: pointer;
 		font: variables.$fz-md variables.$font;
 		outline: none;
 		width: 4rem;
 
 		svg {
-			fill: variables.$main-color;
+			fill: var(--main-color);
 			position: relative;
 			top: 0.1rem;
 		}

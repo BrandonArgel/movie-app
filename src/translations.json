@@ -1,0 +1,276 @@
+{
+	"en-US": {
+		"home": {
+			"trends": {
+				"title": "Trending movies"
+			},
+			"favorites": {
+				"title": "Your favorites"
+			},
+			"categories": {
+				"title": "Categories"
+			}
+		},
+		"account": {
+			"title": "Account",
+			"logout": "Logout"
+		},
+		"actor": {
+			"title": "'s movies"
+		},
+		"approved": {
+			"thanks": "Thank you for granting us access to your data. You can now use the app.",
+			"info1": "Redirecting to home in",
+			"info2": "seconds...",
+			"redirect": "Go to home"
+		},
+		"category": {
+			"title": "Category"
+		},
+		"favorites": {
+			"title": "Favorite movies"
+		},
+		"login": {
+			"title": "We need your permission to access your account",
+			"info": "We will redirect you to the The Movie DB website to get your permission.",
+			"button": "Grant access"
+		},
+		"movie": {
+			"trailer": "Trailer",
+			"cast": "Cast",
+			"related": "Related movies"
+		},
+		"search": {
+			"title": "Results for: ",
+			"placeholder": "Search for a movie",
+			"error": "Type a movie name"
+		},
+		"trends": {
+			"title": "Trends"
+		},
+		"back": "Back",
+		"banner": {
+			"add": "Add to favorites 💖",
+			"remove": "Remove from favorites 💔"
+		},
+		"card": {
+			"click": "Click to see more",
+			"dbclick": "Double tap to see more"
+		},
+		"footer": {
+			"rights": "All rights reserved"
+		},
+		"header": {
+			"login": "Login",
+			"signup": "Register",
+			"logout": "Logout",
+			"languages": [
+				{
+					"name": "English",
+					"iso": "en-US"
+				},
+				{
+					"name": "Spanish",
+					"iso": "es-MX"
+				},
+				{
+					"name": "French",
+					"iso": "fr-FR"
+				}
+			]
+		},
+		"infiniteScroll": {
+			"noResults": "No results found.",
+			"limit": "It seems there are no more results."
+		},
+		"preview": {
+			"more": "See more"
+		},
+		"messages": {
+			"welcome": "Welcome back",
+			"errorLogin": "Something went wrong, try login again"
+		}
+	},
+	"es-MX": {
+		"home": {
+			"trends": {
+				"title": "Películas más populares"
+			},
+			"favorites": {
+				"title": "Tus películas favoritas"
+			},
+			"categories": {
+				"title": "Categoría"
+			}
+		},
+		"account": {
+			"title": "Cuenta",
+			"logout": "Cerrar sesión"
+		},
+		"actor": {
+			"title": "Películas de "
+		},
+		"approved": {
+			"thanks": "Gracias por darnos acceso a tus datos. Ahora puedes usar la aplicación.",
+			"info1": "Redireccionando a inicio en",
+			"info2": "segundos...",
+			"redirect": "Ir a inicio"
+		},
+		"category": {
+			"title": "Categoría"
+		},
+		"favorites": {
+			"title": "Películas favoritas"
+		},
+		"login": {
+			"title": "Necesitamos tu permiso para acceder a tu cuenta",
+			"info": "Te redireccionaremos a la página de The Movie DB para obtener tu permiso.",
+			"button": "Dar acceso"
+		},
+		"movie": {
+			"trailer": "Trailer",
+			"cast": "Reparto",
+			"related": "Películas relacionadas"
+		},
+		"search": {
+			"title": "Resultados para: ",
+			"placeholder": "Busca una película",
+			"error": "Escribe un nombre de película"
+		},
+		"trends": {
+			"title": "Tendencias"
+		},
+		"back": "Regresar",
+		"banner": {
+			"add": "Agregar a favoritos 💖",
+			"remove": "Quitar de favoritos 💔"
+		},
+		"card": {
+			"click": "Clic para ver más",
+			"dbclick": "Toca dos veces para ver más"
+		},
+		"footer": {
+			"rights": "Todos los derechos reservados"
+		},
+		"header": {
+			"login": "Iniciar sesión",
+			"signup": "Registrarse",
+			"languages": [
+				{
+					"name": "Inglés",
+					"iso": "en-US"
+				},
+				{
+					"name": "Español",
+					"iso": "es-MX"
+				},
+				{
+					"name": "Francés",
+					"iso": "fr-FR"
+				}
+			]
+		},
+		"infiniteScroll": {
+			"noResults": "No se encontraron resultados.",
+			"limit": "No hay más resultados."
+		},
+		"preview": {
+			"more": "Ver más"
+		},
+		"messages": {
+			"welcome": "!Bienvenido de nuevo",
+			"errorLogin": "Algo salió mal, inicia sesión de nuevo"
+		}
+	},
+	"fr-FR": {
+		"home": {
+			"trends": {
+				"title": "Films populaires"
+			},
+			"favorites": {
+				"title": "Vos films préférés"
+			},
+			"categories": {
+				"title": "Catégories"
+			}
+		},
+		"account": {
+			"title": "Compte",
+			"logout": "Déconnexion"
+		},
+		"actor": {
+			"title": "Films de "
+		},
+		"approved": {
+			"thanks": "Merci d'avoir donné accès à vos données. Vous pouvez désormais utiliser l'application.",
+			"info1": "Redirection vers l'accueil dans",
+			"info2": "secondes...",
+			"redirect": "Aller à l'accueil"
+		},
+		"category": {
+			"title": "Catégorie"
+		},
+		"favorites": {
+			"title": "Films préférés"
+		},
+		"login": {
+			"title": "Nous avons besoin de votre permission pour accéder à votre compte",
+			"info": "Nous redirigons vers la page de The Movie DB pour obtenir votre permission.",
+			"button": "Donner accès"
+		},
+		"movie": {
+			"trailer": "Bande-annonce",
+			"cast": "Acteurs",
+			"related": "Films similaires"
+		},
+		"search": {
+			"title": "Résultats pour: ",
+			"placeholder": "Rechercher un film",
+			"error": "Entrez un nom de film"
+		},
+		"trends": {
+			"title": "Tendances"
+		},
+		"back": "Retour",
+		"banner": {
+			"add": "Ajouter aux favoris 💖",
+			"remove": "Retirer des favoris 💔"
+		},
+		"card": {
+			"click": "Cliquez pour voir plus",
+			"dbclick": "Double-cliquez pour voir plus"
+		},
+		"footer": {
+			"rights": "Tous droits réservés"
+		},
+		"header": {
+			"login": "Connexion",
+			"signup": "Inscription",
+			"languages": [
+				{
+					"name": "Anglais",
+					"iso": "en-US"
+				},
+				{
+					"name": "Espagnol",
+					"iso": "es-MX"
+				},
+				{
+					"name": "Français",
+					"iso": "fr-FR"
+				}
+			]
+		},
+		"infiniteScroll": {
+			"noResults": "Aucun résultat trouvé.",
+			"limit": "Il n'y a plus de résultats."
+		},
+		"preview": {
+			"more": "Voir plus"
+		},
+		"messages": {
+			"welcome": "!Bienvenue de nouveau",
+			"errorLogin": "Quelque chose s'est mal passé, reconnectez-vous"
+		}
+	}
+}

@@ -1,5 +1,6 @@
-import { useEffect, useRef, useState } from "react";
 import { useParams } from "react-router-dom";
+import { useContext, useEffect, useRef, useState } from "react";
+import { UserContext } from "context/userContext";
 import { Back, Loader, Preview, Slide, Slideshow } from "components";
 import { useGetItemAPI, useGetItemsAPI } from "hooks";
 import { lazyLoading, loaderImg } from "utils";
@@ -7,6 +8,7 @@ import styles from "./actor.module.scss";
 import { IMG_BASE_URL } from "config";
 
 const Actor = () => {
+	const { texts, language } = useContext(UserContext);
 	const imgRef = useRef<HTMLImageElement>(null);
 	const { id } = useParams();
 	const [actor, setActor] = useState<any>();
@@ -20,15 +22,15 @@ const Actor = () => {
 	const { biography, name, birthday, deathday, place_of_birth, popularity, profile_path } =
 		actor || {};
 
-	const initialRequest = async () => {
-		const data = await getActor();
+	const initialRequest = async (lang: string) => {
+		const data = await getActor({ language: lang });
 		setActor(data);
-		getMovies(`/person/${id}/movie_credits`);
+		getMovies(`/person/${id}/movie_credits`, { language: lang });
 	};
 
 	useEffect(() => {
-		initialRequest();
-	}, [id]); // eslint-disable-line react-hooks/exhaustive-deps
+		initialRequest(language);
+	}, [id, language]); // eslint-disable-line react-hooks/exhaustive-deps
 
 	useEffect(() => {
 		if (imgRef.current) {
@@ -80,7 +82,11 @@ const Actor = () => {
 				</div>
 			</Preview>
 			<div className={styles.movies}>
-				<Preview title={`${name}'s Movies`}>
+				<Preview
+					title={
+						language === "en-US" ? `${name}${texts.actor.title}` : `${texts.actor.title} ${name}`
+					}
+				>
 					<Slideshow loading={loadingMovies} speed={300}>
 						{movies.map(({ adult, id, overview, title, poster_path, vote_average }) => (
 							<Slide

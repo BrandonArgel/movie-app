@@ -16,13 +16,13 @@
 	}
 
 	&__info {
-		background-color: variables.$body-bg;
+		background-color: var(--body-bg);
 		padding: 2rem;
 		position: relative;
 		z-index: 1;
 
 		&::before {
-			background: linear-gradient(to top, variables.$body-bg, rgba(0, 0, 0, 0));
+			background: linear-gradient(to top, var(--body-bg), rgba(0, 0, 0, 0));
 			content: "";
 			display: block;
 			height: 10rem;
@@ -42,7 +42,7 @@
 
 	&__title {
 		align-items: center;
-		color: variables.$main-color;
+		color: var(--main-color);
 		display: flex;
 		font-size: clamp(2rem, 3vw, 3.5rem);
 		gap: 1rem;
@@ -64,14 +64,14 @@
 
 		span {
 			align-items: center;
-			color: variables.$light-text-color;
+			color: var(--text-color);
 			display: flex;
 			gap: 1rem;
 		}
 	}
 
 	&__overview {
-		color: variables.$light-text-color;
+		color: var(--text-color);
 		font-size: variables.$fz-md;
 		margin-bottom: 2rem;
 	}
@@ -87,7 +87,7 @@
 		}
 
 		&_favorites {
-			color: variables.$light-text-color;
+			color: var(--text-color);
 			height: auto !important;
 			margin: 0 !important;
 			width: fit-content !important;

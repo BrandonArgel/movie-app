@@ -34,3 +34,8 @@ export interface MovieInterface {
   title: string;
   voteAverage: number;
 }
+
+export interface SelectOption {
+	name: string;
+	iso: string;
+}

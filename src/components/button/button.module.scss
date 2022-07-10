@@ -1,14 +1,14 @@
 @use "styles/variables.scss";
 
 .button {
-  align-items: center;
-	background-color: variables.$main-color;
+	align-items: center;
+	background-color: var(--main-color);
 	border-radius: 0.5rem;
 	border: 1px solid transparent;
 	cursor: pointer;
 	display: flex;
 	font-size: variables.$fz-lg;
-  font-weight: 500;
+	font-weight: 500;
 	justify-content: center;
 	margin: 0 auto;
 	outline: none;
@@ -16,21 +16,20 @@
 	transition: 0.3s ease all;
 	width: fit-content;
 
-
 	svg {
-		fill: variables.$body-bg;
-    height: 3rem;
+		fill: vvar(--body-bg);
+		height: 3rem;
 	}
 
 	&:hover,
 	&:active,
 	&:focus {
 		background-color: initial;
-		border: 1px solid variables.$main-color;
-		color: variables.$main-color;
+		border: 1px solid var(--main-color);
+		color: var(--main-color);
 
 		svg {
-			fill: variables.$main-color;
+			fill: var(--main-color);
 		}
 	}
 
@@ -39,6 +38,6 @@
 	}
 
 	svg {
-		fill: variables.$body-bg;
+		fill: var(--body-bg);
 	}
 }
