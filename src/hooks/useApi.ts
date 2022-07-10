@@ -3,10 +3,11 @@ import { api, Toast } from "utils"
 interface getItemsProps {
 	initialValue: any[];
 	destruct: string
+	msg: string
 }
 
 
-const useGetItemsAPI = ({ initialValue = [], destruct }: getItemsProps) => {
+const useGetItemsAPI = ({ initialValue = [], destruct, msg }: getItemsProps) => {
 	// TODO: Use sweetalert2 or something to inform the user if there was an error, and to advise if some actions were made successfully
 	const [items, setItems] = useState(initialValue);
 	const [page, setPage] = useState(1);
@@ -25,7 +26,7 @@ const useGetItemsAPI = ({ initialValue = [], destruct }: getItemsProps) => {
 			})
 			.catch((err) => Toast.fire({
 				icon: "error",
-				title: "There was an error while fetching the data",
+				title: msg,
 			}))
 			.finally(() => {
 				setLoading(false)
@@ -43,7 +44,7 @@ const useGetItemsAPI = ({ initialValue = [], destruct }: getItemsProps) => {
 			})
 			.catch((err) => Toast.fire({
 				icon: "error",
-				title: "There was an error while fetching the data",
+				title: msg,
 			}))
 			.finally(() => {
 				setPage(page + 1);
@@ -56,9 +57,10 @@ const useGetItemsAPI = ({ initialValue = [], destruct }: getItemsProps) => {
 
 interface getItemProps {
 	path: string;
+	msg: string;
 }
 
-const useGetItemAPI = ({ path }: getItemProps) => {
+const useGetItemAPI = ({ path, msg }: getItemProps) => {
 	const [loading, setLoading] = useState(false);
 
 	const getItem = async (params?: object) => {
@@ -68,7 +70,7 @@ const useGetItemAPI = ({ path }: getItemProps) => {
 			.then((res) => res.data)
 			.catch((err) => Toast.fire({
 				icon: "error",
-				title: "There was an error while fetching the data",
+				title: msg,
 			}))
 			.finally(() => setLoading(false));
 	}
@@ -78,9 +80,10 @@ const useGetItemAPI = ({ path }: getItemProps) => {
 
 interface postProps {
 	path: string;
+	msg?: string;
 }
 
-const usePostAPI = ({ path }: postProps) => {
+const usePostAPI = ({ path, msg }: postProps) => {
 	const [loading, setLoading] = useState(false);
 
 	const postItem = async (body: object, params?: object) => {
@@ -88,11 +91,37 @@ const usePostAPI = ({ path }: postProps) => {
 		return await api
 			.post(path, { ...body, ...params })
 			.then((res) => res.data)
-			.catch((err) => err)
+			.catch((err) => Toast.fire({
+				icon: "error",
+				title: msg,
+			}))
 			.finally(() => setLoading(false));
 	}
 
 	return [loading, postItem] as const;
+}
+
+interface deleteItemProps {
+	path: string;
+	msg: string;
+}
+
+const useDeleteAPI = ({ path, msg }: deleteItemProps) => {
+	const [loading, setLoading] = useState(false);
+
+	const deleteItem = async (body: object, params?: object) => {
+		setLoading(true);
+		return await api
+			.delete(path, { data: body, ...params })
+			.then((res) => res.data)
+			.catch((err) => Toast.fire({
+				icon: "error",
+				title: msg,
+			}))
+			.finally(() => setLoading(false));
+	}
+
+	return [loading, deleteItem] as const;
 }
 
 // interface putItemProps {
@@ -114,29 +143,6 @@ const usePostAPI = ({ path }: postProps) => {
 
 // 	return [loading, putItem] as const;
 // }
-
-interface deleteItemProps {
-	path: string;
-}
-
-const useDeleteAPI = ({ path }: deleteItemProps) => {
-	const [loading, setLoading] = useState(false);
-
-	const deleteItem = async (body: object, params?: object) => {
-		setLoading(true);
-		return await api
-			.delete(path, { data: body, ...params })
-			.then((res) => res.data)
-			.catch((err) => Toast.fire({
-				icon: "error",
-				title: "There was an error while deleting the data",
-			}))
-			.finally(() => setLoading(false));
-	}
-
-	return [loading, deleteItem] as const;
-}
-
 
 export { useGetItemsAPI, useGetItemAPI, usePostAPI, useDeleteAPI };
 

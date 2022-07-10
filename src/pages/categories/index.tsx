@@ -10,6 +10,7 @@ const Categories = () => {
 	const [movies, loadingMovies, getMovies, getMoreMovies, hasMore] = useGetItemsAPI({
 		initialValue: [],
 		destruct: "results",
+		msg: texts.errors.errorGet,
 	});
 	const lastMovieElementRef = useInfiniteScroll(
 		() => getMoreMovies("/discover/movie", { with_genres: id, language }),

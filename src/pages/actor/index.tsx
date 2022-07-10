@@ -14,10 +14,12 @@ const Actor = () => {
 	const [actor, setActor] = useState<any>();
 	const [loading, getActor] = useGetItemAPI({
 		path: `/person/${id}`,
+		msg: texts.errors.errorGet,
 	});
 	const [movies, loadingMovies, getMovies] = useGetItemsAPI({
 		initialValue: [],
 		destruct: "cast",
+		msg: texts.errors.errorGet,
 	});
 	const { biography, name, birthday, deathday, place_of_birth, popularity, profile_path } =
 		actor || {};

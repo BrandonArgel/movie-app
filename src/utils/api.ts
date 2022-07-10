@@ -12,18 +12,14 @@ const LOCALSTORAGE_VALUES = {
   sessionId: window.localStorage.getItem(LOCALSTORAGE_KEYS.sessionId),
 };
 
-/**
- * Clear out all localStorage items we've set and reload the page
- * @returns {void}
- */
-export const logout = async () => {
+export const logout = async (msgSuccess: string, msgError: string) => {
   const session_id = JSON.parse(LOCALSTORAGE_VALUES.sessionId as string);
   const data = await api
     .delete("/authentication/session", { data: { session_id } })
     .then((res) => res.data)
     .catch((err) => Toast.fire({
       icon: "error",
-      title: "There was an error while logging out",
+      title: msgError,
     }))
 
   if (data.success && LOCALSTORAGE_VALUES.accessToken && LOCALSTORAGE_VALUES.sessionId) {
@@ -35,7 +31,7 @@ export const logout = async () => {
 
   Toast.fire({
     icon: "success",
-    title: "You have been logged out successfully",
+    title: msgSuccess,
   });
 
   window.location.href = "/";
@@ -59,12 +55,17 @@ export const getSessionId = async (request_token: string) => {
 
 export const getAccount = async (session_id: string) => await api.get("/account", { params: { session_id } }).then((res) => res.data);
 
-export const toggleFavorite = async (session_id: string, movie_id: number, favorite: boolean) => {
+type msgProps = {
+  add: string,
+  remove: string
+}
+
+export const toggleFavorite = async (session_id: string, movie_id: number, favorite: boolean, msg: msgProps) => {
   const data = await api.post("/account/{account_id}/favorite", { media_type: "movie", movie_id, favorite }, { params: { session_id } }).then((res) => res.data);
   if (data.success) {
     Toast.fire({
       icon: "success",
-      title: favorite ? "Added to favorites" : "Removed from favorites",
+      title: favorite ? msg.add : msg.remove,
     });
     return Boolean(favorite);
   }

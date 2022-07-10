@@ -32,7 +32,11 @@ const Banner = ({
 		if (!sessionId) navigate("/login");
 		if (!accountState) return;
 		const fav = favorite !== undefined ? !favorite : !accountState?.favorite;
-		const data = await toggleFavorite(sessionId, id, fav);
+		const messages = {
+			add: texts.messages.addFavorite,
+			remove: texts.messages.rmFavorite,
+		};
+		const data = await toggleFavorite(sessionId, id, fav, messages);
 		setFavorite(data as boolean);
 	};
 

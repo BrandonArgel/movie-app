@@ -8,6 +8,7 @@ const Trends = () => {
 	const [trends, loadingTrends, getTrends, getMoreTrends, hasMore] = useGetItemsAPI({
 		initialValue: [],
 		destruct: "results",
+		msg: texts.errors.errorGet,
 	});
 	const lastMovieElementRef = useInfiniteScroll(
 		() => getMoreTrends("/trending/movie/day", { language, include_image_language: language }),

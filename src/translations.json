@@ -88,7 +88,15 @@
 		},
 		"messages": {
 			"welcome": "Welcome back",
-			"errorLogin": "Something went wrong, try login again"
+			"addFavorite": "Movie added to favorites",
+			"removeFavorite": "Movie removed from favorites",
+			"logout": "Logged out successfully"
+		},
+		"errors": {
+			"errorLogin": "Something went wrong, try login again",
+			"errorLogout": "Something went wrong, try logout again",
+			"errorGet": "There was an error while fetching the data",
+			"errorPost": "There was an error while posting the data"
 		}
 	},
 	"es-MX": {
@@ -179,7 +187,15 @@
 		},
 		"messages": {
 			"welcome": "!Bienvenido de nuevo",
-			"errorLogin": "Algo salió mal, inicia sesión de nuevo"
+			"addFavorite": "Película agregada a favoritos",
+			"removeFavorite": "Película eliminada de favoritos",
+			"logout": "Cerraste sesión correctamente"
+		},
+		"errors": {
+			"errorLogin": "Algo salió mal, inicia sesión de nuevo",
+			"errorLogout": "Algo salió mal, intenta cerrar sesión de nuevo",
+			"errorGet": "Hubo un error al obtener los datos",
+			"errorPost": "Hubo un error al enviar los datos"
 		}
 	},
 	"fr-FR": {
@@ -270,7 +286,15 @@
 		},
 		"messages": {
 			"welcome": "!Bienvenue de nouveau",
-			"errorLogin": "Quelque chose s'est mal passé, reconnectez-vous"
+			"addFavorite": "Film ajouté aux favoris",
+			"rmFavorite": "Film retiré des favoris",
+			"logout": "Vous avez bien été déconnecté"
+		},
+		"errors": {
+			"errorLogin": "Une erreur est survenue, veuillez vous reconnecter",
+			"errorLogout": "Une erreur est survenue, réessayez de vous déconnecter",
+			"errorGet": "Une erreur s'est produite lors de la récupération des données",
+			"errorPost": "Une erreur s'est produite lors de l'envoi des données"
 		}
 	}
 }

@@ -9,14 +9,17 @@ const Landing = () => {
 	const [trends, loadingTrends, getTrends] = useGetItemsAPI({
 		initialValue: [],
 		destruct: "results",
+		msg: texts.errors.errorGet,
 	});
 	const [favorites, loadingFavorites, getFavorites] = useGetItemsAPI({
 		initialValue: [],
 		destruct: "results",
+		msg: texts.errors.errorGet,
 	});
 	const [categories, loadingCategories, getCategories] = useGetItemsAPI({
 		initialValue: [],
 		destruct: "genres",
+		msg: texts.errors.errorGet,
 	});
 
 	const initialRequests = useCallback((lang: string) => {

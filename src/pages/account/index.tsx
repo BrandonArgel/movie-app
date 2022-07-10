@@ -45,7 +45,10 @@ const Account = () => {
 				value={`${user.id}`}
 				disabled
 			/>
-			<Button className={styles.account__logout} onClick={logout}>
+			<Button
+				className={styles.account__logout}
+				onClick={() => logout(texts.messages.logout, texts.errors.errorLogout)}
+			>
 				{texts.account.logout}
 			</Button>
 		</div>

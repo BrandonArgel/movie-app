@@ -10,6 +10,7 @@ const Favorites = () => {
 	const [favorites, loadingFavorites, getFavorites, getMoreFavorites, hasMore] = useGetItemsAPI({
 		initialValue: [],
 		destruct: "results",
+		msg: texts.errors.errorGet,
 	});
 	const lastMovieElementRef = useInfiniteScroll(
 		() =>

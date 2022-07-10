@@ -11,6 +11,7 @@ const Search = () => {
 	const [movies, loadingMovies, getMovies, getMoreMovies, hasMore] = useGetItemsAPI({
 		initialValue: [],
 		destruct: "results",
+		msg: texts.errors.errorGet,
 	});
 
 	const lastMovieElementRef = useInfiniteScroll(

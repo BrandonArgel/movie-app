@@ -12,21 +12,26 @@ const Movie = () => {
 	const [accountState, setAccountState] = useState<any>();
 	const [loadingMovie, getMovie] = useGetItemAPI({
 		path: `/movie/${id}`,
+		msg: texts.errors.errorGet,
 	});
 	const [loadingAccountState, getAccountState] = useGetItemAPI({
 		path: `/movie/${id}/account_states`,
+		msg: texts.errors.errorGet,
 	});
 	const [videos, loadingVideos, getVideos] = useGetItemsAPI({
 		initialValue: [],
 		destruct: "results",
+		msg: texts.errors.errorGet,
 	});
 	const [cast, loadingCast, getCast] = useGetItemsAPI({
 		initialValue: [],
 		destruct: "cast",
+		msg: texts.errors.errorGet,
 	});
 	const [related, loadingRelated, getRelated] = useGetItemsAPI({
 		initialValue: [],
 		destruct: "results",
+		msg: texts.errors.errorGet,
 	});
 	const trailer = videos?.find((video) => video.type === "Trailer");
 
