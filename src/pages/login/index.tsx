@@ -20,8 +20,7 @@ const Login = () => {
 			setLoading(true);
 			const res = await getToken();
 			if (res.success) {
-				// window.location.href = `https://www.themoviedb.org/authenticate/${res.request_token}?redirect_to=https://movies-platzi-app.netlify.app/approved`;
-				window.location.href = `https://www.themoviedb.org/authenticate/${res.request_token}?redirect_to=https://localhost:3000/approved`;
+				window.location.href = `https://www.themoviedb.org/authenticate/${res.request_token}?redirect_to=https://movies-platzi-app.netlify.app/approved`;
 			} else {
 				setError("An error occurred, please try again.");
 			}
