@@ -61,6 +61,7 @@ type msgProps = {
 }
 
 export const toggleFavorite = async (session_id: string, movie_id: number, favorite: boolean, msg: msgProps) => {
+  console.log(msg);
   const data = await api.post("/account/{account_id}/favorite", { media_type: "movie", movie_id, favorite }, { params: { session_id } }).then((res) => res.data);
   if (data.success) {
     Toast.fire({

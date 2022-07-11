@@ -89,7 +89,7 @@
 		"messages": {
 			"welcome": "Welcome back",
 			"addFavorite": "Movie added to favorites",
-			"removeFavorite": "Movie removed from favorites",
+			"rmFavorite": "Movie removed from favorites",
 			"logout": "Logged out successfully"
 		},
 		"errors": {
@@ -188,7 +188,7 @@
 		"messages": {
 			"welcome": "!Bienvenido de nuevo",
 			"addFavorite": "Película agregada a favoritos",
-			"removeFavorite": "Película eliminada de favoritos",
+			"rmFavorite": "Película eliminada de favoritos",
 			"logout": "Cerraste sesión correctamente"
 		},
 		"errors": {
