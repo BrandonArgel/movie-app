@@ -1,7 +1,7 @@
 import { createContext, useEffect } from "react";
 import { useLocalStorage } from "hooks";
 
-const initialTheme = "light";
+const initialTheme = "dark";
 
 interface propsThemeProvider {
 	children: React.ReactNode;
