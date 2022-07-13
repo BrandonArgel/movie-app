@@ -1,7 +1,7 @@
 import { useNavigate } from "react-router-dom";
 import { useContext, useEffect, useRef, useState } from "react";
 import { UserContext } from "context";
-import { AdultContent, Back, Button, List } from "components";
+import { AdultContent, Avatar, Back, ButtonTheme, Button, List, Select } from "components";
 import { MovieInterface } from "utils";
 import { lazyLoading, loaderImg } from "utils";
 import { toggleFavorite } from "utils";
@@ -24,7 +24,7 @@ const Banner = ({
 	voteAverage,
 }: MovieInterface) => {
 	const navigate = useNavigate();
-	const { texts } = useContext(UserContext);
+	const { language, setLanguage, texts, user } = useContext(UserContext);
 	const imgRef = useRef<HTMLImageElement>(null);
 	const [favorite, setFavorite] = useState(accountState?.favorite);
 
@@ -90,6 +90,18 @@ const Banner = ({
 			)}
 			<div className={styles.banner__info}>
 				<div className={styles.banner__content}>
+					<div className={styles.banner__controls}>
+						<ButtonTheme />
+						<div className={styles.banner__controls_select}>
+							<Select
+								title="Change languaje"
+								options={texts.header.languages}
+								setValue={setLanguage}
+								value={language}
+							/>
+							<Avatar src={user?.avatar} alt={user?.username} />
+						</div>
+					</div>
 					<h1 className={styles.banner__title}>
 						{title}
 						<span>
