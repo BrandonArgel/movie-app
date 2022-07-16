@@ -100,11 +100,9 @@ const Banner = ({
 								value={language}
 							/>
 							{sessionId && (
-								<li>
-									<Link to="/account">
-										<Avatar src={user?.avatar} alt={user?.username} />
-									</Link>
-								</li>
+								<Link to="/account">
+									<Avatar src={user?.avatar} alt={user?.username} />
+								</Link>
 							)}
 						</div>
 					</div>
