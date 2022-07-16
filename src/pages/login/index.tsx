@@ -19,7 +19,7 @@ const Login = () => {
 		try {
 			setLoading(true);
 			const res = await getToken();
-			if (res.success) {
+			if (res?.success) {
 				window.location.href = `https://www.themoviedb.org/authenticate/${res.request_token}?redirect_to=https://movies-platzi-app.netlify.app/approved`;
 			} else {
 				setError("An error occurred, please try again.");
