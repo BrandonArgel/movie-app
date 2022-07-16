@@ -1,4 +1,4 @@
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { useContext, useEffect, useRef, useState } from "react";
 import { UserContext } from "context";
 import { AdultContent, Avatar, Back, ButtonTheme, Button, List, Select } from "components";
@@ -99,7 +99,13 @@ const Banner = ({
 								setValue={setLanguage}
 								value={language}
 							/>
-							<Avatar src={user?.avatar} alt={user?.username} />
+							{sessionId && (
+								<li>
+									<Link to="/account">
+										<Avatar src={user?.avatar} alt={user?.username} />
+									</Link>
+								</li>
+							)}
 						</div>
 					</div>
 					<h1 className={styles.banner__title}>

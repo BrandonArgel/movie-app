@@ -49,6 +49,7 @@ export const getSessionId = async (request_token: string) => {
 
   if (data?.success) {
     window.localStorage.setItem(LOCALSTORAGE_KEYS.sessionId, JSON.stringify(data.session_id));
+    // Reload the page for localStorage updates to be reflected
     window.location.reload();
   }
 
