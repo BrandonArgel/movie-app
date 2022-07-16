@@ -19,6 +19,7 @@
 			"title": "'s movies"
 		},
 		"approved": {
+			"title": "Approved",
 			"thanks": "Thank you for granting us access to your data. You can now use the app.",
 			"info1": "Redirecting to home in",
 			"info2": "seconds...",
@@ -119,6 +120,7 @@
 			"title": "Películas de "
 		},
 		"approved": {
+			"title": "Aprobado",
 			"thanks": "Gracias por darnos acceso a tus datos. Ahora puedes usar la aplicación.",
 			"info1": "Redireccionando a inicio en",
 			"info2": "segundos...",
@@ -218,6 +220,7 @@
 			"title": "Films de "
 		},
 		"approved": {
+			"title": "Approuvé",
 			"thanks": "Merci d'avoir donné accès à vos données. Vous pouvez désormais utiliser l'application.",
 			"info1": "Redirection vers l'accueil dans",
 			"info2": "secondes...",

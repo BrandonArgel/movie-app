@@ -27,7 +27,7 @@ const useGetItemsAPI = ({ initialValue = [], destruct, msg }: getItemsProps) => 
 			.catch((err) => Toast.fire({
 				icon: "error",
 				title: msg,
-			}))
+			}).then(() => console.log(err)))
 			.finally(() => {
 				setLoading(false)
 			});
@@ -45,7 +45,7 @@ const useGetItemsAPI = ({ initialValue = [], destruct, msg }: getItemsProps) => 
 			.catch((err) => Toast.fire({
 				icon: "error",
 				title: msg,
-			}))
+			}).then(() => console.log(err)))
 			.finally(() => {
 				setPage(page + 1);
 				setLoading(false)
@@ -71,7 +71,7 @@ const useGetItemAPI = ({ path, msg }: getItemProps) => {
 			.catch((err) => Toast.fire({
 				icon: "error",
 				title: msg,
-			}))
+			}).then(() => console.log(err)))
 			.finally(() => setLoading(false));
 	}
 
@@ -94,7 +94,7 @@ const usePostAPI = ({ path, msg }: postProps) => {
 			.catch((err) => Toast.fire({
 				icon: "error",
 				title: msg,
-			}))
+			}).then(() => console.log(err)))
 			.finally(() => setLoading(false));
 	}
 
@@ -117,7 +117,7 @@ const useDeleteAPI = ({ path, msg }: deleteItemProps) => {
 			.catch((err) => Toast.fire({
 				icon: "error",
 				title: msg,
-			}))
+			}).then(() => console.log(err)))
 			.finally(() => setLoading(false));
 	}
 

@@ -20,7 +20,7 @@ export const logout = async (msgSuccess: string, msgError: string) => {
     .catch((err) => Toast.fire({
       icon: "error",
       title: msgError,
-    }))
+    }).then(() => console.log(err)))
 
   if (data.success && LOCALSTORAGE_VALUES.accessToken && LOCALSTORAGE_VALUES.sessionId) {
     Object.keys(LOCALSTORAGE_KEYS).forEach((key) => {

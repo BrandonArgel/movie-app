@@ -28,7 +28,7 @@ const Approved = () => {
 
 	return (
 		<div className={styles.approved}>
-			<h1 className={styles.approved__title}>Approved</h1>
+			<h1 className={styles.approved__title}>{texts.approved.title}</h1>
 			<p className={styles.approved__description}>{texts.approved.thanks}</p>
 			<p className={styles.approved__info}>
 				{texts.approved.info1} {timer} {texts.approved.info2}

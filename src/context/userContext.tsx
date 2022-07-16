@@ -63,7 +63,7 @@ const UserProvider = ({ children }: propsUserProvider) => {
 			Toast.fire({
 				icon: "error",
 				title: texts.errors.errorLogin,
-			});
+			}).then(() => console.log(err));
 		}
 	};
 
