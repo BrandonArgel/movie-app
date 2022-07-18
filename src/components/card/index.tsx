@@ -63,7 +63,7 @@ const Card = ({
 					<h3 className={styles.card__content_title}>{title}</h3>
 					<p className={styles.card__content_overview}>{overview}</p>
 					<p className={styles.card__content_info}>
-						{isTouch ? texts.card.click : texts.card.dbclick}
+						{isTouch ? texts.card.dbclick : texts.card.click}
 					</p>
 					<p className={styles.card__content_vote}>⭐️ {voteAverage && voteAverage!.toFixed(1)}</p>
 					{adult && <AdultContent />}
