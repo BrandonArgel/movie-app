@@ -32,9 +32,12 @@
 			"title": "Favorite movies"
 		},
 		"login": {
-			"title": "We need your permission to access your account",
-			"info": "We will redirect you to the The Movie DB website to get your permission.",
-			"button": "Grant access"
+			"title": "Login",
+			"description": "Please enter your The Movie DB account details to login.",
+			"username": "Enter your username",
+			"password": "Enter your password",
+			"button": "Login",
+			"success": "Login successful"
 		},
 		"movie": {
 			"trailer": "Trailer",
@@ -94,7 +97,8 @@
 			"logout": "Logged out successfully"
 		},
 		"errors": {
-			"errorLogin": "Something went wrong, try login again",
+			"login": "Invalid username or password, make sure you are using your The Movie DB account",
+			"errorLogin": "Something went wrong, please try to login again",
 			"errorLogout": "Something went wrong, try logout again",
 			"errorGet": "There was an error while fetching the data",
 			"errorPost": "There was an error while posting the data"
@@ -133,9 +137,12 @@
 			"title": "Películas favoritas"
 		},
 		"login": {
-			"title": "Necesitamos tu permiso para acceder a tu cuenta",
-			"info": "Te redireccionaremos a la página de The Movie DB para obtener tu permiso.",
-			"button": "Dar acceso"
+			"title": "Iniciar sesión",
+			"description": "Por favor ingresa tus datos de The Movie DB para iniciar sesión.",
+			"username": "Ingresa tu nombre de usuario",
+			"password": "Ingresa tu contraseña",
+			"button": "Iniciar sesión",
+			"success": "Inicio de sesión exitoso"
 		},
 		"movie": {
 			"trailer": "Trailer",
@@ -194,6 +201,7 @@
 			"logout": "Cerraste sesión correctamente"
 		},
 		"errors": {
+			"login": "El nombre de usuario o contraseña son incorrectos, asegúrate de usar tu cuenta de The Movie DB",
 			"errorLogin": "Algo salió mal, inicia sesión de nuevo",
 			"errorLogout": "Algo salió mal, intenta cerrar sesión de nuevo",
 			"errorGet": "Hubo un error al obtener los datos",
@@ -233,9 +241,12 @@
 			"title": "Films préférés"
 		},
 		"login": {
-			"title": "Nous avons besoin de votre permission pour accéder à votre compte",
-			"info": "Nous redirigons vers la page de The Movie DB pour obtenir votre permission.",
-			"button": "Donner accès"
+			"title": "Connexion",
+			"description": "Veuillez entrer vos données de The Movie DB pour vous connecter.",
+			"username": "Entrez votre nom d'utilisateur",
+			"password": "Entrez votre mot de passe",
+			"button": "Connexion",
+			"success": "Connexion réussie"
 		},
 		"movie": {
 			"trailer": "Bande-annonce",
@@ -294,6 +305,7 @@
 			"logout": "Vous avez bien été déconnecté"
 		},
 		"errors": {
+			"login": "Le nom d'utilisateur ou le mot de passe sont incorrects, asezurez-vous d'utiliser votre compte de The Movie DB",
 			"errorLogin": "Une erreur est survenue, veuillez vous reconnecter",
 			"errorLogout": "Une erreur est survenue, réessayez de vous déconnecter",
 			"errorGet": "Une erreur s'est produite lors de la récupération des données",

@@ -52,7 +52,8 @@ const Button = (props: ButtonProps) => {
 			type,
 			href: url,
 		},
-		loading ? <Loader /> : children
+		children,
+		loading && <Loader />
 	);
 };
 

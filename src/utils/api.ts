@@ -37,6 +37,28 @@ export const logout = async (msgSuccess: string, msgError: string) => {
   window.location.href = "/";
 }
 
+export const login = async (username: string, password: string, request_token: string, msg: string) => {
+  // Send the data to the API
+  // Save the new reqest_token in localStorage
+
+  const data = await api
+    .post("/authentication/token/validate_with_login", {
+      request_token,
+      username,
+      password,
+    })
+    .then((res) => res.data)
+    .catch((err) => Toast.fire({
+      icon: "error",
+      title: msg,
+    }).then(() => console.log(err)))
+
+  if (data?.success) {
+    window.localStorage.setItem(LOCALSTORAGE_KEYS.accessToken, data.request_token);
+    return data
+  }
+}
+
 export const getSessionId = async (request_token: string) => {
   const session_id = JSON.parse(LOCALSTORAGE_VALUES.sessionId as string);
 

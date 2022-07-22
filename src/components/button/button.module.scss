@@ -5,6 +5,7 @@
 	background-color: var(--main-color);
 	border-radius: 0.5rem;
 	border: 1px solid transparent;
+	color: var(--text-color);
 	cursor: pointer;
 	display: flex;
 	font-size: variables.$fz-lg;
@@ -38,6 +39,10 @@
 	}
 
 	svg {
-		fill: var(--body-bg);
+		fill: var(--text-color);
+	}
+
+	div {
+		width: fit-content;
 	}
 }

@@ -1,6 +1,6 @@
 import { useState } from "react";
 import styles from "./input.module.scss";
-import { Alert, Eye, EyeOff } from "assets/icons/icons";
+import { Eye, EyeOff } from "assets/icons/icons";
 
 type InputType = "text" | "password" | "email" | "number";
 
@@ -27,6 +27,7 @@ const Input = ({
 	placeholder,
 	type,
 	value,
+	disabled = false,
 }: InputProps) => {
 	const [showPassword, setShowPassword] = useState(false);
 	return (
@@ -42,7 +43,6 @@ const Input = ({
 					value={value}
 					className={`${styles.input__field} ${className}`}
 					autoComplete={autocomplete}
-					disabled
 				/>
 				{type === "password" && (
 					<button
@@ -54,12 +54,12 @@ const Input = ({
 					</button>
 				)}
 			</div>
-			{error && (
+			{/* {error && (
 				<span className={styles.input__error}>
 					<Alert />
 					{error}
 				</span>
-			)}
+			)} */}
 		</>
 	);
 };
