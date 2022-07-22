@@ -89,8 +89,7 @@ const Login = () => {
 					icon: "success",
 					title: texts.login.success,
 				});
-				// console.log("navigate");
-				// navigate("/");
+				navigate("/");
 			}
 		} catch (err) {
 			setError(texts.errors.errorLogin);
