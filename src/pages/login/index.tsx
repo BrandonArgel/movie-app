@@ -82,7 +82,6 @@ const Login = () => {
 		try {
 			setLoading(true);
 			const res = await login(username, password, token, texts.errors.login);
-			console.log(res, "login");
 			if (res.success) {
 				setToken(res.request_token);
 				Toast.fire({

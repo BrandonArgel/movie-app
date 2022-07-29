@@ -6,10 +6,11 @@ import { Social } from "config";
 
 const Footer = () => {
 	const { texts } = useContext(UserContext);
-	
+
 	return (
 		<footer className={styles.footer}>
 			<div className={styles.footer__rights}>
+				<p>{texts.footer.credits}</p>
 				<p>
 					@BrandArgel • {texts.footer.rights} ©{new Date().getFullYear()}.
 				</p>

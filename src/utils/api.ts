@@ -38,9 +38,6 @@ export const logout = async (msgSuccess: string, msgError: string) => {
 }
 
 export const login = async (username: string, password: string, request_token: string, msg: string) => {
-  // Send the data to the API
-  // Save the new reqest_token in localStorage
-
   const data = await api
     .post("/authentication/token/validate_with_login", {
       request_token,
@@ -48,10 +45,13 @@ export const login = async (username: string, password: string, request_token: s
       password,
     })
     .then((res) => res.data)
-    .catch((err) => Toast.fire({
-      icon: "error",
-      title: msg,
-    }).then(() => console.log(err)))
+    .catch((err) => {
+      Toast.fire({
+        icon: "error",
+        title: msg,
+      })
+      return err;
+    })
 
   if (data?.success) {
     window.localStorage.setItem(LOCALSTORAGE_KEYS.accessToken, data.request_token);

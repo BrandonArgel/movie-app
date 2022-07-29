@@ -62,6 +62,7 @@
 			"dbclick": "Double tap to see more"
 		},
 		"footer": {
+			"credits": "Project created with TMDB API and Platzi 💚",
 			"rights": "All rights reserved"
 		},
 		"header": {
@@ -167,6 +168,7 @@
 			"dbclick": "Toca dos veces para ver más"
 		},
 		"footer": {
+			"credits": "Proyecto creado con la API de TMDB y Platzi 💚",
 			"rights": "Todos los derechos reservados"
 		},
 		"header": {
@@ -271,6 +273,7 @@
 			"dbclick": "Double-cliquez pour voir plus"
 		},
 		"footer": {
+			"credits": "Projet créé avec l'API de TMDB et Platzi 💚",
 			"rights": "Tous droits réservés"
 		},
 		"header": {
