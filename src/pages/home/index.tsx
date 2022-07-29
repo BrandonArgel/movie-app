@@ -44,7 +44,7 @@ const Landing = () => {
 		<>
 			<SearchBar value={query} setValue={setQuery} />
 			<Preview title={texts.home.trends.title} link="/trending">
-				<Slideshow loading={loadingTrends} speed={300}>
+				<Slideshow loading={loadingTrends} speed={1000} slideAll>
 					{trends.map(({ adult, id, overview, title, poster_path, vote_average }) => (
 						<Slide
 							id={id}

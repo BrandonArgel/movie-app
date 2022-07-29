@@ -89,7 +89,7 @@ const Actor = () => {
 						language === "en-US" ? `${name}${texts.actor.title}` : `${texts.actor.title} ${name}`
 					}
 				>
-					<Slideshow loading={loadingMovies} speed={300}>
+					<Slideshow loading={loadingMovies} speed={1000} slideAll>
 						{movies.map(({ adult, id, overview, title, poster_path, vote_average }) => (
 							<Slide
 								id={id}

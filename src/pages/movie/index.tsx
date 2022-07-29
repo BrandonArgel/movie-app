@@ -74,7 +74,7 @@ const Movie = () => {
 				voteAverage={movie && movie.vote_average}
 			>
 				<Preview title={texts.movie.cast}>
-					<Slideshow loading={loadingCast} speed={300}>
+					<Slideshow loading={loadingCast} speed={1000} slideAll>
 						{cast
 							.filter((actor) => actor.profile_path)
 							.map(({ adult, id, character, name, popularity, profile_path }) => (
@@ -111,7 +111,7 @@ const Movie = () => {
 				)}
 				{related.length > 0 && (
 					<Preview title={texts.movie.related}>
-						<Slideshow loading={loadingRelated} speed={300}>
+						<Slideshow loading={loadingRelated} speed={1000} slideAll>
 							{related.map(({ adult, id, overview, title, poster_path, vote_average }) => (
 								<Slide
 									id={id}
