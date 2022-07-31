@@ -19,9 +19,6 @@ const Search = React.lazy(() => import("pages").then((module) => ({ default: mod
 const Trends = React.lazy(() => import("pages").then((module) => ({ default: module.Trends })));
 
 const App = () => {
-	// TODO: create the a functional login page, and authenticate the user with the API
-	// TODO: create context for the global user state
-
 	React.useEffect(() => {
 		window.history.pushState({ loadUrl: window.location.href }, "", window.location.href);
 	}, []);

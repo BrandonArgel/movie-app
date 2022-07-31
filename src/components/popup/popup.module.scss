@@ -1,0 +1,45 @@
+@use "styles/variables.scss";
+
+.popup {
+	background-color: var(--body-bg);
+	list-style: none;
+	padding: 0.5rem;
+	position: absolute;
+	transform: translateX(-50%);
+	z-index: 1;
+
+	& > div svg {
+		fill: var(--main-color);
+	}
+
+	li {
+		align-items: center;
+		display: flex;
+		gap: 0.5rem;
+		justify-content: center;
+		padding: 0.5rem 0;
+
+		&:hover {
+			background-color: var(--secondary-body-bg);
+		}
+
+		&:hover:not(.active) > svg {
+			fill: var(--main-color);
+			opacity: 0.5;
+		}
+
+		&:not(:last-child) {
+			border-bottom: 1px solid var(--stroke-color);
+		}
+
+		& > svg {
+			fill: var(--secondary-body-bg);
+			height: 2rem;
+			width: 2rem;
+		}
+
+		&.active svg {
+			fill: var(--main-color);
+		}
+	}
+}

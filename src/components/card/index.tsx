@@ -1,18 +1,10 @@
 import { useNavigate } from "react-router-dom";
-import { useContext, useEffect, useRef, useState } from "react";
+import { useContext, useId, useEffect, useRef, useState } from "react";
 import { UserContext } from "context/userContext";
-import {
-	CardInterface,
-	deleteRateMovie,
-	lazyLoading,
-	loaderImg,
-	rateMovie,
-	toggleFavorite,
-	toggleWatchlater,
-} from "utils";
-import { AdultContent, Loader, Rating } from "components";
+import { CardInterface, lazyLoading, loaderImg } from "utils";
+import { AdultContent, Popup } from "components";
 import { useClickHandler, useGetItemAPI } from "hooks";
-import { BookMark, Heart, More, Remove, Star } from "assets/icons/icons";
+import { More, Star } from "assets/icons/icons";
 import styles from "./card.module.scss";
 
 const Card = ({
@@ -30,7 +22,20 @@ const Card = ({
 	getWatchLater,
 	getRated,
 }: CardInterface) => {
-	const { language, sessionId, texts, user } = useContext(UserContext);
+	const cardId = useId();
+	const body = document.querySelector("body");
+	const {
+		handleFavorite,
+		handleWatchlater,
+		handleRating,
+		handleDeleteRating,
+		language,
+		sessionId,
+		texts,
+		user,
+		popup,
+		setPopup,
+	} = useContext(UserContext);
 	const [loadingAccountState, getAccountState] = useGetItemAPI({
 		path: `/movie/${id}/account_states`,
 		msg: texts.errors.errorGet,
@@ -39,6 +44,13 @@ const Card = ({
 	const [favorite, setFavorite] = useState(false);
 	const [watchlater, setWatchlater] = useState(false);
 	const imgRef = useRef<HTMLImageElement>(null);
+	const more = useRef<HTMLDivElement>(null);
+	const [buttonRect, setButtonReact] = useState({
+		top: 0,
+		left: 0,
+		width: 0,
+		height: 0,
+	});
 	const isTouch = /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(
 		navigator.userAgent
 	);
@@ -53,27 +65,27 @@ const Card = ({
 
 	const handleClick = (e: React.MouseEvent<HTMLDivElement>) => {
 		e.stopPropagation();
-		if (favorite || watchlater || rating) return;
+		if (popup === cardId) return setPopup("");
 		accountRequest();
+		setPopup(cardId);
+		const rect = more.current!.getBoundingClientRect();
+		setButtonReact(rect);
 	};
 
 	const handleKeyDown = (e: React.KeyboardEvent<HTMLDivElement>) => {
 		if (e.key !== "Enter" || e.code !== "Space") return;
+		if (popup === cardId) return setPopup("");
 		e.preventDefault();
-		if (favorite || watchlater || rating) return;
 		accountRequest();
+		setPopup(cardId);
+		const rect = more.current!.getBoundingClientRect();
+		setButtonReact(rect);
 	};
 
-	const handleFavorite = async () => {
-		if (!sessionId) return navigate("/login");
-		const res = await toggleFavorite({
-			id: id as number,
+	const toggleFavorite = async () => {
+		const res = await handleFavorite({
+			movie_id: id as number,
 			favorite,
-			add: texts.messages.addFavorite,
-			remove: texts.messages.removeFavorite,
-			err: texts.errors.errorFavorite,
-			session_id: sessionId,
-			account_id: user.id,
 		});
 		if (res.success) {
 			setFavorite(!favorite);
@@ -81,16 +93,11 @@ const Card = ({
 		}
 	};
 
-	const handleWatchlater = async () => {
+	const toggleWatchlater = async () => {
 		if (!sessionId) return navigate("/login");
-		const res = await toggleWatchlater({
-			id: id as number,
+		const res = await handleWatchlater({
+			media_id: id as number,
 			watchlater,
-			add: texts.messages.addWatchlater,
-			remove: texts.messages.removeWatchlater,
-			err: texts.errors.errorPost,
-			session_id: sessionId,
-			account_id: user.id,
 		});
 		if (res.success) {
 			setWatchlater(!watchlater);
@@ -98,26 +105,20 @@ const Card = ({
 		}
 	};
 
-	const handleRating = async (n: number) => {
-		const res = await rateMovie({
+	const onRating = async (rate: number) => {
+		const res = await handleRating({
 			movie_id: id as number,
-			value: n / 10,
-			session_id: sessionId,
-			success: texts.messages.rateMovie,
-			err: texts.errors.errorPost,
+			value: rate / 10,
 		});
 		if (res.success) {
-			setRating(n);
+			setRating(rate);
 			getRated?.(language, sessionId, user?.id);
 		}
 	};
 
-	const handleDeleteRating = async () => {
-		const res = await deleteRateMovie({
+	const onDeleteRating = async () => {
+		const res = await handleDeleteRating({
 			movie_id: id as number,
-			session_id: sessionId,
-			success: texts.messages.unrateMovie,
-			err: texts.errors.errorPost,
 		});
 		if (res.success) {
 			setRating(0);
@@ -145,10 +146,22 @@ const Card = ({
 		}
 	}, [img]);
 
+	const handleClosePopup = () => {
+		setPopup("");
+	};
+
+	useEffect(() => {
+		if (!popup) return;
+		body!.addEventListener("click", handleClosePopup);
+		return () => body!.removeEventListener("click", handleClosePopup);
+	}, [popup]); // eslint-disable-line
+
 	return (
 		<div className={`${styles.card} ${slide ? styles.slide : ""}`}>
 			<button
-				className={`${styles.card__container} ${styles.skeleton} skeleton`}
+				className={`${styles.card__container} ${popup === cardId ? styles.active : ""} ${
+					styles.skeleton
+				} skeleton`}
 				onClick={isTouch ? click : clickCallback}
 				title={title}
 				type="button"
@@ -165,52 +178,32 @@ const Card = ({
 				<div className={styles.card__content}>
 					<h3 className={styles.card__content_title}>
 						{sessionId && (
-							<div
-								className={styles.card__content_more}
-								onClick={handleClick}
-								onKeyDown={handleKeyDown}
-								tabIndex={0}
-								title={`${texts.card.more}: ${title}`}
-							>
-								<More />
-								<ul className={styles.list}>
-									{loadingAccountState ? (
-										<Loader />
-									) : (
-										<>
-											<li
-												tabIndex={0}
-												onClick={handleFavorite}
-												className={favorite ? styles.active : ""}
-											>
-												<Heart /> {texts.card.favorite}
-											</li>
-											<li
-												tabIndex={0}
-												onClick={handleWatchlater}
-												className={watchlater ? styles.active : ""}
-											>
-												<BookMark /> {texts.card.watchLater}
-											</li>
-											<li>
-												<Rating
-													initialValue={rating}
-													onClick={handleRating}
-													ratingValue={rating}
-													transition
-													allowHalfIcon
-													size={23}
-												/>
-											</li>
-											<li tabIndex={0} onClick={handleDeleteRating} className={styles.active}>
-												<Remove />
-											</li>
-										</>
-									)}
-								</ul>
-							</div>
+							<>
+								<div
+									className={styles.card__content_more}
+									onClick={handleClick}
+									onKeyDown={handleKeyDown}
+									tabIndex={0}
+									title={`${texts.card.more}: ${title}`}
+									ref={more}
+								>
+									<More />
+								</div>
+								{popup === cardId && (
+									<Popup
+										loading={loadingAccountState}
+										favorite={favorite}
+										watchlater={watchlater}
+										rating={rating}
+										toggleFavorite={toggleFavorite}
+										toggleWatchlater={toggleWatchlater}
+										onRating={onRating}
+										onDeleteRating={onDeleteRating}
+										buttonRect={buttonRect}
+									/>
+								)}
+							</>
 						)}
-
 						{title}
 					</h3>
 					<p className={styles.card__content_overview}>{overview}</p>

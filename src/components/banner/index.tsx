@@ -3,8 +3,8 @@ import { useContext, useEffect, useRef, useState } from "react";
 import { UserContext } from "context";
 import { AdultContent, Avatar, Back, ButtonTheme, List, Loader, Rating, Select } from "components";
 import { useGetItemAPI } from "hooks";
-import { deleteRateMovie, MovieInterface } from "utils";
-import { lazyLoading, loaderImg, rateMovie, toggleFavorite, toggleWatchlater } from "utils";
+import { MovieInterface } from "utils";
+import { lazyLoading, loaderImg } from "utils";
 import { BookMark, Heart, Remove, Star } from "assets/icons/icons";
 import styles from "./banner.module.scss";
 
@@ -23,7 +23,16 @@ const Banner = ({
 	voteAverage,
 }: MovieInterface) => {
 	const navigate = useNavigate();
-	const { language, setLanguage, texts, user } = useContext(UserContext);
+	const {
+		handleFavorite,
+		handleWatchlater,
+		handleRating,
+		handleDeleteRating,
+		language,
+		setLanguage,
+		texts,
+		user,
+	} = useContext(UserContext);
 	const [loadingAccountState, getAccountState] = useGetItemAPI({
 		path: `/movie/${id}/account_states`,
 		msg: texts.errors.errorGet,
@@ -33,53 +42,40 @@ const Banner = ({
 	const [watchlater, setWatchlater] = useState(false);
 	const imgRef = useRef<HTMLImageElement>(null);
 
-	const handleFavorite = async () => {
-		if (!sessionId) return navigate("/login");
-		const res = await toggleFavorite({
-			id,
+	const toggleFavorite = async () => {
+		const res = await handleFavorite({
+			movie_id: id as number,
 			favorite,
-			add: texts.messages.addFavorite,
-			remove: texts.messages.removeFavorite,
-			err: texts.errors.errorFavorite,
-			session_id: sessionId,
-			account_id: user.id,
-		});
-		if (res.success) return setFavorite(!favorite);
-	};
-
-	const handleWatchlater = async () => {
-		if (!sessionId) return navigate("/login");
-		const res = await toggleWatchlater({
-			id,
-			watchlater,
-			add: texts.messages.addWatchlater,
-			remove: texts.messages.removeWatchlater,
-			err: texts.errors.errorPost,
-			session_id: sessionId,
-			account_id: user.id,
-		});
-		if (res.success) return setWatchlater(!watchlater);
-	};
-
-	const handleRating = async (n: number) => {
-		const res = await rateMovie({
-			movie_id: id,
-			value: n / 10,
-			session_id: sessionId,
-			success: texts.messages.rateMovie,
-			err: texts.errors.errorPost,
 		});
 		if (res.success) {
-			setRating(n);
+			setFavorite(!favorite);
 		}
 	};
 
-	const handleDeleteRating = async () => {
-		const res = await deleteRateMovie({
-			movie_id: id,
-			session_id: sessionId,
-			success: texts.messages.unrateMovie,
-			err: texts.errors.errorPost,
+	const toggleWatchlater = async () => {
+		if (!sessionId) return navigate("/login");
+		const res = await handleWatchlater({
+			media_id: id as number,
+			watchlater,
+		});
+		if (res.success) {
+			setWatchlater(!watchlater);
+		}
+	};
+
+	const onRating = async (rate: number) => {
+		const res = await handleRating({
+			movie_id: id as number,
+			value: rate / 10,
+		});
+		if (res.success) {
+			setRating(rate);
+		}
+	};
+
+	const onDeleteRating = async () => {
+		const res = await handleDeleteRating({
+			movie_id: id as number,
 		});
 		if (res.success) {
 			setRating(0);
@@ -181,12 +177,12 @@ const Banner = ({
 							) : (
 								sessionId && (
 									<div className={styles.banner__more}>
-										<div className={styles.banner__more_remove} onClick={handleDeleteRating}>
+										<div className={styles.banner__more_remove} onClick={onDeleteRating}>
 											<Remove />
 										</div>
 										<Rating
 											initialValue={rating}
-											onClick={handleRating}
+											onClick={onRating}
 											ratingValue={rating}
 											transition
 											allowHalfIcon
@@ -194,14 +190,14 @@ const Banner = ({
 										<div className={styles.banner__more_buttons}>
 											<button
 												className={`${styles.button} ${favorite ? styles.active : ""}`}
-												onClick={handleFavorite}
+												onClick={toggleFavorite}
 												title={favorite ? texts.banner.removeFav : texts.banner.addFav}
 											>
 												<Heart />
 											</button>
 											<button
 												className={`${styles.button} ${watchlater ? styles.active : ""}`}
-												onClick={handleWatchlater}
+												onClick={toggleWatchlater}
 												title={
 													watchlater ? texts.banner.removeWatchlater : texts.banner.addWatchlater
 												}

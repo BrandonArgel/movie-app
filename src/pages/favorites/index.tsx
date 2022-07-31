@@ -24,12 +24,11 @@ const Favorites = () => {
 	);
 
 	const initialRequest = useCallback(async (lang: string) => {
-		const data = await getFavorites(`/account/${user.id}/favorite/movies`, {
+		await getFavorites(`/account/${user.id}/favorite/movies`, {
 			session_id: sessionId,
 			language: lang,
 			include_image_language: lang,
 		});
-		console.log({ data });
 	}, []); // eslint-disable-line react-hooks/exhaustive-deps
 
 	useEffect(() => {

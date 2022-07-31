@@ -82,7 +82,7 @@ export const getAccount = async (session_id: string) => await api.get("/account"
 
 interface toggleFavoriteParams {
   account_id: number;
-  id: number;
+  movie_id: number;
   favorite: boolean;
   add: boolean;
   remove: boolean;
@@ -90,11 +90,11 @@ interface toggleFavoriteParams {
   session_id: string;
 }
 
-export const toggleFavorite = async ({ account_id, session_id, id, favorite, add, remove, err }: toggleFavoriteParams) => {
-  const response = await api
+export const toggleFavorite = async ({ account_id, session_id, movie_id, favorite, add, remove, err }: toggleFavoriteParams) => {
+  return await api
     .post(
       `/account/${account_id}/favorite`,
-      { media_type: "movie", movie_id: id, favorite: !favorite },
+      { media_type: "movie", movie_id, favorite: !favorite },
       { params: { session_id } }
     )
     .then((res) => res.data)
@@ -113,13 +113,11 @@ export const toggleFavorite = async ({ account_id, session_id, id, favorite, add
         title: `${err}: ${e.message}`,
       })
     );
-
-  return response;
 }
 
 interface toggleWatchlaterParams {
   account_id: number;
-  id: number;
+  media_id: number;
   watchlater: boolean;
   add: boolean;
   remove: boolean;
@@ -127,12 +125,11 @@ interface toggleWatchlaterParams {
   session_id: string;
 }
 
-export const toggleWatchlater = async ({ account_id, session_id, id, watchlater, add, remove, err }: toggleWatchlaterParams) => {
-  console.log({ session_id })
-  const response = await api
+export const toggleWatchlater = async ({ account_id, session_id, media_id, watchlater, add, remove, err }: toggleWatchlaterParams) => {
+  return await api
     .post(
       `/account/${account_id}/watchlist`,
-      { media_type: "movie", media_id: id, watchlist: !watchlater },
+      { media_type: "movie", media_id, watchlist: !watchlater },
       { params: { session_id } }
     )
     .then((res) => res.data)
@@ -150,8 +147,6 @@ export const toggleWatchlater = async ({ account_id, session_id, id, watchlater,
         title: `${err}: ${e.message}`,
       })
     );
-
-  return response;
 }
 
 interface rateMovieParams {
@@ -163,7 +158,7 @@ interface rateMovieParams {
 }
 
 export const rateMovie = async ({ movie_id, session_id, value, success, err }: rateMovieParams) => {
-  const response = await api
+  return await api
     .post(`/movie/${movie_id}/rating`, { value }, { params: { session_id } })
     .then((res) => res.data)
     .then((data) => {
@@ -181,8 +176,6 @@ export const rateMovie = async ({ movie_id, session_id, value, success, err }: r
         title: `${err}: ${e.message}`,
       })
     );
-
-  return response;
 }
 
 interface deleteRateMovieParams {
@@ -193,7 +186,7 @@ interface deleteRateMovieParams {
 }
 
 export const deleteRateMovie = async ({ movie_id, session_id, success, err }: deleteRateMovieParams) => {
-  const response = await api
+  return await api
     .delete(`/movie/${movie_id}/rating`, { params: { session_id } })
     .then((res) => res.data)
     .then((data) => {
@@ -210,6 +203,4 @@ export const deleteRateMovie = async ({ movie_id, session_id, success, err }: de
         title: `${err}: ${e.message}`,
       })
     );
-
-  return response;
 }

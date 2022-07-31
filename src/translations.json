@@ -101,7 +101,8 @@
 			"removeWatchlater": "Movie removed from watch later",
 			"rateMovie": "Movie rated successfully",
 			"unrateMovie": "Movie unrated successfully",
-			"logout": "Logged out successfully"
+			"logout": "Logged out successfully",
+			"needLogin": "You need to be logged in to do that"
 		},
 		"errors": {
 			"login": "Invalid username or password, make sure you are using your The Movie DB account",
@@ -212,7 +213,8 @@
 			"removeWatchlater": "Película eliminada de ver más tarde",
 			"rateMovie": "Película calificada exitosamente",
 			"unrateMovie": "Calificación de película removida",
-			"logout": "Cerraste sesión correctamente"
+			"logout": "Cerraste sesión correctamente",
+			"needLogin": "Necesitas iniciar sesión para hacer eso"
 		},
 		"errors": {
 			"login": "El nombre de usuario o contraseña son incorrectos, asegúrate de usar tu cuenta de The Movie DB",
@@ -323,7 +325,8 @@
 			"removeWatchlater": "Supprimé Regarder plus tard le film",
 			"rateMovie": "Film classé avec succès",
 			"unrateMovie": "Classement du film supprimé",
-			"logout": "Vous avez bien été déconnecté"
+			"logout": "Vous avez bien été déconnecté",
+			"needLogin": "Vous devez vous connecter pour le faire"
 		},
 		"errors": {
 			"login": "Le nom d'utilisateur ou le mot de passe sont incorrects, asezurez-vous d'utiliser votre compte de The Movie DB",

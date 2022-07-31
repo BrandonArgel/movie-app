@@ -13,6 +13,7 @@ export { Layout, LayoutHeader, SimpleLayout } from './layout';
 export { List } from './list';
 export { FixedLoader, Loader } from "./loader";
 export { Preview } from "./preview";
+export { Popup } from "./popup";
 export { Rating } from "./rating";
 export { SearchBar } from "./searchbar";
 export { Select } from "./select";
