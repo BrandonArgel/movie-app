@@ -21,7 +21,7 @@
 
 .fixed {
 	align-items: center;
-	background-image: radial-gradient(circle, rgba(40, 40, 40, 1) 0%, var(--body-bg) 100%);
+	background-image: radial-gradient(circle, var(--secondary-body-bg) 0%, var(--body-bg) 100%);
 	background-position: center;
 	display: flex;
 	flex-direction: column;

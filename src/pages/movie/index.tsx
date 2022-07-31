@@ -1,7 +1,7 @@
 import { useContext, useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import { useGetItemAPI, useGetItemsAPI } from "hooks";
-import { Banner, Loader, Preview, Slide, Slideshow } from "components";
+import { Banner, Loader, Preview, Slide, SlideActor, Slideshow } from "components";
 import styles from "./movie.module.scss";
 import { UserContext } from "context";
 
@@ -9,13 +9,8 @@ const Movie = () => {
 	const { id } = useParams();
 	const { language, sessionId, texts } = useContext(UserContext);
 	const [movie, setMovie] = useState<any>();
-	const [accountState, setAccountState] = useState<any>();
 	const [loadingMovie, getMovie] = useGetItemAPI({
 		path: `/movie/${id}`,
-		msg: texts.errors.errorGet,
-	});
-	const [loadingAccountState, getAccountState] = useGetItemAPI({
-		path: `/movie/${id}/account_states`,
 		msg: texts.errors.errorGet,
 	});
 	const [videos, loadingVideos, getVideos] = useGetItemsAPI({
@@ -43,30 +38,17 @@ const Movie = () => {
 		getRelated(`/movie/${id}/similar`, { language: lang });
 	};
 
-	const initialAccountRequest = async () => {
-		const accountData = await getAccountState({ session_id: sessionId });
-		setAccountState(accountData);
-	};
-
 	useEffect(() => {
 		initialRequest(language);
 	}, [id, language]); // eslint-disable-line react-hooks/exhaustive-deps
-
-	useEffect(() => {
-		if (sessionId) {
-			initialAccountRequest();
-		}
-	}, [sessionId, language]); // eslint-disable-line react-hooks/exhaustive-deps
 
 	return (
 		<>
 			<Banner
 				id={parseInt(id as string, 10)}
 				adult={movie && movie.adult}
-				accountState={accountState && accountState}
 				backdrop={movie && movie.backdrop_path}
 				loading={loadingMovie}
-				loadingState={loadingAccountState}
 				genres={movie && movie.genres}
 				overview={movie && movie.overview}
 				sessionId={sessionId}
@@ -78,16 +60,15 @@ const Movie = () => {
 						{cast
 							.filter((actor) => actor.profile_path)
 							.map(({ adult, id, character, name, popularity, profile_path }) => (
-								<Slide
+								<SlideActor
 									id={id}
 									adult={adult}
 									key={id}
-									title={name}
-									overview={character}
+									name={name}
+									character={character}
 									link={`/actor/${id}`}
-									voteAverage={popularity}
+									popularity={popularity}
 									img={profile_path}
-									slide={true}
 								/>
 							))}
 					</Slideshow>
@@ -122,7 +103,7 @@ const Movie = () => {
 									link={`/movie/${id}`}
 									voteAverage={vote_average}
 									img={poster_path}
-									slide={true}
+									slide
 								/>
 							))}
 						</Slideshow>

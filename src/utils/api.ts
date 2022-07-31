@@ -80,19 +80,136 @@ export const getSessionId = async (request_token: string) => {
 
 export const getAccount = async (session_id: string) => await api.get("/account", { params: { session_id } }).then((res) => res.data);
 
-type msgProps = {
-  add: string,
-  remove: string
+interface toggleFavoriteParams {
+  account_id: number;
+  id: number;
+  favorite: boolean;
+  add: boolean;
+  remove: boolean;
+  err: string;
+  session_id: string;
 }
 
-export const toggleFavorite = async (session_id: string, movie_id: number, favorite: boolean, msg: msgProps) => {
-  console.log(msg);
-  const data = await api.post("/account/{account_id}/favorite", { media_type: "movie", movie_id, favorite }, { params: { session_id } }).then((res) => res.data);
-  if (data?.success) {
-    Toast.fire({
-      icon: "success",
-      title: favorite ? msg.add : msg.remove,
-    });
-    return Boolean(favorite);
-  }
+export const toggleFavorite = async ({ account_id, session_id, id, favorite, add, remove, err }: toggleFavoriteParams) => {
+  const response = await api
+    .post(
+      `/account/${account_id}/favorite`,
+      { media_type: "movie", movie_id: id, favorite: !favorite },
+      { params: { session_id } }
+    )
+    .then((res) => res.data)
+    .then((data) => {
+      if (data?.success) {
+        Toast.fire({
+          icon: "success",
+          title: favorite ? remove : add,
+        });
+        return data;
+      }
+    })
+    .catch((e) =>
+      Toast.fire({
+        icon: "error",
+        title: `${err}: ${e.message}`,
+      })
+    );
+
+  return response;
+}
+
+interface toggleWatchlaterParams {
+  account_id: number;
+  id: number;
+  watchlater: boolean;
+  add: boolean;
+  remove: boolean;
+  err: string;
+  session_id: string;
+}
+
+export const toggleWatchlater = async ({ account_id, session_id, id, watchlater, add, remove, err }: toggleWatchlaterParams) => {
+  console.log({ session_id })
+  const response = await api
+    .post(
+      `/account/${account_id}/watchlist`,
+      { media_type: "movie", media_id: id, watchlist: !watchlater },
+      { params: { session_id } }
+    )
+    .then((res) => res.data)
+    .then((data) => {
+      if (data?.success) {
+        Toast.fire({
+          icon: "success",
+          title: watchlater ? remove : add,
+        });
+        return data;
+      }
+    }).catch((e) =>
+      Toast.fire({
+        icon: "error",
+        title: `${err}: ${e.message}`,
+      })
+    );
+
+  return response;
+}
+
+interface rateMovieParams {
+  err: string;
+  movie_id: number;
+  session_id: string;
+  success: string;
+  value: number;
+}
+
+export const rateMovie = async ({ movie_id, session_id, value, success, err }: rateMovieParams) => {
+  const response = await api
+    .post(`/movie/${movie_id}/rating`, { value }, { params: { session_id } })
+    .then((res) => res.data)
+    .then((data) => {
+      if (data?.success) {
+        Toast.fire({
+          icon: "success",
+          title: success,
+        });
+        return data;
+      }
+    })
+    .catch((e) =>
+      Toast.fire({
+        icon: "error",
+        title: `${err}: ${e.message}`,
+      })
+    );
+
+  return response;
+}
+
+interface deleteRateMovieParams {
+  err: string;
+  movie_id: number;
+  session_id: string;
+  success: string;
+}
+
+export const deleteRateMovie = async ({ movie_id, session_id, success, err }: deleteRateMovieParams) => {
+  const response = await api
+    .delete(`/movie/${movie_id}/rating`, { params: { session_id } })
+    .then((res) => res.data)
+    .then((data) => {
+      if (data?.success) {
+        Toast.fire({
+          icon: "success",
+          title: success,
+        });
+        return data;
+      }
+    }).catch((e) =>
+      Toast.fire({
+        icon: "error",
+        title: `${err}: ${e.message}`,
+      })
+    );
+
+  return response;
 }

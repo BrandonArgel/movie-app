@@ -12,6 +12,7 @@ interface PreviewProps {
 
 const Preview = ({ children, title, link, grid }: PreviewProps) => {
 	const { texts } = useContext(UserContext);
+
 	return (
 		<>
 			<div className={styles.preview}>

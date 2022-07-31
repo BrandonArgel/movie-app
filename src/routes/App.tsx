@@ -1,6 +1,6 @@
 import * as React from "react";
 import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
-import { FixedLoader, Layout, SimpleLayout } from "components";
+import { FixedLoader, Layout, LayoutHeader, SimpleLayout } from "components";
 import { ScrollToTop } from "utils";
 import { UserProvider, ThemeProvider } from "context";
 const Categories = React.lazy(() =>
@@ -38,14 +38,16 @@ const App = () => {
 						<Routes>
 							<Route path="/" element={<Layout />}>
 								<Route index element={<Landing />} />
-								<Route path="/category/:id/:name" element={<Categories />} />
-								<Route path="/results" element={<Search />} />
-								<Route path="/trending" element={<Trends />} />
 								<Route path="/actor/:id" element={<Actor />} />
 								<Route path="/login" element={<Login />} />
 								<Route path="/approved" element={<Approved />} />
 								<Route path="/account" element={<Account />} />
+							</Route>
+							<Route path="/" element={<LayoutHeader />}>
+								<Route path="/category/:id/:name" element={<Categories />} />
 								<Route path="/favorites" element={<Favorites />} />
+								<Route path="/results" element={<Search />} />
+								<Route path="/trending" element={<Trends />} />
 							</Route>
 							<Route path="/" element={<SimpleLayout />}>
 								<Route path="/movie/:id" element={<Movie />} />

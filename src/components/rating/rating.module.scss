@@ -1,0 +1,51 @@
+@use "styles/variables.scss";
+
+.rating {
+	display: inline-block;
+	touch-action: none;
+
+	&__stars {
+		display: inline-block;
+		overflow: hidden;
+		position: relative;
+		user-select: none;
+		vertical-align: middle;
+		white-space: nowrap;
+
+		&_empty {
+			display: inline-block;
+		}
+
+		&_filled {
+			display: inline-block;
+			left: 0;
+			overflow: hidden;
+			position: absolute;
+			top: 0;
+			will-change: width, color;
+			white-space: nowrap;
+
+			svg {
+				transition: transform 0.2s ease-in-out;
+			}
+
+			svg:hover {
+				transform: scale(1.2);
+			}
+		}
+
+		&:hover &_filled {
+			filter: drop-shadow(0 0 0.5rem var(--main-color));
+		}
+	}
+
+	&__tooltip {
+		display: inline-block;
+		padding: 5px 15px;
+		background-color: #333;
+		color: #fff;
+		margin-left: 20;
+		vertical-align: middle;
+		border-radius: 5;
+	}
+}

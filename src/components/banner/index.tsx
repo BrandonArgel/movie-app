@@ -1,23 +1,22 @@
 import { Link, useNavigate } from "react-router-dom";
 import { useContext, useEffect, useRef, useState } from "react";
 import { UserContext } from "context";
-import { AdultContent, Avatar, Back, ButtonTheme, Button, List, Select } from "components";
-import { MovieInterface } from "utils";
-import { lazyLoading, loaderImg } from "utils";
-import { toggleFavorite } from "utils";
+import { AdultContent, Avatar, Back, ButtonTheme, List, Loader, Rating, Select } from "components";
+import { useGetItemAPI } from "hooks";
+import { deleteRateMovie, MovieInterface } from "utils";
+import { lazyLoading, loaderImg, rateMovie, toggleFavorite, toggleWatchlater } from "utils";
+import { BookMark, Heart, Remove, Star } from "assets/icons/icons";
 import styles from "./banner.module.scss";
 
 import { IMG_BASE_URL } from "config";
 
 const Banner = ({
 	adult,
-	accountState,
 	backdrop,
 	children,
 	id,
 	genres,
 	loading,
-	loadingState,
 	overview,
 	sessionId,
 	title,
@@ -25,20 +24,79 @@ const Banner = ({
 }: MovieInterface) => {
 	const navigate = useNavigate();
 	const { language, setLanguage, texts, user } = useContext(UserContext);
+	const [loadingAccountState, getAccountState] = useGetItemAPI({
+		path: `/movie/${id}/account_states`,
+		msg: texts.errors.errorGet,
+	});
+	const [rating, setRating] = useState(0);
+	const [favorite, setFavorite] = useState(false);
+	const [watchlater, setWatchlater] = useState(false);
 	const imgRef = useRef<HTMLImageElement>(null);
-	const [favorite, setFavorite] = useState(accountState?.favorite);
 
-	const onToggleFavorite = async () => {
-		if (!sessionId) navigate("/login");
-		if (!accountState) return;
-		const fav = favorite !== undefined ? !favorite : !accountState?.favorite;
-		const messages = {
+	const handleFavorite = async () => {
+		if (!sessionId) return navigate("/login");
+		const res = await toggleFavorite({
+			id,
+			favorite,
 			add: texts.messages.addFavorite,
-			remove: texts.messages.rmFavorite,
-		};
-		const data = await toggleFavorite(sessionId, id, fav, messages);
-		setFavorite(data as boolean);
+			remove: texts.messages.removeFavorite,
+			err: texts.errors.errorFavorite,
+			session_id: sessionId,
+			account_id: user.id,
+		});
+		if (res.success) return setFavorite(!favorite);
 	};
+
+	const handleWatchlater = async () => {
+		if (!sessionId) return navigate("/login");
+		const res = await toggleWatchlater({
+			id,
+			watchlater,
+			add: texts.messages.addWatchlater,
+			remove: texts.messages.removeWatchlater,
+			err: texts.errors.errorPost,
+			session_id: sessionId,
+			account_id: user.id,
+		});
+		if (res.success) return setWatchlater(!watchlater);
+	};
+
+	const handleRating = async (n: number) => {
+		const res = await rateMovie({
+			movie_id: id,
+			value: n / 10,
+			session_id: sessionId,
+			success: texts.messages.rateMovie,
+			err: texts.errors.errorPost,
+		});
+		if (res.success) {
+			setRating(n);
+		}
+	};
+
+	const handleDeleteRating = async () => {
+		const res = await deleteRateMovie({
+			movie_id: id,
+			session_id: sessionId,
+			success: texts.messages.unrateMovie,
+			err: texts.errors.errorPost,
+		});
+		if (res.success) {
+			setRating(0);
+		}
+	};
+
+	const initialAccountRequest = async () => {
+		const { favorite, rated, watchlist } = await getAccountState({ session_id: sessionId });
+		setFavorite(favorite);
+		setWatchlater(watchlist);
+		setRating(rated?.value * 10 || 0);
+	};
+
+	useEffect(() => {
+		if (!sessionId) return;
+		initialAccountRequest();
+	}, [sessionId, language]); // eslint-disable-line react-hooks/exhaustive-deps
 
 	useEffect(() => {
 		if (imgRef.current) {
@@ -109,26 +167,52 @@ const Banner = ({
 					<h1 className={styles.banner__title}>
 						{title}
 						<span>
-							⭐{voteAverage}
+							<Star />
+							{voteAverage}
 							{adult && <AdultContent />}
 						</span>
 					</h1>
 					<p className={styles.banner__overview}>{overview}</p>
-					<div className={styles.banner__more}>
+					<div className={styles.banner__genres}>
 						<List items={genres} loading={loading} />
-						<Button
-							className={`${styles.banner__more_favorites}`}
-							onClick={onToggleFavorite}
-							loading={loadingState}
-						>
-							{favorite !== undefined
-								? favorite
-									? texts.banner.remove
-									: texts.banner.add
-								: accountState?.favorite
-								? texts.banner.remove
-								: texts.banner.add}
-						</Button>
+						<div>
+							{loadingAccountState ? (
+								<Loader />
+							) : (
+								sessionId && (
+									<div className={styles.banner__more}>
+										<div className={styles.banner__more_remove} onClick={handleDeleteRating}>
+											<Remove />
+										</div>
+										<Rating
+											initialValue={rating}
+											onClick={handleRating}
+											ratingValue={rating}
+											transition
+											allowHalfIcon
+										/>
+										<div className={styles.banner__more_buttons}>
+											<button
+												className={`${styles.button} ${favorite ? styles.active : ""}`}
+												onClick={handleFavorite}
+												title={favorite ? texts.banner.removeFav : texts.banner.addFav}
+											>
+												<Heart />
+											</button>
+											<button
+												className={`${styles.button} ${watchlater ? styles.active : ""}`}
+												onClick={handleWatchlater}
+												title={
+													watchlater ? texts.banner.removeWatchlater : texts.banner.addWatchlater
+												}
+											>
+												<BookMark />
+											</button>
+										</div>
+									</div>
+								)
+							)}
+						</div>
 					</div>
 					{children}
 				</div>

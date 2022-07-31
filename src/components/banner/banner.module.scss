@@ -81,6 +81,10 @@
 			color: var(--text-color);
 			display: flex;
 			gap: 1rem;
+
+			svg {
+				fill: var(--main-color);
+			}
 		}
 	}
 
@@ -90,7 +94,7 @@
 		margin-bottom: 2rem;
 	}
 
-	&__more {
+	&__genres {
 		align-items: center;
 		display: flex;
 		gap: 1rem;
@@ -99,12 +103,59 @@
 		ul {
 			padding: 0;
 		}
+	}
 
-		&_favorites {
-			color: var(--text-color);
-			height: auto !important;
-			margin: 0 !important;
-			width: fit-content !important;
+	&__more {
+		align-items: center;
+		display: flex;
+		flex-wrap: wrap;
+		gap: 1rem;
+
+		&_remove {
+			cursor: pointer;
+
+			svg {
+				fill: var(--main-color);
+			}
+		}
+
+		&_buttons {
+			display: flex;
+			gap: 1rem;
+
+			.button {
+				align-items: center;
+				background-color: var(--secondary-body-bg);
+				border: none;
+				border-radius: 50%;
+				cursor: pointer;
+				height: 3.5rem;
+				transition: all 0.3s ease-in-out;
+				width: 3.5rem;
+
+				&.active {
+					svg {
+						fill: var(--main-color);
+						opacity: 1;
+					}
+				}
+
+				&:hover {
+					transform: scale(1.1);
+
+					svg {
+						fill: var(--main-color);
+					}
+				}
+
+				svg {
+					fill: var(--text-color);
+					height: 2rem;
+					opacity: 0.5;
+					vertical-align: middle;
+					width: 2rem;
+				}
+			}
 		}
 	}
 }

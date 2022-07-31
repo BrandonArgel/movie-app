@@ -15,6 +15,17 @@ const Layout = () => {
 	);
 };
 
+const LayoutHeader = () => {
+	return (
+		<>
+			<Header />
+			<main className={styles.main} id="content">
+				<Outlet />
+			</main>
+		</>
+	);
+};
+
 const SimpleLayout = () => {
 	return (
 		<main id="content">
@@ -23,4 +34,4 @@ const SimpleLayout = () => {
 	);
 };
 
-export { Layout, SimpleLayout };
+export { Layout, LayoutHeader, SimpleLayout };

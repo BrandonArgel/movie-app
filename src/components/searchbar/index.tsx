@@ -47,10 +47,11 @@ const SearchBar = ({ setValue, placeholder, value }: SearchBarProps) => {
 				autoFocus
 			/>
 			<button
-				type="submit"
 				className={styles.searchbar__button}
 				tabIndex={-1}
 				onClick={() => setValue(search)}
+				title={texts.search.placeholder}
+				type="submit"
 			>
 				<SearchIcon />
 			</button>

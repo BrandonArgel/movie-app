@@ -1,7 +1,7 @@
 import * as React from "react";
-import { Card } from "components";
+import { Card, CardActor } from "components";
 import { ArrowLeft, ArrowRight } from "assets/icons/arrows";
-import { CardInterface } from "utils";
+import { CardInterface, CardActorInterface } from "utils";
 import styles from "./slideshow.module.scss";
 
 type timeout = {
@@ -44,23 +44,17 @@ const Slideshow: React.FC<SlideshowProps> = ({
 
 	const updateVisibleSlides = React.useCallback(() => {
 		setNumberOfSlides(slideshow.current?.children.length);
-		const slides = Array.from(slideshow.current.children);
-		slides.forEach((slide, i) => {
-			const child = slide.children[0] as HTMLElement;
-			i + 1 <= visibleSlides
-				? child.removeAttribute("tabindex")
-				: child.setAttribute("tabindex", "-1");
-			i + 1 <= visibleSlides
-				? slide.removeAttribute("aria-hidden")
-				: slide.setAttribute("aria-hidden", "true");
-		});
-	}, []); // eslint-disable-line
-
-	const handleResize = React.useCallback(() => {
 		const vw = window.innerWidth;
 		const visibles = vw < 480 ? 2 : vw < 640 ? 3 : vw < 800 ? 4 : vw < 960 ? 5 : 6;
 		setVisibleSlides(visibles);
-		updateVisibleSlides();
+		const slides = Array.from(slideshow.current.children);
+		slides.forEach((slide, i) => {
+			const child = slide.children[0] as HTMLButtonElement;
+			i + 1 <= visibles ? child.removeAttribute("tabindex") : child.setAttribute("tabindex", "-1");
+			i + 1 <= visibles
+				? slide.removeAttribute("aria-hidden")
+				: slide.setAttribute("aria-hidden", "true");
+		});
 	}, []); // eslint-disable-line
 
 	const next = () => {
@@ -69,6 +63,7 @@ const Slideshow: React.FC<SlideshowProps> = ({
 			slideshow.current.style.transition = "none";
 			slideshow.current.style.transform = `translateX(0)`;
 			slideshow.current.append(...timeout.current.slides);
+			updateVisibleSlides();
 		}
 
 		const totalSlides = slideshow.current?.children.length;
@@ -84,10 +79,10 @@ const Slideshow: React.FC<SlideshowProps> = ({
 				slideshow.current.style.transition = "none";
 				slideshow.current.style.transform = `translateX(0)`;
 				slideshow.current.append(...slides);
+				updateVisibleSlides();
 			}, speed);
 			timeout.current.slides = slides;
 		}
-		updateVisibleSlides();
 	};
 
 	const prev = () => {
@@ -114,11 +109,11 @@ const Slideshow: React.FC<SlideshowProps> = ({
 	};
 
 	React.useEffect(() => {
-		window.addEventListener("resize", handleResize);
-		handleResize();
+		window.addEventListener("resize", updateVisibleSlides);
+		updateVisibleSlides();
 
 		return () => {
-			window.removeEventListener("resize", handleResize);
+			window.removeEventListener("resize", updateVisibleSlides);
 		};
 	}, [children]); // eslint-disable-line
 
@@ -126,7 +121,7 @@ const Slideshow: React.FC<SlideshowProps> = ({
 		<div className={styles.slideshow}>
 			<div className={styles.slideshow__container} ref={slideshow}>
 				{loading
-					? Array.from({ length: visibleSlides }).map((_, i) => <Card key={i} slide></Card>)
+					? Array.from({ length: visibleSlides }).map((_, i) => <Card key={i}></Card>)
 					: children}
 			</div>
 			<div className={styles.slideshow__controls}>
@@ -154,7 +149,9 @@ const Slideshow: React.FC<SlideshowProps> = ({
 };
 
 const Slide = (props: CardInterface) => {
-	return <Card {...props} />;
+	return <Card {...props} slide />;
 };
 
-export { Slideshow, Slide };
+const SlideActor = (props: CardActorInterface) => <CardActor {...props} slide />;
+
+export { Slideshow, Slide, SlideActor };

@@ -11,23 +11,30 @@ export interface CardInterface {
   title?: string;
   voteAverage?: number;
   width?: number;
+  getFavorite?: (lang: string, session_id: string, account_id: number) => void;
+  getWatchLater?: (lang: string, session_id: string, account_id: number) => void;
+  getRated?: (lang: string, session_id: string, account_id: number) => void;
 }
 
-type accountState = {
-  id?: number;
-  favorite: boolean;
-  watchlist: boolean;
-  rated: boolean;
+export interface CardActorInterface {
+  adult: boolean;
+  character: string;
+  height?: number;
+  id: number;
+  img: string;
+  link: string;
+  name: string;
+  popularity: number;
+  slide?: boolean;
+  width?: number;
 }
 
 export interface MovieInterface {
   adult: boolean;
-  accountState: accountState;
+  backdrop: string;
   children: React.ReactNode;
   id: number;
-  backdrop: string;
   loading: boolean;
-  loadingState: boolean;
   genres: any[];
   overview: string;
   sessionId: string;
@@ -36,6 +43,6 @@ export interface MovieInterface {
 }
 
 export interface SelectOption {
-	name: string;
-	iso: string;
+  name: string;
+  iso: string;
 }

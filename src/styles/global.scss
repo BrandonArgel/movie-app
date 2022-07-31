@@ -5,6 +5,7 @@
 	--header-bg: #{$header-bg-dark};
 	--aside-bg: #{$aside-bg-dark};
 	--body-bg: #{$body-bg-dark};
+	--secondary-body-bg: #{$secondary-body-bg-dark};
 	--footer-bg: #{$footer-bg-dark};
 	--hover-bg: #{$hover-bg-dark};
 	--main-color: #{$main-color-dark};
@@ -26,6 +27,7 @@
 	--header-bg: #{$header-bg-light};
 	--aside-bg: #{$aside-bg-light};
 	--body-bg: #{$body-bg-light};
+	--secondary-body-bg: #{$secondary-body-bg-light};
 	--footer-bg: #{$footer-bg-light};
 	--hover-bg: #{$hover-bg-light};
 	--main-color: #{$main-color-light};
@@ -192,7 +194,22 @@ html {
 }
 
 // Edit default styles of sweetalert2
+.swal2-popup {
+	background-color: var(--secondary-body-bg) !important;
+}
 .swal2-title {
 	font-size: 1.6rem !important;
 	font-weight: 700;
+	color: var(--text-color) !important;
+}
+.swal2-timer-progress-bar {
+	background: var(--main-color);
+}
+
+.swal2-success * {
+	border-color: var(--main-color) !important;
+}
+
+.swal2-success span {
+	background-color: var(--main-color) !important;
 }

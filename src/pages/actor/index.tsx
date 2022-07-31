@@ -100,7 +100,6 @@ const Actor = () => {
 								link={`/movie/${id}`}
 								voteAverage={vote_average}
 								img={poster_path}
-								slide={true}
 							/>
 						))}
 					</Slideshow>

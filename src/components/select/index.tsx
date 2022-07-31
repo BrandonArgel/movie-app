@@ -18,7 +18,7 @@ const Select = ({ title = "", options = [], setValue, value }: Props) => {
 			value={value}
 		>
 			{options.map(({ name, iso }) => (
-				<option key={name} value={iso}>
+				<option key={name} value={iso} title={name}>
 					<>
 						{name} ({iso})
 					</>

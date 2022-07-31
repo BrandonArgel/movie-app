@@ -1,15 +1,11 @@
 {
 	"en-US": {
 		"home": {
-			"trends": {
-				"title": "Trending movies"
-			},
-			"favorites": {
-				"title": "Your favorites"
-			},
-			"categories": {
-				"title": "Categories"
-			}
+			"categories": "Categories",
+			"favorites": "Your favorites",
+			"rated": "Your rated movies",
+			"trends": "Trending movies",
+			"watchlater": "Watch later"
 		},
 		"account": {
 			"title": "Account",
@@ -54,12 +50,17 @@
 		},
 		"back": "Back",
 		"banner": {
-			"add": "Add to favorites 💖",
-			"remove": "Remove from favorites 💔"
+			"addFav": "Add movie to favorites",
+			"removeFav": "Remove movie from favorites",
+			"addWatchlater": "Add movie to watch later",
+			"removeWatchlater": "Remove movie from watch later"
 		},
 		"card": {
 			"click": "Click to see more",
-			"dbclick": "Double tap to see more"
+			"dbclick": "Double tap to see more",
+			"more": "More options for the movie",
+			"favorite": "Favorites",
+			"watchLater": "Watch later"
 		},
 		"footer": {
 			"credits": "Project created with TMDB API and Platzi 💚",
@@ -84,6 +85,7 @@
 				}
 			]
 		},
+		"rating": "out of",
 		"infiniteScroll": {
 			"noResults": "No results found.",
 			"limit": "It seems there are no more results."
@@ -94,7 +96,11 @@
 		"messages": {
 			"welcome": "Welcome back",
 			"addFavorite": "Movie added to favorites",
-			"rmFavorite": "Movie removed from favorites",
+			"removeFavorite": "Movie removed from favorites",
+			"addWatchlater": "Movie added to watch later",
+			"removeWatchlater": "Movie removed from watch later",
+			"rateMovie": "Movie rated successfully",
+			"unrateMovie": "Movie unrated successfully",
 			"logout": "Logged out successfully"
 		},
 		"errors": {
@@ -102,20 +108,16 @@
 			"errorLogin": "Something went wrong, please try to login again",
 			"errorLogout": "Something went wrong, try logout again",
 			"errorGet": "There was an error while fetching the data",
-			"errorPost": "There was an error while posting the data"
+			"errorPost": "There was an error while sending the data"
 		}
 	},
 	"es-MX": {
 		"home": {
-			"trends": {
-				"title": "Películas más populares"
-			},
-			"favorites": {
-				"title": "Tus películas favoritas"
-			},
-			"categories": {
-				"title": "Categoría"
-			}
+			"categories": "Categorías",
+			"favorites": "Mis favoritos",
+			"rated": "Mis películas calificadas",
+			"trends": "Películas populares",
+			"watchlater": "Ver más tarde"
 		},
 		"account": {
 			"title": "Cuenta",
@@ -160,12 +162,17 @@
 		},
 		"back": "Regresar",
 		"banner": {
-			"add": "Agregar a favoritos 💖",
-			"remove": "Quitar de favoritos 💔"
+			"addFav": "Agregar película a favoritos",
+			"removeFav": "Quitar película de favoritos",
+			"addWatchlater": "Agregar película a ver más tarde",
+			"removeWatchlater": "Quitar película de ver más tarde"
 		},
 		"card": {
 			"click": "Clic para ver más",
-			"dbclick": "Toca dos veces para ver más"
+			"dbclick": "Toca dos veces para ver más",
+			"more": "Más opciones para la película",
+			"favorite": "Favoritos",
+			"watchLater": "Ver más tarde"
 		},
 		"footer": {
 			"credits": "Proyecto creado con la API de TMDB y Platzi 💚",
@@ -189,6 +196,7 @@
 				}
 			]
 		},
+		"rating": "de",
 		"infiniteScroll": {
 			"noResults": "No se encontraron resultados.",
 			"limit": "No hay más resultados."
@@ -199,7 +207,11 @@
 		"messages": {
 			"welcome": "!Bienvenido de nuevo",
 			"addFavorite": "Película agregada a favoritos",
-			"rmFavorite": "Película eliminada de favoritos",
+			"removeFavorite": "Película eliminada de favoritos",
+			"addWatchlater": "Película agregada a ver más tarde",
+			"removeWatchlater": "Película eliminada de ver más tarde",
+			"rateMovie": "Película calificada exitosamente",
+			"unrateMovie": "Calificación de película removida",
 			"logout": "Cerraste sesión correctamente"
 		},
 		"errors": {
@@ -212,15 +224,11 @@
 	},
 	"fr-FR": {
 		"home": {
-			"trends": {
-				"title": "Films populaires"
-			},
-			"favorites": {
-				"title": "Vos films préférés"
-			},
-			"categories": {
-				"title": "Catégories"
-			}
+			"categories": "Catégories",
+			"favorites": "Mes favoris",
+			"rated": "Mes films notés",
+			"trends": "Films populaires",
+			"watchlater": "Regarder plus tard"
 		},
 		"account": {
 			"title": "Compte",
@@ -265,12 +273,17 @@
 		},
 		"back": "Retour",
 		"banner": {
-			"add": "Ajouter aux favoris 💖",
-			"remove": "Retirer des favoris 💔"
+			"addFav": "Ajouter film à vos favoris",
+			"removeFav": "Supprimer film de vos favoris",
+			"addWatchlater": "Ajouter un film à regarder plus tard",
+			"removeWatchlater": "supprimer le film de la montre plus tard"
 		},
 		"card": {
 			"click": "Cliquez pour voir plus",
-			"dbclick": "Double-cliquez pour voir plus"
+			"dbclick": "Double-cliquez pour voir plus",
+			"more": "Plus d'options pour le film",
+			"favorite": "Favoris",
+			"watchLater": "Fegarder plus tard"
 		},
 		"footer": {
 			"credits": "Projet créé avec l'API de TMDB et Platzi 💚",
@@ -294,6 +307,7 @@
 				}
 			]
 		},
+		"rating": "de",
 		"infiniteScroll": {
 			"noResults": "Aucun résultat trouvé.",
 			"limit": "Il n'y a plus de résultats."
@@ -304,7 +318,11 @@
 		"messages": {
 			"welcome": "!Bienvenue de nouveau",
 			"addFavorite": "Film ajouté aux favoris",
-			"rmFavorite": "Film retiré des favoris",
+			"removeFavorite": "Film retiré des favoris",
+			"addWatchlater": "Film ajouté à regarder plus tard",
+			"removeWatchlater": "Supprimé Regarder plus tard le film",
+			"rateMovie": "Film classé avec succès",
+			"unrateMovie": "Classement du film supprimé",
 			"logout": "Vous avez bien été déconnecté"
 		},
 		"errors": {

@@ -8,24 +8,19 @@
 	margin-top: 2rem;
 
 	&__title {
+		align-items: center;
+		display: flex;
 		font-size: variables.$fz-xl;
+		justify-content: center;
 
-		a {
-			color: var(--main-text-color);
-			text-decoration: none;
-
-			&:hover,
-			&:active,
-			&:focus {
-				text-decoration: underline;
-				filter: brightness(0.7);
-			}
+		div {
+			margin-left: 0.5rem;
 		}
 	}
 
 	&__link {
 		color: var(--text-color);
-		font-size:  variables.$fz-md;
+		font-size: variables.$fz-md;
 		text-decoration: none;
 		transition: color 0.3s ease;
 
