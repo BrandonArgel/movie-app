@@ -1,9 +1,18 @@
+@use "styles/variables.scss";
+
 .avatar {
   border: 2px solid var(--main-color);
   border-radius: 50%;
   display: inline-block;
   height: 5rem;
-  object-fit: cover;
+  overflow: hidden;
   vertical-align: middle;
   width: 5rem;
+
+  svg {
+    fill: var(--main-color);
+    height: 100%;
+    transform: translateY(0.5rem);
+    width: 100%;
+  }
 }

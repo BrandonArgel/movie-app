@@ -73,13 +73,15 @@ const Card = ({
 	};
 
 	const handleKeyDown = (e: React.KeyboardEvent<HTMLDivElement>) => {
-		if (e.key !== "Enter" || e.code !== "Space") return;
 		if (popup === cardId) return setPopup("");
-		e.preventDefault();
-		accountRequest();
-		setPopup(cardId);
-		const rect = more.current!.getBoundingClientRect();
-		setButtonReact(rect);
+		if (e.key === "Enter" || e.key === " ") {
+			e.stopPropagation();
+			e.preventDefault();
+			accountRequest();
+			setPopup(cardId);
+			const rect = more.current!.getBoundingClientRect();
+			setButtonReact(rect);
+		}
 	};
 
 	const toggleFavorite = async () => {
@@ -108,7 +110,7 @@ const Card = ({
 	const onRating = async (rate: number) => {
 		const res = await handleRating({
 			movie_id: id as number,
-			value: rate / 10,
+			value: rate,
 		});
 		if (res.success) {
 			setRating(rate);

@@ -1,5 +1,5 @@
 import { createPortal } from "react-dom";
-import { useContext } from "react";
+import { useContext, useEffect, useRef } from "react";
 import { UserContext } from "context/userContext";
 import { Loader, Rating } from "components";
 import { BookMark, Heart, Remove } from "assets/icons/icons";
@@ -34,7 +34,7 @@ const Popup = ({
 	buttonRect,
 }: PopupInterface) => {
 	const { texts } = useContext(UserContext);
-	if (buttonRect.top === 0 && buttonRect.left === 0) return null;
+	const popupRef = useRef<HTMLUListElement>(null);
 
 	const calculatePosition = () => {
 		if (!buttonRect) return;
@@ -51,19 +51,46 @@ const Popup = ({
 		};
 	};
 
+	useEffect(() => {
+		if (buttonRect.top === 0 && buttonRect.left === 0) return;
+		setTimeout(() => popupRef.current?.focus(), 100);
+	}, [buttonRect]);
+
+	if (buttonRect.top === 0 && buttonRect.left === 0) return null;
+
 	return createPortal(
-		<ul className={styles.popup} style={calculatePosition()} onClick={(e) => e.stopPropagation()}>
+		<ul
+			className={styles.popup}
+			style={calculatePosition()}
+			onClick={(e) => e.stopPropagation()}
+			ref={popupRef}
+			tabIndex={0}
+		>
 			{loading ? (
 				<Loader />
 			) : (
 				<>
-					<li tabIndex={0} onClick={toggleFavorite} className={favorite ? styles.active : ""}>
+					<li
+						tabIndex={0}
+						onClick={toggleFavorite}
+						onKeyPress={(e) => {
+							if (e.key === "Enter") toggleFavorite();
+						}}
+						className={`${styles.popup__item} ${favorite ? styles.active : ""}`}
+					>
 						<Heart /> {texts.card.favorite}
 					</li>
-					<li tabIndex={0} onClick={toggleWatchlater} className={watchlater ? styles.active : ""}>
+					<li
+						tabIndex={0}
+						onClick={toggleWatchlater}
+						onKeyPress={(e) => {
+							if (e.key === "Enter") toggleWatchlater();
+						}}
+						className={`${styles.popup__item} ${watchlater ? styles.active : ""}`}
+					>
 						<BookMark /> {texts.card.watchLater}
 					</li>
-					<li>
+					<li className={styles.popup__item}>
 						<Rating
 							initialValue={rating}
 							onClick={onRating}
@@ -73,7 +100,14 @@ const Popup = ({
 							size={23}
 						/>
 					</li>
-					<li tabIndex={0} onClick={onDeleteRating} className={styles.active}>
+					<li
+						tabIndex={0}
+						onClick={onDeleteRating}
+						className={styles.popup__item}
+						onKeyPress={(e) => {
+							if (e.key === "Enter") toggleFavorite();
+						}}
+					>
 						<Remove />
 					</li>
 				</>

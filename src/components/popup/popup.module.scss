@@ -1,45 +1,53 @@
 @use "styles/variables.scss";
 
 .popup {
-	background-color: var(--body-bg);
-	list-style: none;
-	padding: 0.5rem;
-	position: absolute;
-	transform: translateX(-50%);
-	z-index: 1;
+  background-color: var(--body-bg);
+  border-radius: 1rem;
+  font-size: variables.$fz-sm;
+  list-style: none;
+  overflow: hidden;
+  position: absolute;
+  transform: translateX(-50%);
+  z-index: 1;
 
-	& > div svg {
-		fill: var(--main-color);
-	}
+  &__item {
+    align-items: center;
+    color: var(--text-color);
+    cursor: pointer;
+    filter: brightness(0.8);
+    font-weight: bold;
+    display: flex;
+    gap: 0.5rem;
+    justify-content: center;
+    padding: 0.5rem;
 
-	li {
-		align-items: center;
-		display: flex;
-		gap: 0.5rem;
-		justify-content: center;
-		padding: 0.5rem 0;
+    &:hover,
+    &:focus {
+      background-color: var(--secondary-body-bg);
+    }
 
-		&:hover {
-			background-color: var(--secondary-body-bg);
-		}
+    &:hover:not(.active)>svg,
+    &:focus:not(.active)>svg {
+      fill: var(--main-color);
+      opacity: 0.5;
+    }
 
-		&:hover:not(.active) > svg {
-			fill: var(--main-color);
-			opacity: 0.5;
-		}
+    &:not(:last-child) {
+      border-bottom: 1px solid var(--stroke-color);
+    }
 
-		&:not(:last-child) {
-			border-bottom: 1px solid var(--stroke-color);
-		}
+    &>svg {
+      fill: var(--text-color);
+      height: 2rem;
+      width: 2rem;
+    }
 
-		& > svg {
-			fill: var(--secondary-body-bg);
-			height: 2rem;
-			width: 2rem;
-		}
+    &.active {
+      color: var(--main-color);
 
-		&.active svg {
-			fill: var(--main-color);
-		}
-	}
+      svg {
+        fill: var(--main-color);
+      }
+    }
+  }
 }

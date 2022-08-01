@@ -1,5 +1,5 @@
 // Repo of the creator of this component: https://github.com/awran5/react-simple-star-rating/blob/main/src/Components/Rating.tsx
-import React, { useCallback, useContext, Fragment,useMemo, useReducer } from "react";
+import React, { useCallback, useContext, Fragment, useMemo, useReducer } from "react";
 import { UserContext } from "context";
 import { StarIcon } from "./starIcon";
 import styles from "./rating.module.scss";
@@ -36,7 +36,8 @@ type State = {
 type Action =
 	| { type: "PointerMove"; payload: number | null }
 	| { type: "PointerLeave" }
-	| { type: "MouseClick"; payload: number };
+	| { type: "MouseClick"; payload: number }
+	| { type: "KeyDown"; payload: number };
 
 function reducer(state: State, action: Action): State {
 	switch (action.type) {
@@ -53,6 +54,12 @@ function reducer(state: State, action: Action): State {
 			};
 
 		case "MouseClick":
+			return {
+				...state,
+				defaultValue: action.payload,
+			};
+
+		case "KeyDown":
 			return {
 				...state,
 				defaultValue: action.payload,
@@ -86,7 +93,7 @@ export interface Props {
 	tooltipArray?: string[];
 }
 
-export function Rating({
+const Rating = ({
 	onClick,
 	initialValue = 0,
 	ratingValue = 0,
@@ -95,7 +102,7 @@ export function Rating({
 	readonly = false,
 	fillColor = "#e74596",
 	fillColorArray = [],
-	emptyColor = "#2a2a2a",
+	emptyColor,
 	fullIcon = null,
 	emptyIcon = null,
 	customIcons = [],
@@ -105,7 +112,7 @@ export function Rating({
 	showTooltip = false,
 	tooltipDefaultText = "Your Rate",
 	tooltipArray = [],
-}: Props) {
+}: Props) => {
 	const { texts } = useContext(UserContext);
 	const [{ defaultValue, hoverValue }, dispatch] = useReducer(reducer, {
 		defaultValue: ratingValue,
@@ -159,6 +166,8 @@ export function Rating({
 			dispatch({ type: "MouseClick", payload: hoverValue });
 			// update value on click
 			if (onClick) onClick(hoverValue);
+		} else {
+			if (onClick) onClick(defaultValue as number);
 		}
 	};
 
@@ -220,6 +229,34 @@ export function Rating({
 	const handleTooltip = (value: number) =>
 		tooltipArray.length > 0 ? tooltipArray[valueIndex(value)] : renderValue(value) || 0;
 
+	// handle value with arrow keys
+	const handleKeyDown = (event: React.KeyboardEvent<HTMLSpanElement>) => {
+		const { key } = event;
+		const value = defaultValue || 0;
+
+		switch (key) {
+			case "ArrowLeft":
+				const newValLeft = value - (allowHalfIcon ? iconsCount * 2 : iconsCount);
+				if (newValLeft <= 5) return dispatch({ type: "KeyDown", payload: 10 });
+				dispatch({ type: "KeyDown", payload: newValLeft });
+				break;
+			case "ArrowRight":
+				const newValRight = value + (allowHalfIcon ? iconsCount * 2 : iconsCount);
+
+				if (newValRight >= 100) return dispatch({ type: "KeyDown", payload: 100 });
+				dispatch({ type: "KeyDown", payload: newValRight });
+				break;
+			case "Enter":
+				onRate();
+				break;
+			case "ArrowLeft" || "ArrowDown" || "Enter":
+				event.preventDefault();
+				break;
+			default:
+				break;
+		}
+	};
+
 	return (
 		<span className={styles.rating}>
 			<span
@@ -231,7 +268,8 @@ export function Rating({
 				onPointerEnter={readonly ? undefined : onPointerEnter}
 				onPointerLeave={readonly ? undefined : onPointerLeave}
 				onClick={readonly ? undefined : onRate}
-				aria-hidden="true"
+				onKeyDown={readonly ? undefined : handleKeyDown}
+				tabIndex={0}
 			>
 				<span
 					className={styles.rating__stars_empty}
@@ -256,9 +294,9 @@ export function Rating({
 						transition: transition ? "width .2s ease, color .2s ease" : "",
 						width: `${valuePercentage}%`,
 					}}
-					title={`${
-						(hoverValue && renderValue(hoverValue)) || renderValue(localRating)
-					} ${texts.rating} ${iconsCount}`}
+					title={`${(hoverValue && renderValue(hoverValue)) || renderValue(localRating)} ${
+						texts.rating
+					} ${iconsCount}`}
 				>
 					{[...Array(iconsCount)].map((_, index) => (
 						<Fragment key={index}>
@@ -278,4 +316,6 @@ export function Rating({
 			)}
 		</span>
 	);
-}
+};
+
+export { Rating };

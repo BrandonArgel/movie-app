@@ -66,7 +66,7 @@ const Banner = ({
 	const onRating = async (rate: number) => {
 		const res = await handleRating({
 			movie_id: id as number,
-			value: rate / 10,
+			value: rate,
 		});
 		if (res.success) {
 			setRating(rate);

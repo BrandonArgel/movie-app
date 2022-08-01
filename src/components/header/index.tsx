@@ -153,6 +153,9 @@ const Header = () => {
 							</>
 						)}
 						<li>
+							<ButtonTheme />
+						</li>
+						<li>
 							<Select
 								title="Change languaje"
 								options={texts.header.languages}
