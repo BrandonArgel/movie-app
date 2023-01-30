@@ -148,7 +148,7 @@ const Banner = ({
 						<ButtonTheme />
 						<div className={styles.banner__controls_select}>
 							<Select
-								title="Change languaje"
+								title={texts.header.title}
 								options={texts.header.languages}
 								setValue={setLanguage}
 								value={language}

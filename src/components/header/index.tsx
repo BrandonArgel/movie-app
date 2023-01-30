@@ -77,7 +77,7 @@ const Header = () => {
 
 	return (
 		<header className={styles.header}>
-			<Link className={styles.header__logo} to="/" title="Home">
+			<Link className={styles.header__logo} to="/" title={texts.header.home}>
 				<img src={Logo} alt="Logo" />
 				Movies App
 			</Link>
@@ -88,7 +88,7 @@ const Header = () => {
 					</li>
 					<li>
 						<Select
-							title="Change languaje"
+							title={texts.header.title}
 							options={texts.header.languages}
 							setValue={setLanguage}
 							value={language}
@@ -157,7 +157,7 @@ const Header = () => {
 						</li>
 						<li>
 							<Select
-								title="Change languaje"
+								title={texts.header.title}
 								options={texts.header.languages}
 								setValue={setLanguage}
 								value={language}

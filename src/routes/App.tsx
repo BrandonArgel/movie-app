@@ -43,8 +43,8 @@ const App = () => {
 							<Route path="/" element={<LayoutHeader />}>
 								<Route path="/category/:id/:name" element={<Categories />} />
 								<Route path="/favorites" element={<Favorites />} />
-								<Route path="/results" element={<Search />} />
 								<Route path="/trending" element={<Trends />} />
+								<Route path="/results" element={<Search />} />
 							</Route>
 							<Route path="/" element={<SimpleLayout />}>
 								<Route path="/movie/:id" element={<Movie />} />

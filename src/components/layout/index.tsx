@@ -28,9 +28,12 @@ const LayoutHeader = () => {
 
 const SimpleLayout = () => {
 	return (
-		<main id="content">
-			<Outlet />
-		</main>
+		<>
+			<main id="content">
+				<Outlet />
+			</main>
+			<Footer />
+		</>
 	);
 };
 

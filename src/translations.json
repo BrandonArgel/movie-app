@@ -70,6 +70,8 @@
 			"login": "Login",
 			"signup": "Register",
 			"logout": "Logout",
+			"title": "Change language",
+			"home": "Home",
 			"languages": [
 				{
 					"name": "English",
@@ -182,6 +184,9 @@
 		"header": {
 			"login": "Iniciar sesión",
 			"signup": "Registrarse",
+			"logout": "Cerrar sesión",
+			"title": "Cambiar el idioma",
+			"home": "Inicio",
 			"languages": [
 				{
 					"name": "Inglés",
@@ -294,6 +299,9 @@
 		"header": {
 			"login": "Connexion",
 			"signup": "Inscription",
+			"logout": "Fermer la session",
+			"title": "Changer de langue",
+			"home": "Début",
 			"languages": [
 				{
 					"name": "Anglais",
