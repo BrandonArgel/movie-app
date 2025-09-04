@@ -12,7 +12,7 @@ export const Social = [
 		title: "Brandon Argel's Instagram",
 	},
 	{
-		link: "https://brandonargel.me",
+		link: "https://brandonargel.com",
 		icon: <Portfolio />,
 		title: "Brandon Argel's Portfolio",
 	},
